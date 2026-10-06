@@ -1,5 +1,7 @@
-// 카페쇼 준비 체크리스트 — data.js(구글 시트를 옮겨 온 원본)를 표로 보여 주고, 할 일마다 클로드 의견을 붙인다.
-// 체크는 이 기기에 먼저 저장되고, "클로드에게 보고"로 보내면 클로드가 data.js에 반영해 모두에게 보인다.
+// 카페쇼 준비 체크리스트 — 구글 시트(할 일·결정·발주)를 1분마다 읽어 표로 보여 주고, 할 일마다 클로드 의견(data.js)을 붙인다.
+// 체크는 Apps Script 웹 앱(apps-script/체크저장.gs)으로 시트에 바로 저장한다. 주소가 없으면 기기에 저장하고 "보고 문장"으로 클로드에게 넘긴다.
+const SHEET_ID = '1k2p3E9k6aNp3Zin-Zr7HOYkKXoKEEIcuhxapFbPHEmU';
+const SAVE_URL = ''; // Apps Script 웹 앱 주소 (https://script.google.com/macros/s/.../exec)
 const YEAR = 2026;
 const SHOW = d(11, 11), READY = d(10, 25), ARRIVE = d(10, 17);
 
@@ -14,24 +16,78 @@ function esc(s) { return String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;'
 function short(s) { return String(s).split(' (')[0].trim(); }
 const isDoneStatus = s => /완료|done/i.test(s || '');
 
-// ---------- data.js → 표 한 줄씩 ----------
+// ---------- 구글 시트 읽기 (gviz CSV) ----------
+function parseCSV(text) {
+  const rows = []; let row = [], cell = '', q = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) { if (c === '"') { if (text[i + 1] === '"') { cell += '"'; i++; } else q = false; } else cell += c; }
+    else if (c === '"') q = true;
+    else if (c === ',') { row.push(cell); cell = ''; }
+    else if (c === '\n') { row.push(cell); rows.push(row); row = []; cell = ''; }
+    else if (c !== '\r') cell += c;
+  }
+  if (cell || row.length) { row.push(cell); rows.push(row); }
+  return rows;
+}
+// 시트가 날짜·숫자 열의 머리글을 비워 보내므로, 비어 있으면 기본 열 이름을 쓴다
+const COLS = {
+  '일정표': ['No', '구분', '작업', '담당', '시작', '마감', '선행', '산출물', '상태', '메모'],
+  '대표 결정사항': ['No', '결정 항목', '고려할 점', '영향받는 작업', '결정 마감', '결정 내용(입력)'],
+  '발주·구매': ['No', '구분', '품목', '컨셉 키워드', '수량', '업체/구매처', '리드타임(일)', '입고 목표일', '발주 마감', '남은 일수', '담당', '상태', '메모'],
+};
+function table(rows, name) {
+  const def = COLS[name];
+  const hi = rows.findIndex(r => r.some(c => def.slice(1, 3).includes(c.trim())));
+  const head = (rows[hi] || []).map((x, i) => x.trim() || def[i] || '');
+  return rows.slice(hi + 1).filter(r => /^\d+$/.test((r[0] || '').trim()))
+    .map(r => Object.fromEntries(def.map((k, i) => [k, (r[head.indexOf(k) >= 0 ? head.indexOf(k) : i] || '').trim()])));
+}
+async function sheet(name) {
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&headers=0&sheet=${encodeURIComponent(name)}`;
+  const r = await fetch(url, { cache: 'no-store' });
+  if (!r.ok) throw new Error(r.status);
+  const t = await r.text();
+  if (t.trim().startsWith('<')) throw new Error('not public');
+  return table(parseCSV(t), name);
+}
+// 시트 행 → data.js와 같은 모양. 클로드 의견(say·can·help)은 data.js에서 번호로 붙인다
+function fromSheet(tasks, decisions, orders) {
+  const note = (list, no) => list.find(x => String(x.no) === String(no)) || {};
+  return {
+    tasks: tasks.map(r => { const n = note(CS.tasks, r.No); return { ...n, no: +r.No, group: r.구분, title: r.작업, owner: r.담당, start: r.시작, due: r.마감,
+      deps: (r.선행 || '').split(/[,\s]+/).filter(Boolean).map(Number), output: r.산출물, status: r.상태, memo: r.메모 }; }),
+    decisions: decisions.map(r => { const n = note(CS.decisions, r.No); return { ...n, no: +r.No, title: r['결정 항목'], consider: r['고려할 점'], affects: r['영향받는 작업'],
+      due: r['결정 마감'], decided: r['결정 내용(입력)'] || n.decided || '', sheetDecided: r['결정 내용(입력)'] }; }),
+    orders: orders.map(r => { const n = note(CS.orders, r.No); return { ...n, no: +r.No, kind: r.구분, title: r.품목, vendor: (r['업체/구매처'] || '').split('/')[0].trim(),
+      lead: r['리드타임(일)'], target: r['입고 목표일'], owner: r.담당, status: r.상태, memo: r.메모 }; }),
+  };
+}
+
+// ---------- 표 한 줄씩 ----------
 const SECTIONS = [
-  { id: 'plan', name: '기획 단계', sub: '클로드와 함께 정할 것', label: '기획' },
-  { id: 'task', name: '할 일', sub: '마스터 일정', label: '일정' },
-  { id: 'dec', name: '대표님 결정', sub: '결정이 늦으면 디자인 착수가 밀려요', label: '결정' },
-  { id: 'order', name: '발주·구매', sub: '입고 목표일 기준', label: '발주' },
+  { id: 'plan', col: 'colL', name: '기획 단계', sub: '클로드와 함께 정할 것' },
+  { id: 'task', col: 'colL', name: '할 일', sub: '마스터 일정' },
+  { id: 'dec', col: 'colR', name: '대표님 결정', sub: '결정이 늦으면 디자인 착수가 밀려요' },
+  { id: 'order', col: 'colR', name: '발주·구매', sub: '입고 목표일 기준' },
 ];
-const items = [
-  ...CS.plan.map(x => ({ key: x.no, sec: 'plan', no: x.no, title: x.title, owner: x.owner, due: x.due, base: isDoneStatus(x.status), progress: x.status === '진행',
-    meta: [x.output && `결과물: ${x.output}`, x.memo], say: x.say, can: x.can, help: x.help })),
-  ...CS.tasks.map(x => ({ key: 'T' + x.no, sec: 'task', no: '#' + x.no, title: x.title, owner: x.owner, due: x.due, base: isDoneStatus(x.status), progress: x.status === '진행',
-    deps: x.deps.map(n => 'T' + n), meta: [x.group, x.output && `결과물: ${x.output}`, x.memo], say: x.say, can: x.can, help: x.help })),
-  ...CS.decisions.map(x => ({ key: 'D' + x.no, sec: 'dec', no: '결정 ' + x.no, title: x.title, owner: '지형(대표)', due: x.due, base: !!x.decided,
-    meta: [x.decided ? `결정: ${x.decided}` : `고려할 점: ${x.consider}`, `영향: ${x.affects}`], say: x.say, can: x.can })),
-  ...CS.orders.map(x => ({ key: 'O' + x.no, sec: 'order', no: '발주 ' + x.no, title: x.title, owner: x.owner, due: x.target, base: isDoneStatus(x.status),
-    meta: [x.kind, x.vendor ? `업체: ${x.vendor}` : '업체 미정', x.lead ? `리드타임 ${x.lead}일` : '', x.memo], say: x.say, can: x.can })),
-];
-const byKey = Object.fromEntries(items.map(x => [x.key, x]));
+let items = [], byKey = {};
+function build(src) {
+  items = [
+    ...CS.plan.map(x => ({ key: x.no, sec: 'plan', tab: '', no: x.no, title: x.title, owner: x.owner, due: x.due, base: isDoneStatus(x.status), progress: x.status === '진행',
+      meta: [x.output && `결과물: ${x.output}`, x.memo], say: x.say, can: x.can, help: x.help })),
+    ...src.tasks.map(x => ({ key: 'T' + x.no, sec: 'task', tab: '일정표', sheetNo: x.no, no: '#' + x.no, title: x.title, owner: x.owner, due: x.due, base: isDoneStatus(x.status), progress: /진행/.test(x.status),
+      deps: (x.deps || []).map(n => 'T' + n), meta: [x.group, x.output && `결과물: ${x.output}`, x.memo], say: x.say, can: x.can, help: x.help })),
+    ...src.decisions.map(x => ({ key: 'D' + x.no, sec: 'dec', tab: '대표 결정사항', sheetNo: x.no, no: '결정 ' + x.no, title: x.title, owner: '지형(대표)', due: x.due, base: !!x.decided,
+      meta: [x.decided ? `결정: ${x.decided}` : `고려할 점: ${x.consider}`, `영향: ${x.affects}`], say: x.say, can: x.can, help: x.help })),
+    ...src.orders.map(x => ({ key: 'O' + x.no, sec: 'order', tab: '발주·구매', sheetNo: x.no, no: '발주 ' + x.no, title: x.title, owner: x.owner, due: x.target, base: isDoneStatus(x.status),
+      meta: [x.kind, x.vendor ? `업체: ${x.vendor}` : '업체 미정', x.lead ? `리드타임 ${x.lead}일` : '', x.memo], say: x.say, can: x.can })),
+  ];
+  byKey = Object.fromEntries(items.map(x => [x.key, x]));
+  // 원본(시트·data.js)에 이미 반영된 표시는 지운다
+  for (const k of Object.keys(marks)) if (!byKey[k] || byKey[k].base === marks[k]) delete marks[k];
+  save('cs-marks', marks);
+}
 
 // ---------- 상태 (이 기기) ----------
 function load(k, def) { try { const v = localStorage.getItem(k); return v == null ? def : JSON.parse(v); } catch (e) { return def; } }
@@ -39,13 +95,12 @@ function save(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch 
 let who = load('cs-who', 'all');
 let hideDone = load('cs-hide', false);
 let marks = load('cs-marks', {});
-// data.js에 이미 반영된 표시는 지운다
-for (const k of Object.keys(marks)) if (!byKey[k] || byKey[k].base === marks[k]) delete marks[k];
-save('cs-marks', marks);
+let live = false, last = null, saving = 0;
 let picked = null;
 
 const isDone = x => x.key in marks ? marks[x.key] : x.base;
-const pending = () => Object.keys(marks).map(k => byKey[k]).filter(Boolean);
+// 시트에 저장되지 못하고 기기에만 남은 표시 (기획 단계는 시트에 칸이 없어 늘 여기에 남는다)
+const pending = () => Object.keys(marks).map(k => byKey[k]).filter(x => x && (!SAVE_URL || !x.tab));
 function mine(owner) {
   if (who === 'all') return true;
   if (who === '지형') return /지형|대표|공동/.test(owner);
@@ -57,7 +112,7 @@ function askText(x) {
 function reportText() {
   const p = pending();
   const on = p.filter(x => marks[x.key]), off = p.filter(x => !marks[x.key]);
-  return ['카페쇼 체크리스트 data.js에 반영해줘.',
+  return ['카페쇼 체크리스트 반영해줘.',
     on.length ? `완료: ${on.map(x => `${x.no} ${short(x.title)}`).join(' / ')}` : '',
     off.length ? `완료 취소: ${off.map(x => `${x.no} ${short(x.title)}`).join(' / ')}` : ''].filter(Boolean).join('\n');
 }
@@ -74,10 +129,11 @@ function row(x, T) {
   const ok = isDone(x), due = parseDate(x.due);
   const wait = (x.deps || []).map(k => byKey[k]).filter(y => y && !isDone(y));
   const meta = x.meta.filter(Boolean).map(m => `<span>${esc(m)}</span>`).join('');
+  const flag = x.key in marks ? (SAVE_URL && x.tab ? '<span class="c-blue">시트에 저장 중…</span>' : '<span class="c-orange">이 기기에만 표시됨</span>') : '';
   return `<tr data-key="${x.key}" class="${ok ? 'is-done' : ''} ${picked === x.key ? 'is-picked' : ''}">
     <td class="c"><input type="checkbox" id="ck-${x.key}" data-key="${x.key}" ${ok ? 'checked' : ''}></td>
     <td><label for="ck-${x.key}" class="tt"><span class="no">${esc(x.no)}</span> ${esc(x.title)}</label>
-      <div class="meta"><span class="who-m">담당 ${esc(x.owner)}</span>${meta}${x.key in marks ? '<span class="c-orange">이 기기에만 표시됨</span>' : ''}</div>
+      <div class="meta"><span class="who-m">담당 ${esc(x.owner)}</span>${meta}${flag}</div>
       ${!ok && wait.length ? `<div class="block">먼저: ${wait.map(y => `${esc(y.no)} ${esc(short(y.title))}`).join(', ')}</div>` : ''}</td>
     <td class="who">${esc(x.owner)}</td>
     <td class="n">${due ? fmt(due) : '-'}<br>${chip(x, T)}</td>
@@ -97,8 +153,9 @@ function render() {
   const late = due.filter(x => parseDate(x.due) < T).length;
   const name = who === 'all' ? '' : who === '지형' ? '대표님, ' : '하빈님, ';
 
+  document.getElementById('sync').textContent = live ? `시트 연결됨 · ${last.getHours()}:${String(last.getMinutes()).padStart(2, '0')}` : `시트 연결 안 됨 · ${CS.updated} 사본`;
   document.getElementById('greet').textContent = due.length ? `${name}오늘까지 할 일이 ${due.length}개 있어요` : `${name}오늘까지 밀린 일은 없어요`;
-  document.getElementById('greetSub').textContent = `${T.getMonth() + 1}월 ${T.getDate()}일 ${WD[T.getDay()]}요일` + (late ? ` · 마감이 지난 일 ${late}개부터 처리해요` : '') + ` · 데이터 ${CS.updated} 기준`;
+  document.getElementById('greetSub').textContent = `${T.getMonth() + 1}월 ${T.getDate()}일 ${WD[T.getDay()]}요일` + (late ? ` · 마감이 지난 일 ${late}개부터 처리해요` : '');
   document.getElementById('dday').innerHTML = [
     ['main', diff(SHOW, T), '카페쇼 11/11'], ['', diff(READY, T), '준비 완료 10/25'], ['', diff(ARRIVE, T), '소품 도착 10/17'],
   ].map(([c, n, l]) => `<div class="${c}"><b>${n > 0 ? 'D-' + n : n === 0 ? 'D-DAY' : 'D+' + -n}</b><span>${l}</span></div>`).join('');
@@ -106,9 +163,9 @@ function render() {
   document.getElementById('totalBar').style.width = vis.length ? `${Math.round(done / vis.length * 100)}%` : '0';
 
   const p = pending();
-  document.getElementById('report').innerHTML = p.length ? `<div class="banner"><div><b>이 기기에서 바꾼 체크 ${p.length}개</b>가 아직 확정되지 않았어요. 아래 문장을 클로드 세션에 붙여 넣으면 클로드가 반영해 모두에게 보여요.</div><pre class="msg">${esc(reportText())}</pre><button class="copy" data-copy="${esc(reportText())}">보고 문장 복사</button></div>` : '';
+  document.getElementById('report').innerHTML = p.length ? `<div class="banner"><div><b>이 기기에만 표시된 체크 ${p.length}개</b>가 있어요${SAVE_URL ? ' (기획 단계는 시트에 칸이 없어요)' : ''}. 아래 문장을 클로드 세션에 붙여 넣으면 클로드가 반영해요.</div><pre class="msg">${esc(reportText())}</pre><button class="copy" data-copy="${esc(reportText())}">보고 문장 복사</button></div>` : '';
 
-  document.getElementById('lists').innerHTML = SECTIONS.map(s => {
+  const html = s => {
     const all = vis.filter(x => x.sec === s.id);
     if (!all.length) return '';
     const n = all.filter(isDone).length;
@@ -117,12 +174,41 @@ function render() {
       <h2>${s.name} <small>${n} / ${all.length} · ${s.sub}</small></h2>
       ${rows.length ? `<div class="tbl"><table class="ck"><thead><tr><th class="c">완료</th><th>할 일</th><th class="who">담당</th><th>마감</th><th class="c">클로드</th></tr></thead><tbody>${rows.map(x => row(x, T)).join('')}</tbody></table></div>` : '<div class="empty">모두 끝났어요.</div>'}
     </section>`;
-  }).join('');
+  };
+  for (const c of ['colL', 'colR']) document.getElementById(c).innerHTML = SECTIONS.filter(s => s.col === c).map(html).join('');
 
   document.getElementById('external').innerHTML = CS.external.map(([s, e, txt]) => {
     const S = parseDate(s), E = parseDate(e);
     return `<div class="${E < T ? 'past' : ''}"><b>${fmt(S)}${s !== e ? '~' + fmt(E) : ''}</b> ${esc(txt)}</div>`;
   }).join('');
+  if (picked && byKey[picked]) setPicked(picked);
+}
+
+async function refresh() {
+  if (saving) return; // 저장 직후에는 시트가 바뀔 때까지 기다린다
+  try {
+    const [t, dcs, o] = await Promise.all([sheet('일정표'), sheet('대표 결정사항'), sheet('발주·구매')]);
+    if (!t.length) throw new Error('empty');
+    const s = fromSheet(t, dcs, o);
+    build({ tasks: s.tasks, decisions: dcs.length ? s.decisions : CS.decisions, orders: o.length ? s.orders : CS.orders });
+    live = true; last = new Date();
+  } catch (e) {
+    if (!live) build(CS);
+  }
+  render();
+}
+
+// ---------- 체크 저장 ----------
+function check(x, on) {
+  if (on === x.base) delete marks[x.key]; else marks[x.key] = on;
+  save('cs-marks', marks);
+  render();
+  const again = document.getElementById(`ck-${x.key}`); if (again) again.focus();
+  if (!SAVE_URL || !x.tab) return;
+  saving++;
+  fetch(SAVE_URL, { method: 'POST', mode: 'no-cors', body: new URLSearchParams({ tab: x.tab, no: String(x.sheetNo), done: on ? '1' : '0' }) })
+    .catch(() => { })
+    .finally(() => setTimeout(() => { saving--; refresh(); }, 2500));
 }
 
 // ---------- 클로드 의견: 마우스 오버 팝업 + 아래 칸 ----------
@@ -164,11 +250,7 @@ hd.addEventListener('change', () => { hideDone = hd.checked; save('cs-hide', hid
 
 document.addEventListener('change', e => {
   const box = e.target.closest('table.ck input[type="checkbox"]'); if (!box) return;
-  const x = byKey[box.dataset.key];
-  if (box.checked === x.base) delete marks[x.key]; else marks[x.key] = box.checked;
-  save('cs-marks', marks);
-  render();
-  const again = document.getElementById(`ck-${x.key}`); if (again) again.focus();
+  check(byKey[box.dataset.key], box.checked);
 });
 document.addEventListener('click', e => {
   const c = e.target.closest('.copy');
@@ -184,7 +266,7 @@ document.addEventListener('click', e => {
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { hidePanel(); hidePop(); } });
 document.addEventListener('mouseover', e => {
   if (!fine.matches) return;
-  const b = e.target.closest('.ai'); if (!b) return;
+  const b = e.target.closest('.ai'); if (!b || !byKey[b.dataset.key]) return;
   pop.innerHTML = claudeHTML(byKey[b.dataset.key], false); pop.hidden = false;
   const r = b.getBoundingClientRect(), w = pop.offsetWidth, h = pop.offsetHeight;
   const left = Math.max(8, Math.min(r.right - w, innerWidth - w - 8));
@@ -192,7 +274,7 @@ document.addEventListener('mouseover', e => {
   pop.style.left = `${left + scrollX}px`; pop.style.top = `${top + scrollY}px`;
 });
 document.addEventListener('mouseout', e => { const b = e.target.closest('.ai'); if (b && !b.contains(e.relatedTarget)) hidePop(); });
+document.getElementById('sheetLink').href = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit`;
 
-render();
-// 자정을 넘기면 D-day가 바뀌므로 10분마다 다시 그린다
-setInterval(render, 600000);
+build(CS); render();
+refresh(); setInterval(refresh, 60000);
