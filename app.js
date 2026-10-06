@@ -292,7 +292,7 @@ function noteFormHTML(x) {
     </div>
     ${x.sec === 'dec' ? '<label class="nrow"><input type="checkbox" id="nDecide"> 이 내용을 시트의 결정 내용 칸에 쓰기</label>' : ''}
     <div class="nrow"><button type="submit" class="btn">저장</button><span id="nMsg" class="ck-note"></span></div>
-    <div class="ck-note">메모는 공개 시트에 저장돼요. 금액·연락처·개인정보는 파일로 올려 주세요(파일은 드라이브에서 공유받은 사람만 열려요). 파일은 10MB까지.</div>
+    <div class="ck-note">메모는 링크가 있는 사람이 볼 수 있는 시트에 저장돼요. 고객 연락처 같은 개인정보는 파일로 올려 주세요(파일은 드라이브에서 공유받은 사람만 열려요). 파일은 10MB까지.</div>
   </form>`;
 }
 function post(params) {
