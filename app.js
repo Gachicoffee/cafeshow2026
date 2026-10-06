@@ -1,7 +1,7 @@
 // 카페쇼 준비 체크리스트 — 구글 시트(할 일·결정·발주)를 1분마다 읽어 표로 보여 주고, 할 일마다 클로드 의견(data.js)을 붙인다.
 // 체크는 Apps Script 웹 앱(apps-script/체크저장.gs)으로 시트에 바로 저장한다. 주소가 없으면 기기에 저장하고 "보고 문장"으로 클로드에게 넘긴다.
 const SHEET_ID = '1k2p3E9k6aNp3Zin-Zr7HOYkKXoKEEIcuhxapFbPHEmU';
-const SAVE_URL = ''; // Apps Script 웹 앱 주소 (https://script.google.com/macros/s/.../exec)
+const SAVE_URL = 'https://script.google.com/macros/s/AKfycbzv25FsQW5WY7Nd_ViC0FzwDPTUgeTQ0c1tnvXCsQcqHMqt0vGXlpfcZL8EQcsiEvw5/exec'; // Apps Script 웹 앱 (10/6 배포)
 const YEAR = 2026;
 const SHOW = d(11, 11), READY = d(10, 25), ARRIVE = d(10, 17);
 
