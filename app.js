@@ -51,6 +51,30 @@ async function sheet(name) {
   if (t.trim().startsWith('<')) throw new Error('not public');
   return table(parseCSV(t), name);
 }
+// '메모' 탭: 시각 · 항목 · 작성자 · 내용 · 파일명 · 파일 링크
+async function loadNotes() {
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&headers=0&sheet=${encodeURIComponent('메모')}`;
+  const r = await fetch(url, { cache: 'no-store' });
+  const t = await r.text();
+  if (!r.ok || t.trim().startsWith('<')) throw new Error('no notes');
+  const rows = parseCSV(t);
+  const hi = rows.findIndex(r => r.map(c => c.trim()).includes('항목') && r.map(c => c.trim()).includes('작성자'));
+  if (hi < 0) return {}; // 탭이 아직 없으면 시트가 첫 탭을 돌려준다
+  const out = {};
+  for (const r of rows.slice(hi + 1)) {
+    const [when, key, author, text, fileName, url2] = r.map(c => (c || '').trim());
+    if (!/^[PTDO]\d+$/.test(key)) continue;
+    (out[key] = out[key] || []).push({ when, author, text, fileName, url: /^https:\/\//.test(url2) ? url2 : '' });
+  }
+  return out;
+}
+function notesFor(key) {
+  const got = notes[key] || [];
+  // 방금 보낸 메모가 시트에 보이면 '저장 중' 목록에서 뺀다
+  sent = sent.filter(n => !(notes[n.key] || []).some(m => m.text === n.text && m.author === n.author));
+  return [...got, ...sent.filter(n => n.key === key)];
+}
+
 // 시트 행 → data.js와 같은 모양. 클로드 의견(say·can·help)은 data.js에서 번호로 붙인다
 function fromSheet(tasks, decisions, orders) {
   const note = (list, no) => list.find(x => String(x.no) === String(no)) || {};
@@ -96,6 +120,7 @@ let who = load('cs-who', 'all');
 let hideDone = load('cs-hide', false);
 let marks = load('cs-marks', {});
 let live = false, last = null, saving = 0;
+let notes = {}, sent = []; // 메모: 시트 '메모' 탭에서 읽은 것 / 방금 보내서 아직 시트에 안 보이는 것
 let picked = null;
 
 const isDone = x => x.key in marks ? marks[x.key] : x.base;
@@ -128,7 +153,9 @@ function chip(x, T) {
 function row(x, T) {
   const ok = isDone(x), due = parseDate(x.due);
   const wait = (x.deps || []).map(k => byKey[k]).filter(y => y && !isDone(y));
-  const meta = x.meta.filter(Boolean).map(m => `<span>${esc(m)}</span>`).join('');
+  const nl = notesFor(x.key), files = nl.filter(n => n.fileName).length;
+  const meta = x.meta.filter(Boolean).map(m => `<span>${esc(m)}</span>`).join('')
+    + (nl.length ? `<span class="c-blue">메모 ${nl.length - files}${files ? ` · 첨부 ${files}` : ''}</span>` : '');
   const flag = x.key in marks ? (SAVE_URL && x.tab ? '<span class="c-blue">시트에 저장 중…</span>' : '<span class="c-orange">이 기기에만 표시됨</span>') : '';
   return `<tr data-key="${x.key}" class="${ok ? 'is-done' : ''} ${picked === x.key ? 'is-picked' : ''}">
     <td class="c"><input type="checkbox" id="ck-${x.key}" data-key="${x.key}" ${ok ? 'checked' : ''}></td>
@@ -182,12 +209,15 @@ function render() {
     return `<div class="${E < T ? 'past' : ''}"><b>${fmt(S)}${s !== e ? '~' + fmt(E) : ''}</b> ${esc(txt)}</div>`;
   }).join('');
   if (picked && byKey[picked]) setPicked(picked);
+  const list = document.getElementById('noteList');
+  if (list && picked) list.innerHTML = noteListHTML(picked);
 }
 
 async function refresh() {
   if (saving) return; // 저장 직후에는 시트가 바뀔 때까지 기다린다
   try {
-    const [t, dcs, o] = await Promise.all([sheet('일정표'), sheet('대표 결정사항'), sheet('발주·구매')]);
+    const [t, dcs, o, nt] = await Promise.all([sheet('일정표'), sheet('대표 결정사항'), sheet('발주·구매'), loadNotes().catch(() => null)]);
+    if (nt) notes = nt;
     if (!t.length) throw new Error('empty');
     const s = fromSheet(t, dcs, o);
     build({ tasks: s.tasks, decisions: dcs.length ? s.decisions : CS.decisions, orders: o.length ? s.orders : CS.orders });
@@ -226,10 +256,63 @@ function setPicked(key) {
 function showPanel(key) {
   const x = byKey[key]; if (!x) return;
   document.getElementById('panelTitle').textContent = `${x.no} ${short(x.title)}`;
-  document.getElementById('panelBody').innerHTML = claudeHTML(x, true);
+  document.getElementById('panelBody').innerHTML = `<div class="pcol"><h3>✦ 클로드 의견</h3>${claudeHTML(x, true)}</div>
+    <div class="pcol"><h3>메모·첨부</h3><div id="noteList">${noteListHTML(x.key)}</div>${noteFormHTML(x)}</div>`;
   document.getElementById('panel').classList.add('open');
   setPicked(key);
 }
+function noteListHTML(key) {
+  const nl = notesFor(key);
+  if (!nl.length) return '<div class="empty">아직 메모가 없어요.</div>';
+  return `<ul class="notes">${nl.map(n => `<li><div class="nh"><b>${esc(n.author)}</b> <span>${esc(n.when || '저장 중…')}</span></div>${n.text ? `<div>${esc(n.text)}</div>` : ''}${n.fileName ? (n.url ? `<a href="${esc(n.url)}" target="_blank" rel="noopener">📎 ${esc(n.fileName)}</a>` : `<span>📎 ${esc(n.fileName)} (올리는 중)</span>`) : ''}</li>`).join('')}</ul>`;
+}
+function noteFormHTML(x) {
+  if (!SAVE_URL) return '<div class="note-off">메모·첨부 저장은 Apps Script 웹 앱 주소를 연결하면 켜져요.</div>';
+  const me = who === '하빈' ? '하빈' : who === '지형' ? '지형(대표)' : '';
+  return `<form id="noteForm" data-key="${x.key}" class="nform">
+    <textarea id="nText" rows="3" placeholder="${x.sec === 'dec' ? '결정 내용이나 의견을 적어 주세요' : '의견·진행 상황·링크를 적어 주세요'}"></textarea>
+    <div class="nrow">
+      <select id="nWho" aria-label="작성자"><option value="">작성자</option>${['지형(대표)', '하빈'].map(n => `<option ${n === me ? 'selected' : ''}>${n}</option>`).join('')}</select>
+      <input type="file" id="nFile" aria-label="파일 첨부">
+    </div>
+    ${x.sec === 'dec' ? '<label class="nrow"><input type="checkbox" id="nDecide"> 이 내용을 시트의 결정 내용 칸에 쓰기</label>' : ''}
+    <div class="nrow"><button type="submit" class="btn">저장</button><span id="nMsg" class="ck-note"></span></div>
+    <div class="ck-note">메모는 공개 시트에 저장돼요. 금액·연락처·개인정보는 파일로 올려 주세요(파일은 드라이브에서 공유받은 사람만 열려요). 파일은 10MB까지.</div>
+  </form>`;
+}
+function post(params) {
+  return fetch(SAVE_URL, { method: 'POST', mode: 'no-cors', body: new URLSearchParams(params) });
+}
+function fileToBase64(f) {
+  return new Promise((ok, no) => { const r = new FileReader(); r.onload = () => ok(String(r.result).split(',')[1] || ''); r.onerror = no; r.readAsDataURL(f); });
+}
+async function submitNote(form) {
+  const x = byKey[form.dataset.key]; if (!x) return;
+  const text = form.querySelector('#nText').value.trim();
+  const author = form.querySelector('#nWho').value;
+  const f = form.querySelector('#nFile').files[0];
+  const decide = form.querySelector('#nDecide')?.checked;
+  const msg = form.querySelector('#nMsg');
+  if (!author) { msg.textContent = '작성자를 골라 주세요.'; return; }
+  if (!text && !f) { msg.textContent = '내용이나 파일을 넣어 주세요.'; return; }
+  if (f && f.size > 10 * 1024 * 1024) { msg.textContent = '파일이 10MB를 넘어요.'; return; }
+  form.querySelector('button[type="submit"]').disabled = true;
+  msg.textContent = f ? '파일을 올리는 중…' : '저장하는 중…';
+  try {
+    if (f) await post({ action: 'upload', key: x.key, author, text, name: f.name, mime: f.type || 'application/octet-stream', data: await fileToBase64(f) });
+    else await post({ action: 'note', key: x.key, author, text });
+    if (decide && text && x.tab) await post({ action: 'decide', no: String(x.sheetNo), text });
+    sent.push({ key: x.key, author, text, fileName: f ? f.name : '', url: '', when: '' });
+    form.reset();
+    msg.textContent = '보냈어요. 몇 초 뒤 목록에 반영돼요.';
+  } catch (e) {
+    msg.textContent = '보내지 못했어요. 잠시 뒤 다시 해 주세요.';
+  }
+  form.querySelector('button[type="submit"]').disabled = false;
+  document.getElementById('noteList').innerHTML = noteListHTML(x.key);
+  setTimeout(refresh, 4000);
+}
+
 function hidePanel() { document.getElementById('panel').classList.remove('open'); setPicked(null); }
 const pop = document.getElementById('pop');
 const fine = matchMedia('(hover:hover) and (pointer:fine)');
@@ -263,7 +346,11 @@ document.addEventListener('click', e => {
   const t = e.target.closest('.ai') || e.target.closest('table.ck tbody tr');
   if (t) { hidePop(); showPanel(t.dataset.key); }
 });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { hidePanel(); hidePop(); } });
+document.addEventListener('submit', e => {
+  const f = e.target.closest('#noteForm'); if (!f) return;
+  e.preventDefault(); submitNote(f);
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && !e.target.closest('#noteForm')) { hidePanel(); hidePop(); } });
 document.addEventListener('mouseover', e => {
   if (!fine.matches) return;
   const b = e.target.closest('.ai'); if (!b || !byKey[b.dataset.key]) return;
