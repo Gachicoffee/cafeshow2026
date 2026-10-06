@@ -18,7 +18,22 @@
 *{box-sizing:border-box}
 html,body{margin:0}
 body{background:var(--paper);color:var(--ink);font-family:var(--f);font-size:15px;line-height:1.6;word-break:keep-all;padding:0 16px 140px}
-.wrap{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+@media (min-width:1100px){body{padding-inline:20px}}
+.wrap{max-width:1920px;margin:0 auto;display:flex;flex-direction:column;gap:24px}
+/* 넓은 화면: 머리말은 인사 | D-day, 본문은 왼쪽(기획·할 일) | 오른쪽(결정·발주·마감) 두 칸, 가운데 세로줄 */
+.head{display:grid;gap:16px;align-items:end}
+.cols{display:grid;gap:28px}
+.col{display:flex;flex-direction:column;gap:28px;min-width:0}
+@media (min-width:1100px){
+  .head{grid-template-columns:1fr minmax(360px,520px)}
+  .cols{grid-template-columns:1fr 1fr;gap:0}
+  .col:first-child{padding-right:24px}
+  .col+.col{padding-left:24px;border-left:1px solid var(--hair)}
+}
+@media (min-width:1100px) and (max-width:1500px){
+  .cols table.ck th.who,.cols table.ck td.who{display:none}
+  .cols table.ck .who-m{display:inline}
+}
 .top{position:sticky;top:env(safe-area-inset-top,0px);background:var(--paper);padding-block:12px 10px;border-bottom:1px solid var(--ink);z-index:5;display:flex;flex-direction:column;gap:10px}
 .bar{display:flex;justify-content:space-between;align-items:center;gap:8px;font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase}
 .ctl{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
@@ -92,7 +107,7 @@ table.ck .who-m{display:none}
 .ai-ask span{font-size:12px;color:var(--sub)}
 /* 하단 클로드 의견 칸 */
 #panel{position:fixed;left:0;right:0;bottom:0;z-index:15;background:var(--card);border-top:2px solid var(--blue);padding:8px 16px calc(10px + env(safe-area-inset-bottom,0px))}
-#panel .in{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:6px}
+#panel .in{max-width:1920px;margin:0 auto;display:flex;flex-direction:column;gap:6px}
 #panel .hd{display:flex;justify-content:space-between;align-items:center;gap:8px}
 #panel .hd b{font-size:14px;color:var(--blue)}
 #panelTitle{font-weight:700;font-size:14px;margin-left:6px}
@@ -109,7 +124,7 @@ footer a{color:inherit}
 <body>
 <div class="wrap">
   <div class="top">
-    <div class="bar"><span>GACHI COFFEE · CAFE SHOW 2026 · CA107</span><span>체크리스트</span></div>
+    <div class="bar"><span>GACHI COFFEE · CAFE SHOW 2026 · CA107</span><span id="sync">불러오는 중…</span></div>
     <div class="ctl">
       <div class="who-btn" role="group" aria-label="누구의 할 일을 볼까요">
         <button data-who="all" aria-pressed="true">전체</button>
@@ -121,24 +136,29 @@ footer a{color:inherit}
     <div class="prog"><div class="track" aria-hidden="true"><i id="totalBar"></i></div><span id="total"></span></div>
   </div>
 
-  <header>
-    <h1 id="greet">할 일을 정리하고 있어요</h1>
-    <p class="lead" id="greetSub"></p>
-  </header>
-
-  <div class="dday" id="dday"></div>
+  <div class="head">
+    <header>
+      <h1 id="greet">할 일을 정리하고 있어요</h1>
+      <p class="lead" id="greetSub"></p>
+    </header>
+    <div class="dday" id="dday"></div>
+  </div>
   <div id="report"></div>
-  <div id="lists" style="display:flex;flex-direction:column;gap:28px"></div>
-
-  <section>
-    <h2>주최측 마감 <small>매뉴얼 기준, 놓치면 되돌릴 수 없음</small></h2>
-    <div class="tl" id="external"></div>
-  </section>
+  <div class="cols">
+    <div class="col" id="colL"></div>
+    <div class="col">
+      <div id="colR" class="col" style="padding:0;border:0"></div>
+      <section>
+        <h2>주최측 마감 <small>매뉴얼 기준, 놓치면 되돌릴 수 없음</small></h2>
+        <div class="tl" id="external"></div>
+      </section>
+    </div>
+  </div>
 
   <footer>
     <span>✦ 의견에 마우스를 올리면 클로드 의견이 뜨고, 줄을 누르면 화면 아래에 자세한 의견과 부탁 문장이 나와요.</span>
-    <span>체크는 이 기기에 먼저 저장돼요. 위에 뜨는 "보고 문장"을 클로드 세션에 붙여 넣으면 모두의 화면에 반영돼요.</span>
-    <span>원본 데이터: 저장소의 data.js (10/6 구글 시트에서 옮겨 옴)</span>
+    <span>체크하면 시트의 상태 칸(결정은 결정 내용 칸)에 저장돼요. 저장 주소가 연결되기 전에는 이 기기에만 저장되고, 위에 뜨는 "보고 문장"으로 클로드에게 넘기면 돼요.</span>
+    <span>원본: <a id="sheetLink" href="#" target="_blank" rel="noopener">가치커피_카페쇼_준비플랜 (구글 시트)</a> · 1분마다 다시 읽어요. 시트에 연결되지 않으면 저장소의 data.js 사본을 보여 줘요. 클로드 의견은 data.js에 있어요.</span>
   </footer>
 </div>
 <div id="pop" role="tooltip" hidden></div>
