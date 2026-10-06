@@ -18,6 +18,14 @@ const NOTE_HEAD = ['시각', '항목', '작성자', '내용', '파일명', '파�
 const FOLDER = '카페쇼2026_첨부';
 const MAX_BYTES = 10 * 1024 * 1024;
 
+const VERSION = 3;
+
+// 연결 확인용: 브라우저 주소창에 웹 앱 주소를 넣으면 버전과 연결된 시트 이름이 보인다
+function doGet() {
+  const ss = SpreadsheetApp.getActive();
+  return out(`가치커피 카페쇼 체크 저장 · 버전 ${VERSION} · 연결된 시트: ${ss ? ss.getName() : '없음(시트의 확장 프로그램 메뉴에서 만든 스크립트가 아님)'}`);
+}
+
 function doPost(e) {
   const p = (e && e.parameter) || {};
   const lock = LockService.getScriptLock();
