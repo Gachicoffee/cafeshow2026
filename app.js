@@ -166,8 +166,8 @@ function row(x, T) {
     + (nl.length ? `<span class="c-blue">메모 ${nl.length - files}${files ? ` · 첨부 ${files}` : ''}</span>` : '');
   const flag = x.key in marks ? (SAVE_URL ? '<span class="c-blue">시트에 저장 중…</span>' : '<span class="c-orange">이 기기에만 표시됨</span>') : '';
   return `<tr data-key="${x.key}" class="${ok ? 'is-done' : ''} ${picked === x.key ? 'is-picked' : ''}">
-    <td class="c"><input type="checkbox" id="ck-${x.key}" data-key="${x.key}" ${ok ? 'checked' : ''}></td>
-    <td><label for="ck-${x.key}" class="tt"><span class="no">${esc(x.no)}</span> ${esc(x.title)}</label>
+    <td class="c"><input type="checkbox" id="ck-${x.key}" data-key="${x.key}" aria-label="${esc(x.no)} 완료" ${ok ? 'checked' : ''}></td>
+    <td><div class="tt"><span class="no">${esc(x.no)}</span> ${esc(x.title)}</div>
       <div class="meta"><span class="who-m">담당 ${esc(x.owner)}</span>${meta}${flag}</div>
       ${!ok && wait.length ? `<div class="block">먼저: ${wait.map(y => `${esc(y.no)} ${esc(short(y.title))}`).join(', ')}</div>` : ''}</td>
     <td class="who">${esc(x.owner)}</td>
