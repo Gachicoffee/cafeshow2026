@@ -287,7 +287,7 @@ function noteFormHTML(x) {
   return `<form id="noteForm" data-key="${x.key}" class="nform">
     <textarea id="nText" rows="3" placeholder="${x.sec === 'dec' ? '결정 내용이나 의견을 적어 주세요' : '의견·진행 상황·링크를 적어 주세요'}"></textarea>
     <div class="nrow">
-      <select id="nWho" aria-label="작성자"><option value="">작성자</option>${['지형(대표)', '하빈'].map(n => `<option ${n === me ? 'selected' : ''}>${n}</option>`).join('')}</select>
+      <select id="nWho" aria-label="작성자"><option value="">작성자</option>${['지형(대표)', '하빈', '효진', '찬양', '다빈', '서준'].map(n => `<option ${n === me ? 'selected' : ''}>${n}</option>`).join('')}</select>
       <input type="file" id="nFile" aria-label="파일 첨부">
     </div>
     ${x.sec === 'dec' ? '<label class="nrow"><input type="checkbox" id="nDecide"> 이 내용을 시트의 결정 내용 칸에 쓰기</label>' : ''}
