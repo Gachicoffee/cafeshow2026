@@ -72,6 +72,48 @@ td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
 .tip{border-left:3px solid var(--green);padding:2px 0 2px 10px;font-size:14px}
 footer{font-size:12px;color:var(--sub);border-top:1px solid var(--ink);padding-top:10px;display:flex;flex-direction:column;gap:4px}
 footer a{color:inherit}
+/* 전체 체크리스트 표 */
+.ck-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--sub)}
+.ck-top label{display:flex;align-items:center;gap:6px;cursor:pointer;min-height:32px}
+.prog{height:6px;background:var(--hair)}
+.prog i{display:block;height:100%;background:var(--green)}
+table.ck td{vertical-align:middle}
+table.ck .c{width:44px;text-align:center}
+table.ck input[type="checkbox"]{width:20px;height:20px;accent-color:var(--green);cursor:pointer;margin:0}
+table.ck .tt{font-weight:700;cursor:pointer;display:block}
+table.ck tbody tr{cursor:pointer}
+table.ck tbody tr:hover{background:var(--card)}
+table.ck tr.is-done .tt{color:var(--sub);text-decoration:line-through}
+table.ck tr.is-picked{background:var(--card);box-shadow:inset 3px 0 0 var(--blue)}
+.ai{font:inherit;font-size:12.5px;font-weight:700;color:var(--blue);background:transparent;border:1px solid var(--blue);padding:4px 8px;cursor:pointer;white-space:nowrap;min-height:30px}
+.ai:hover{background:var(--blue);color:var(--paper)}
+.ck-note{font-size:12.5px;color:var(--sub)}
+table.ck{min-width:0}
+table.ck .who-m{display:none}
+@media (max-width:560px){table.ck th:nth-child(3),table.ck td:nth-child(3){display:none}table.ck .who-m{display:inline}table.ck th,table.ck td{padding:7px 4px}.ai .w{display:none}}
+/* 마우스 오버 팝업 */
+#pop{position:absolute;z-index:20;width:min(320px,calc(100vw - 16px));background:var(--card);border:1px solid var(--blue);padding:10px 12px;font-size:13.5px;display:flex;flex-direction:column;gap:6px;box-shadow:0 6px 18px rgba(0,0,0,.18);pointer-events:none}
+#pop[hidden]{display:none}
+.ai-say{font-weight:500}
+.ai-can{font-size:13px;color:var(--sub)}
+.ai-can b{color:var(--blue);margin-right:4px}
+.ai-hint{font-size:11.5px;color:var(--sub)}
+.ai-li{margin:0;padding-left:1.1em;font-size:13px;display:flex;flex-direction:column;gap:2px}
+.ai-ask{display:flex;flex-direction:column;gap:6px}
+.ai-ask span{font-size:12px;color:var(--sub)}
+/* 하단 의견 칸 */
+#panel{position:fixed;left:0;right:0;bottom:0;z-index:15;background:var(--card);border-top:2px solid var(--blue);padding:8px 16px calc(10px + env(safe-area-inset-bottom,0px))}
+#panel .in{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:6px}
+#panel .hd{display:flex;justify-content:space-between;align-items:center;gap:8px}
+#panel .hd b{font-size:14px;color:var(--blue)}
+#panelTitle{font-weight:700;font-size:14px;color:var(--ink);margin-left:6px}
+#panelClose{font:inherit;font-size:12.5px;background:transparent;color:var(--ink);border:1px solid var(--hair);padding:3px 10px;cursor:pointer;min-height:30px}
+#panelBody{display:none;max-height:40vh;overflow-y:auto;font-size:14px;flex-direction:column;gap:8px}
+#panel.open #panelBody{display:flex}
+#panel:not(.open) #panelClose,#panel:not(.open) #panelTitle{display:none}
+#panel .idle{font-size:13px;color:var(--sub)}
+#panel.open .idle{display:none}
+body{padding-bottom:120px}
 @media (prefers-reduced-motion:no-preference){.card{transition:border-color .2s}}
 </style>
 </head>
@@ -93,6 +135,17 @@ footer a{color:inherit}
 
   <div class="dday" id="dday"></div>
   <div id="banner"></div>
+
+  <section>
+    <h2>전체 체크리스트 <small id="ckCount"></small></h2>
+    <div class="prog" aria-hidden="true"><i id="ckBar"></i></div>
+    <div class="ck-top">
+      <span id="ckSave"></span>
+      <label><input type="checkbox" id="hideDone"> 완료한 일 숨기기</label>
+    </div>
+    <div id="checklist"></div>
+    <div class="ck-note">✦ 의견에 마우스를 올리면 클로드 의견이 뜨고, 줄을 누르면 화면 아래에 자세한 의견과 부탁 문장이 나와요.</div>
+  </section>
 
   <section>
     <h2>지금 해야 해요 <small id="nowCount"></small></h2>
@@ -129,6 +182,14 @@ footer a{color:inherit}
     <span>시트의 상태 칸에 "완료"라고 적으면 여기서 사라져요. 1분마다 다시 읽어요.</span>
   </footer>
 </div>
+<div id="pop" role="tooltip" hidden></div>
+<aside id="panel" aria-label="클로드 의견">
+  <div class="in">
+    <div class="hd"><span><b>✦ 클로드 의견</b><span id="panelTitle"></span></span><button id="panelClose">닫기</button></div>
+    <div class="idle">체크리스트에서 할 일 줄을 누르면 클로드 의견과 해 드릴 수 있는 일이 여기 보여요.</div>
+    <div id="panelBody" aria-live="polite"></div>
+  </div>
+</aside>
 <script src="app.js"></script>
 </body>
 </html>

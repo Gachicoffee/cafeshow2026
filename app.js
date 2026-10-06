@@ -1,5 +1,7 @@
 // 카페쇼 준비 코치 — 구글 시트(링크 공개)를 읽어 오늘 할 일·결정·발주를 계산해 보여 준다.
 const SHEET_ID = '1k2p3E9k6aNp3Zin-Zr7HOYkKXoKEEIcuhxapFbPHEmU';
+// 체크 표시를 시트 '상태' 칸에 써 주는 Apps Script 웹 앱 주소 (apps-script/체크저장.gs). 비어 있으면 이 브라우저에만 저장
+const SAVE_URL = '';
 const YEAR = 2026;
 const SHOW = d(11, 11), READY = d(10, 25), ARRIVE = d(10, 17);
 
@@ -141,6 +143,47 @@ const HELP = [
 ];
 function helpFor(text) { return HELP.find(h => h.m.test(text)); }
 
+// ---------- 클로드 의견 (작업 번호별) ----------
+// can: 클로드 세션에서 대신 만들어 줄 수 있는 것 / say: 클로드의 한 줄 의견
+const CLAUDE = {
+  '1': { can: '매뉴얼 PDF를 주시면 마감표로 다시 정리', say: '마감은 planning/행사정보.md에 정리돼 있어요. 남은 건 급배수 안전 서약서 제출 확인 하나예요.' },
+  '2': { can: '일정 충돌·선행 관계 점검', say: '이 페이지가 마스터 일정 역할을 해요. 시트의 상태 칸만 관리하면 돼요.' },
+  '4': { can: '기획서 "한상 흐름" 6단계로 플로우 1장 초안 작성', say: '기획서 v0.1의 한상 흐름(3초 → 상보 걷기 → 반찬 → 숭늉 → 리필 → 배웅)을 그대로 쓰면 돼요.' },
+  '34': { can: '3×2m 부스 배치도 초안(SVG)', say: '줄은 벽에 붙여 세워야 해요(운영 규칙). 옆벽 쪽은 대기줄 자리로 비워 두는 걸 추천해요.' },
+  '24': { can: '업체 문의 메시지 문안', say: '커스텀 보자기·상보처럼 리드타임이 긴 것부터 물어보세요.' },
+  '30': { can: '소품 수량 계산 엑셀', say: '잔 방식(사기잔/일회용)을 정하기 전에는 잔 수량을 확정할 수 없어요.' },
+  '31': { can: '샘플 확인 기준표', say: '종지 잔은 1oz가 보기 좋게 담기는지, 소반은 폭 3m에 몇 개 들어가는지 실물로 확인하세요.' },
+  '3': { can: '항목별 예산표 엑셀(인쇄·소품·원두·우유·촬영)', say: '항목별 상한만 정해 주시면 하빈님이 수량을 정할 수 있어요.' },
+  '5': { can: '처리량·세척량 계산', say: '추정: 하루 300~350상 × 잔 4개 = 하루 1,200~1,400개 세척. 2명 운영으로는 어려워요 → 일회용 3oz 컵 또는 세척 1명 추가.' },
+  '9': { can: '차림표용 향미 노트 문안', say: '"오늘의 상"(요일마다 다른 싱글오리진)을 넣을지와 함께 정해야 해요. 4종이 안 되면 2종을 번갈아 쓰세요.' },
+  '10': { can: '장비 소비전력 합계표', say: '에스프레소 머신을 쓰면 2kW가 빠듯해요. 구수 베이스를 미리 추출해 우유와 섞는 방식을 추천해요.' },
+  '11': { can: '원가·판매가 엑셀(원가 자료를 주시면)', say: '회의록 기준 드립백 1개 2,500원, "5,000원까지는 낼 만하다"는 의견이 있었어요. 원가 자료는 아직 없어요.' },
+  '35': { can: '2kW 전력 계산표', say: '합계가 2,000W를 넘으면 10/27~31 특별접수(1.5배)로 추가해야 해요.' },
+  '39': { can: '세척 동선 그림', say: '사기잔 전량은 세척량이 너무 많아요(5번 의견 참고). 사기잔은 진열용 한 상만 쓰는 안을 추천해요.' },
+  '12': { can: '원산지 표시판·차림표 원고 초안', say: '생산자 이름(○○ 씨네 커피)은 표시판을 따로 만들지 말고 차림표에 합치세요.' },
+  '6': { can: '회의 안건 정리, 결정을 결정사항.md에 기록', say: '이 회의 전에 세부 후보 선택(넣기 11·합치기 3·빼기 3)을 끝내 두면 30분 안에 끝나요.' },
+  '16': { can: '디자인물 사양표 엑셀', say: '차림표를 수저 봉투 형태로 할지 먼저 정해야 사양(크기·재질)이 나와요.' },
+  '32': { can: '구매처별 비교표', say: '샘플을 확인하고 예산 상한이 정해진 뒤에 결제하세요.' },
+  '41': { can: '이 페이지에 "상 +1" 버튼과 큰 숫자판 추가', say: '숫자는 "오늘 차려 드린 상" 하나만 쓰세요. "남은 상"까지 함께 쓰면 헷갈려요.' },
+  '17': { can: '차림표·메뉴판(백반 0원) 문구 원고', say: '문구는 클로드가, 손글씨·레이아웃은 일러스트레이터에서 하는 분담이 빨라요.' },
+  '18': { can: '벽면 문구와 치수 정리', say: '뒷벽 3000×2440, 옆벽 2000×2440mm. 옆벽은 대기줄 쪽이라 정보를 너무 많이 넣지 마세요.' },
+  '36': { can: '시안 체크리스트', say: '3초 장면(상보 덮인 소반 + 움직이는 숫자)이 정면에서 보이는지가 핵심이에요.' },
+  '25': { can: '발주 메일 문안', say: '로고 보자기가 10/17까지 안 되면 기성품 + 스티커로 대체하세요.' },
+  '37': { can: '추가옵션 신청 항목 정리', say: '커피앨리는 도면 제출 의무가 없어요. 추가옵션은 10/28까지예요.' },
+  '7': { can: '스태프 대본·역할표 초안', say: '2명 기준: 찬모(추출) 1 + 상차림(서빙·계산) 1. 주인장은 대표님이 계실 때만 맡아요.' },
+  '13': { can: '로스팅·드립백 생산 계획 엑셀', say: '추정: 하루 300~350상 × 한 상 6~7g ≈ 하루 2~2.5kg. 한 상 원두량을 확정하면 다시 계산할게요.' },
+  '14': { can: '구글폼 문항과 개인정보 동의 문구', say: '"다음 주 여수에서 갓 볶아 발송"을 지키려면 발송일을 하나로 정해 두세요.' },
+  '19': { can: '시안 이미지를 주시면 체크리스트로 검토', say: '3초 안에 "전라도 커피 한상, 무료"가 읽히는지부터 보세요.' },
+};
+function claudeFor(t) {
+  const c = CLAUDE[t.No];
+  const h = helpFor(t.작업);
+  const can = c ? c.can : '이 작업의 초안이나 계산표';
+  const say = c ? c.say : h ? h.t : '아직 의견이 없어요. 클로드 세션에 물어봐 주세요.';
+  const ask = `카페쇼 기획 이어서. #${t.No} "${t.작업.split('(')[0].trim()}" 작업 도와줘. ${can} 부탁해.`;
+  return { can, say, ask, h };
+}
+
 // ---------- 주최측 마감 ----------
 const EXTERNAL = [
   [d(10, 1), d(11, 14), '모바일 초청장 60장 발송 (서울·수도권 납품처, 잠재 거래처)'],
@@ -163,9 +206,15 @@ function mine(owner) {
 }
 const done = s => /완료|done/i.test(s || '');
 
+// 체크 표시: 시트 상태가 기준. 저장 전·저장 주소가 없을 때는 이 브라우저의 표시(marks)가 시트보다 앞선다
+let marks = {};
+try { marks = JSON.parse(localStorage.getItem('cs-checks') || '{}'); } catch (e) { }
+function saveMarks() { try { localStorage.setItem('cs-checks', JSON.stringify(marks)); } catch (e) { } }
+function isDone(t) { return t.No in marks ? marks[t.No] : done(t.상태); }
+
 function taskCard(t, byNo) {
   const T = today(), due = parseDate(t.마감), start = parseDate(t.시작);
-  const deps = (t.선행 || '').split(/[,\s]+/).filter(Boolean).map(n => byNo[n]).filter(x => x && !done(x.상태));
+  const deps = (t.선행 || '').split(/[,\s]+/).filter(Boolean).map(n => byNo[n]).filter(x => x && !isDone(x));
   let cls = '', chip = '';
   if (due) {
     const n = diff(due, T);
@@ -245,10 +294,74 @@ function tips(T) {
   return out.map(x => `<div class="tip">${x}</div>`).join('');
 }
 
+// ---------- 전체 체크리스트 표 ----------
+let hideDone = false;
+try { hideDone = localStorage.getItem('cs-hide') === '1'; } catch (e) { }
+let picked = null; // 아래 의견 칸에 보여 줄 작업 번호
+
+function checklist(tasks) {
+  const T = today();
+  const list = tasks.filter(t => mine(t.담당))
+    .sort((a, b) => (parseDate(a.마감) || Infinity) - (parseDate(b.마감) || Infinity) || a.No - b.No);
+  const n = list.filter(isDone).length;
+  document.getElementById('ckCount').textContent = `${n} / ${list.length} 완료`;
+  document.getElementById('ckBar').style.width = list.length ? `${Math.round(n / list.length * 100)}%` : '0';
+  const rows = list.filter(t => !(hideDone && isDone(t)));
+  if (!rows.length) return '<div class="empty">표시할 작업이 없어요.</div>';
+  return `<div class="tbl"><table class="ck"><thead><tr><th class="c">완료</th><th>할 일</th><th>담당</th><th>마감</th><th>클로드</th></tr></thead><tbody>${rows.map(t => {
+    const ok = isDone(t), due = parseDate(t.마감);
+    let chip = '';
+    if (ok) chip = '<span class="chip c-green">완료</span>';
+    else if (due) { const k = diff(due, T); chip = k < 0 ? `<span class="chip c-red">${-k}일 늦음</span>` : k === 0 ? '<span class="chip c-orange">오늘</span>' : `<span class="chip c-sub">D-${k}</span>`; }
+    const pending = t.No in marks && marks[t.No] !== done(t.상태);
+    return `<tr data-no="${esc(t.No)}" class="${ok ? 'is-done' : ''} ${picked === t.No ? 'is-picked' : ''}">
+      <td class="c"><input type="checkbox" id="ck-${esc(t.No)}" data-no="${esc(t.No)}" ${ok ? 'checked' : ''}></td>
+      <td><label for="ck-${esc(t.No)}" class="tt">${esc(t.작업)}</label><div class="meta"><span>#${esc(t.No)} ${esc(t.구분)}</span><span class="who-m">담당 ${esc(t.담당)}</span>${pending ? `<span class="c-orange">${SAVE_URL ? '시트에 저장 중…' : '이 브라우저에만 표시됨'}</span>` : ''}</div></td>
+      <td>${esc(t.담당)}</td>
+      <td class="n">${due ? fmt(due) : '-'}<br>${chip}</td>
+      <td><button class="ai" data-no="${esc(t.No)}" aria-label="#${esc(t.No)} 클로드 의견 보기">✦<span class="w"> 의견</span></button></td>
+    </tr>`;
+  }).join('')}</tbody></table></div>`;
+}
+
+function claudeHTML(t, full) {
+  const c = claudeFor(t);
+  return `<div class="ai-say">${esc(c.say)}</div>
+    <div class="ai-can"><b>클로드가 해 드릴 수 있는 것</b> ${esc(c.can)}</div>
+    ${full && c.h ? `<ul class="ai-li">${c.h.li.map(x => `<li>${x}</li>`).join('')}</ul>` : ''}
+    ${full ? `<div class="ai-ask"><span>클로드 세션에 붙여 넣을 부탁 문장</span><pre class="msg">${esc(c.ask)}</pre><button class="copy" data-copy="${esc(c.ask)}">부탁 문장 복사</button></div>` : '<div class="ai-hint">누르면 아래 칸에 자세히 보여요</div>'}`;
+}
+function showPanel(no) {
+  const t = data.tasks.find(x => x.No === no);
+  const p = document.getElementById('panel');
+  if (!t) return;
+  picked = no;
+  document.getElementById('panelTitle').textContent = `#${t.No} ${t.작업.split('(')[0].trim()}`;
+  document.getElementById('panelBody').innerHTML = claudeHTML(t, true);
+  p.classList.add('open');
+  document.querySelectorAll('table.ck tr.is-picked').forEach(r => r.classList.remove('is-picked'));
+  const row = document.querySelector(`table.ck tr[data-no="${CSS.escape(no)}"]`);
+  if (row) row.classList.add('is-picked');
+}
+function hidePanel() {
+  picked = null;
+  document.getElementById('panel').classList.remove('open');
+  document.querySelectorAll('table.ck tr.is-picked').forEach(r => r.classList.remove('is-picked'));
+}
+
+function check(no, on) {
+  marks[no] = on; saveMarks();
+  render();
+  const box = document.getElementById(`ck-${no}`); if (box) box.focus();
+  if (!SAVE_URL) return;
+  fetch(SAVE_URL, { method: 'POST', mode: 'no-cors', body: new URLSearchParams({ no, status: on ? '완료' : '대기' }) })
+    .then(() => setTimeout(load, 2500)).catch(() => { });
+}
+
 function render() {
   const T = today();
   const tasks = data.tasks, byNo = Object.fromEntries(tasks.map(t => [t.No, t]));
-  const open = tasks.filter(t => !done(t.상태) && mine(t.담당));
+  const open = tasks.filter(t => !isDone(t) && mine(t.담당));
   const now = open.filter(t => { const s = parseDate(t.시작), e = parseDate(t.마감); return (e && e <= T) || (s && s <= T); })
     .sort((a, b) => (parseDate(a.마감) || 0) - (parseDate(b.마감) || 0));
   const soon = open.filter(t => { const s = parseDate(t.시작); return s && s > T && diff(s, T) <= 7; })
@@ -261,6 +374,8 @@ function render() {
   document.getElementById('dday').innerHTML = [
     ['main', diff(SHOW, T), '카페쇼 11/11'], ['', diff(READY, T), '준비 완료 10/25'], ['', diff(ARRIVE, T), '소품 도착 10/17'],
   ].map(([c, n, l]) => `<div class="${c}"><b>${n > 0 ? 'D-' + n : n === 0 ? 'D-DAY' : 'D+' + -n}</b><span>${l}</span></div>`).join('');
+  document.getElementById('checklist').innerHTML = checklist(tasks);
+  document.getElementById('ckSave').textContent = SAVE_URL ? '체크하면 구글 시트 상태 칸에 "완료"로 저장돼요.' : '지금은 체크가 이 브라우저에만 저장돼요. 하빈님과 함께 보려면 시트 저장을 연결해야 해요.';
   document.getElementById('nowCount').textContent = `${now.length}개`;
   document.getElementById('now').innerHTML = now.length ? now.map(t => taskCard(t, byNo)).join('') : '<div class="empty">지금 할 일이 없어요. 아래 "다가와요"를 미리 봐 두세요.</div>';
   const decs = data.decisions.slice().sort((a, b) => !!(a['결정 내용(입력)']) - !!(b['결정 내용(입력)']));
@@ -276,7 +391,12 @@ function render() {
 async function load() {
   try {
     const [tasks, decisions, orders] = await Promise.all([sheet('일정표'), sheet('대표 결정사항'), sheet('발주·구매')]);
-    if (tasks.length) { data = { tasks, decisions: decisions.length ? decisions : SNAP.decisions, orders: orders.length ? orders : SNAP.orders }; live = true; last = new Date(); }
+    if (tasks.length) {
+      data = { tasks, decisions: decisions.length ? decisions : SNAP.decisions, orders: orders.length ? orders : SNAP.orders }; live = true; last = new Date();
+      // 시트가 브라우저 표시와 같아지면 브라우저 표시는 지운다
+      tasks.forEach(t => { if (t.No in marks && marks[t.No] === done(t.상태)) delete marks[t.No]; });
+      saveMarks();
+    }
   } catch (e) { live = false; }
   render();
 }
@@ -289,6 +409,38 @@ document.querySelectorAll('.who button').forEach(b => {
     render();
   });
 });
+// 체크·의견 칸
+document.addEventListener('change', e => {
+  const box = e.target.closest('table.ck input[type="checkbox"]'); if (box) check(box.dataset.no, box.checked);
+});
+document.getElementById('hideDone').checked = hideDone;
+document.getElementById('hideDone').addEventListener('change', e => {
+  hideDone = e.target.checked; try { localStorage.setItem('cs-hide', hideDone ? '1' : '0'); } catch (x) { }
+  render();
+});
+document.getElementById('panelClose').addEventListener('click', hidePanel);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { hidePanel(); hidePop(); } });
+document.addEventListener('click', e => {
+  if (e.target.closest('table.ck input, table.ck label')) return;
+  const b = e.target.closest('.ai') || e.target.closest('table.ck tbody tr');
+  if (b) { hidePop(); showPanel(b.dataset.no); }
+});
+// 마우스 오버 팝업 (마우스를 쓰는 화면에서만)
+const pop = document.getElementById('pop');
+const fine = matchMedia('(hover:hover) and (pointer:fine)');
+function hidePop() { pop.hidden = true; }
+document.addEventListener('mouseover', e => {
+  if (!fine.matches) return;
+  const b = e.target.closest('.ai'); if (!b) return;
+  const t = data.tasks.find(x => x.No === b.dataset.no); if (!t) return;
+  pop.innerHTML = claudeHTML(t, false); pop.hidden = false;
+  const r = b.getBoundingClientRect(), w = pop.offsetWidth, h = pop.offsetHeight;
+  const left = Math.max(8, Math.min(r.right - w, innerWidth - w - 8));
+  const top = r.top - h - 8 > 8 ? r.top - h - 8 : r.bottom + 8;
+  pop.style.left = `${left + scrollX}px`; pop.style.top = `${top + scrollY}px`;
+});
+document.addEventListener('mouseout', e => { const b = e.target.closest('.ai'); if (b && !b.contains(e.relatedTarget)) hidePop(); });
+
 document.addEventListener('click', e => {
   const b = e.target.closest('.copy'); if (!b) return;
   navigator.clipboard.writeText(b.dataset.copy).then(() => { b.textContent = '복사했어요'; }).catch(() => { b.textContent = '길게 눌러 복사해 주세요'; });
