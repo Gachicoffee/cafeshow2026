@@ -49,6 +49,31 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(-
 h1{font-size:clamp(22px,6vw,30px);font-weight:900;line-height:1.3;margin:18px 0 0;text-wrap:balance}
 .lead{color:var(--sub);margin:4px 0 0}
 .ttl{font-size:18px;font-weight:900}
+/* 클로드 개요 · 파일 · 첨부 · 결정 기록 */
+.brief{font-size:13.5px;border-left:3px solid var(--hair);padding:2px 0 2px 8px}
+.brief b{font-size:12.5px}
+.brief ul{margin:2px 0 0;padding-left:1.1em}
+.b-done{border-left-color:var(--green)} .b-done b{color:var(--green)}
+.b-check{border-left-color:var(--orange)} .b-check b{color:var(--orange)}
+.b-eff{border-left-color:var(--blue)} .b-eff b{color:var(--blue)}
+.ai-files{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px}
+.flink{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--blue);color:var(--blue);padding:3px 8px;text-decoration:none;font-weight:700;font-size:13px;min-height:30px}
+.flink:hover{background:var(--blue);color:var(--paper)}
+.lib{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--sub);padding:4px 0;border-bottom:1px dashed var(--hair)}
+.att{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px}
+.att a{color:var(--blue)}
+.thumb{display:block;padding:0;border:1px solid var(--hair);background:none;cursor:zoom-in;width:100%}
+.thumb img{display:block;max-width:100%;max-height:180px;object-fit:contain;margin:0 auto}
+#lightbox{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.85);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:16px;cursor:zoom-out}
+#lightbox[hidden]{display:none}
+#lightbox img{max-width:100%;max-height:82vh;object-fit:contain;background:#fff}
+.lb-bar{display:flex;gap:14px;align-items:center;color:#ddd;font-size:13px}
+.lb-bar a{color:#fff;font-weight:700;border:1px solid #fff;padding:4px 10px;text-decoration:none}
+.declog details{border-bottom:1px dashed var(--hair);padding:4px 0}
+.declog summary{cursor:pointer;font-weight:700;font-size:14px}
+.declog ul{margin:4px 0 6px;padding-left:1.1em;font-size:13.5px;display:flex;flex-direction:column;gap:2px}
+.declog li.sub{margin-left:1em;color:var(--sub)}
+.declog code{font-size:12px}
 /* 상단 대시보드 카드 8개 */
 .dash{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:14px}
 @media (min-width:900px){.dash{grid-template-columns:repeat(4,minmax(0,1fr))}}
@@ -176,6 +201,14 @@ footer a{color:inherit}
         <h2>주최측 마감 <small>매뉴얼 기준, 놓치면 되돌릴 수 없음</small></h2>
         <div class="tl" id="external"></div>
       </section>
+      <section id="sec-files">
+        <h2>자료실 <small>누르면 내려받거나 열려요</small></h2>
+        <div id="library"></div>
+      </section>
+      <section id="sec-log">
+        <h2>결정 기록 <small>planning/결정사항.md · 최신이 위</small></h2>
+        <div id="declog" class="declog"><div class="empty">불러오는 중…</div></div>
+      </section>
     </div>
   </div>
 
@@ -193,6 +226,7 @@ footer a{color:inherit}
     <div id="panelBody" aria-live="polite"></div>
   </div>
 </aside>
+<div id="lightbox" hidden><img alt="첨부 이미지 크게 보기"><div class="lb-bar"><a class="lb-open" target="_blank" rel="noopener">원본 열기</a><a class="lb-dl" target="_blank" rel="noopener">내려받기</a><span>바깥을 누르면 닫혀요</span></div></div>
 <script src="data.js"></script>
 <script src="app.js"></script>
 </body>
