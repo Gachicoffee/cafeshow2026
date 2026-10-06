@@ -123,7 +123,7 @@ function build(src) {
 // ---------- 상태 (이 기기) ----------
 function load(k, def) { try { const v = localStorage.getItem(k); return v == null ? def : JSON.parse(v); } catch (e) { return def; } }
 function save(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { } }
-let who = load('cs-who', 'all');
+const who = 'all'; // 사람별 보기는 없앴다(10/7). 상단은 대시보드
 let hideDone = load('cs-hide', false);
 let marks = load('cs-marks', {});
 let live = false, last = null, saving = 0;
@@ -179,6 +179,37 @@ function sortRows(a, b) {
   return isDone(a) - isDone(b) || (parseDate(a.due) || Infinity) - (parseDate(b.due) || Infinity);
 }
 
+// ---------- 상단 대시보드: 지금 눈여겨볼 8가지 ----------
+function dday(n) { return n > 0 ? 'D-' + n : n === 0 ? 'D-DAY' : 'D+' + -n; }
+function noteTime(w) { const m = String(w || '').match(/(\d{1,2})\/(\d{1,2})\s+(\d{1,2}):(\d{2})/); return m ? new Date(YEAR, m[1] - 1, +m[2], +m[3], +m[4]) : null; }
+function dashboard(T, open, late) {
+  const byDue = list => list.slice().sort((a, b) => parseDate(a.due) - parseDate(b.due));
+  const names = list => list.slice(0, 2).map(x => esc(short(x.title))).join(' · ') + (list.length > 2 ? ` 외 ${list.length - 2}개` : '');
+  const lateL = byDue(open.filter(x => { const e = parseDate(x.due); return e && e < T; }));
+  const soonL = byDue(open.filter(x => { const e = parseDate(x.due); return e && diff(e, T) >= 0 && diff(e, T) <= 1; }));
+  const weekL = byDue(open.filter(x => { const e = parseDate(x.due); return e && diff(e, T) >= 0 && diff(e, T) <= 7; }));
+  const decL = byDue(open.filter(x => x.sec === 'dec'));
+  const ordL = byDue(open.filter(x => x.sec === 'order'));
+  const noLead = ordL.filter(x => !/리드타임/.test(x.meta.join(' '))).length;
+  const ext = CS.external.map(([s, e, t]) => ({ S: parseDate(s), E: parseDate(e), t })).filter(x => x.E >= T && x.S >= T).sort((a, b) => a.S - b.S)[0];
+  const since = Date.now() - DAY;
+  const recent = Object.entries(notes).flatMap(([k, l]) => l.map(n => ({ ...n, key: k, at: noteTime(n.when) })))
+    .filter(n => n.at && n.at.getTime() >= since && n.text !== PLAN_ON && n.text !== PLAN_OFF).sort((a, b) => b.at - a.at);
+  const done = items.filter(isDone).length;
+  const pct = items.length ? Math.round(done / items.length * 100) : 0;
+  const card = (tone, label, big, sub, key) => `<button class="dc ${tone}" ${key ? `data-key="${key}"` : 'disabled'}><span class="dl">${label}</span><b>${big}</b><span class="ds">${sub || '&nbsp;'}</span></button>`;
+  return [
+    card('main', '카페쇼 11/11(수)', dday(diff(SHOW, T)), `준비 완료 10/25 ${dday(diff(READY, T))} · 소품 도착 10/17 ${dday(diff(ARRIVE, T))}`),
+    card(lateL.length ? 'red' : 'ok', '마감 지난 일', `${lateL.length}개`, lateL.length ? names(lateL) : '밀린 일 없음', lateL[0]?.key),
+    card(soonL.length ? 'orange' : 'ok', '오늘·내일 마감', `${soonL.length}개`, soonL.length ? names(soonL) : '없음', soonL[0]?.key),
+    card(decL.length ? 'orange' : 'ok', '대표님 결정 대기', `${decL.length}개`, decL.length ? `가장 급한 것: ${esc(short(decL[0].title))} (${esc(decL[0].due)})` : '모두 결정됨', decL[0]?.key),
+    card('', '앞으로 7일 마감', `${weekL.length}개`, weekL.length ? names(weekL) : '없음', weekL[0]?.key),
+    card(ext && diff(ext.S, T) <= 7 ? 'orange' : '', '다음 주최측 마감', ext ? dday(diff(ext.S, T)) : '-', ext ? `${fmt(ext.S)} ${esc(ext.t)}` : '남은 마감 없음'),
+    card(ordL.length ? '' : 'ok', '발주·구매 남은 것', `${ordL.length}개`, ordL.length ? `가장 이른 입고 ${esc(ordL[0].due)} ${dday(diff(parseDate(ordL[0].due), T))}${noLead ? ` · 리드타임 미입력 ${noLead}개` : ''}` : '모두 끝남', ordL[0]?.key),
+    card(recent.length ? 'blue' : '', '최근 24시간 메모', `${recent.length}개`, recent.length ? `${esc(recent[0].author)}: ${esc(recent[0].text || recent[0].fileName).slice(0, 40)}` : `전체 진행률 ${pct}%`, recent[0]?.key),
+  ].join('');
+}
+
 function render() {
   const T = today();
   const vis = items.filter(x => mine(x.owner));
@@ -186,14 +217,9 @@ function render() {
   const open = vis.filter(x => !isDone(x));
   const due = open.filter(x => { const e = parseDate(x.due); return e && e <= T; });
   const late = due.filter(x => parseDate(x.due) < T).length;
-  const name = who === 'all' ? '' : who === '지형' ? '대표님, ' : '하빈님, ';
 
   document.getElementById('sync').textContent = live ? `시트 연결됨 · ${last.getHours()}:${String(last.getMinutes()).padStart(2, '0')}` : `시트 연결 안 됨 · ${CS.updated} 사본`;
-  document.getElementById('greet').textContent = due.length ? `${name}오늘까지 할 일이 ${due.length}개 있어요` : `${name}오늘까지 밀린 일은 없어요`;
-  document.getElementById('greetSub').textContent = `${T.getMonth() + 1}월 ${T.getDate()}일 ${WD[T.getDay()]}요일` + (late ? ` · 마감이 지난 일 ${late}개부터 처리해요` : '');
-  document.getElementById('dday').innerHTML = [
-    ['main', diff(SHOW, T), '카페쇼 11/11'], ['', diff(READY, T), '준비 완료 10/25'], ['', diff(ARRIVE, T), '소품 도착 10/17'],
-  ].map(([c, n, l]) => `<div class="${c}"><b>${n > 0 ? 'D-' + n : n === 0 ? 'D-DAY' : 'D+' + -n}</b><span>${l}</span></div>`).join('');
+  document.getElementById('dash').innerHTML = dashboard(T, open, late);
   document.getElementById('total').textContent = `${done} / ${vis.length} 완료`;
   document.getElementById('totalBar').style.width = vis.length ? `${Math.round(done / vis.length * 100)}%` : '0';
 
@@ -205,7 +231,7 @@ function render() {
     if (!all.length) return '';
     const n = all.filter(isDone).length;
     const rows = all.filter(x => !(hideDone && isDone(x))).sort(sortRows);
-    return `<section>
+    return `<section id="sec-${s.id}">
       <h2>${s.name} <small>${n} / ${all.length} · ${s.sub}</small></h2>
       ${rows.length ? `<div class="tbl"><table class="ck"><thead><tr><th class="c">완료</th><th>할 일</th><th class="who">담당</th><th>마감</th><th class="c">클로드</th></tr></thead><tbody>${rows.map(x => row(x, T)).join('')}</tbody></table></div>` : '<div class="empty">모두 끝났어요.</div>'}
     </section>`;
@@ -334,14 +360,6 @@ const fine = matchMedia('(hover:hover) and (pointer:fine)');
 function hidePop() { pop.hidden = true; }
 
 // ---------- 이벤트 ----------
-document.querySelectorAll('.who-btn button').forEach(b => {
-  b.setAttribute('aria-pressed', String(b.dataset.who === who));
-  b.addEventListener('click', () => {
-    who = b.dataset.who; save('cs-who', who);
-    document.querySelectorAll('.who-btn button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
-    render();
-  });
-});
 const hd = document.getElementById('hideDone');
 hd.checked = hideDone;
 hd.addEventListener('change', () => { hideDone = hd.checked; save('cs-hide', hideDone); render(); });
@@ -358,6 +376,13 @@ document.addEventListener('click', e => {
   }
   if (e.target.closest('#panelClose')) { hidePanel(); return; }
   if (e.target.closest('table.ck input, table.ck label')) return;
+  const dc = e.target.closest('.dc[data-key]');
+  if (dc) {
+    showPanel(dc.dataset.key);
+    const row = document.querySelector(`table.ck tr[data-key="${dc.dataset.key}"]`);
+    if (row) row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
   const t = e.target.closest('.ai') || e.target.closest('table.ck tbody tr');
   if (t) { hidePop(); showPanel(t.dataset.key); }
 });
