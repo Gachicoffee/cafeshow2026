@@ -96,9 +96,16 @@ const SECTIONS = [
   { id: 'order', col: 'colR', name: '발주·구매', sub: '입고 목표일 기준' },
 ];
 let items = [], byKey = {};
+// 기획 단계는 시트 표에 칸이 없어서, 체크를 '메모' 탭에 [완료 표시]/[완료 취소] 메모로 남기고 마지막 것을 따른다
+const PLAN_ON = '[완료 표시]', PLAN_OFF = '[완료 취소]';
+function planDone(x) {
+  const last = (notes[x.no] || []).filter(n => n.text === PLAN_ON || n.text === PLAN_OFF).pop();
+  return last ? last.text === PLAN_ON : isDoneStatus(x.status);
+}
+function me() { return who === '하빈' ? '하빈' : who === '지형' ? '지형(대표)' : '페이지'; }
 function build(src) {
   items = [
-    ...CS.plan.map(x => ({ key: x.no, sec: 'plan', tab: '', no: x.no, title: x.title, owner: x.owner, due: x.due, base: isDoneStatus(x.status), progress: x.status === '진행',
+    ...CS.plan.map(x => ({ key: x.no, sec: 'plan', tab: '', no: x.no, title: x.title, owner: x.owner, due: x.due, base: planDone(x), progress: x.status === '진행',
       meta: [x.output && `결과물: ${x.output}`, x.memo], say: x.say, can: x.can, help: x.help })),
     ...src.tasks.map(x => ({ key: 'T' + x.no, sec: 'task', tab: '일정표', sheetNo: x.no, no: '#' + x.no, title: x.title, owner: x.owner, due: x.due, base: isDoneStatus(x.status), progress: /진행/.test(x.status),
       deps: (x.deps || []).map(n => 'T' + n), meta: [x.group, x.output && `결과물: ${x.output}`, x.memo], say: x.say, can: x.can, help: x.help })),
@@ -120,12 +127,13 @@ let who = load('cs-who', 'all');
 let hideDone = load('cs-hide', false);
 let marks = load('cs-marks', {});
 let live = false, last = null, saving = 0;
+let flushed = false;
 let notes = {}, sent = []; // 메모: 시트 '메모' 탭에서 읽은 것 / 방금 보내서 아직 시트에 안 보이는 것
 let picked = null;
 
 const isDone = x => x.key in marks ? marks[x.key] : x.base;
 // 시트에 저장되지 못하고 기기에만 남은 표시 (기획 단계는 시트에 칸이 없어 늘 여기에 남는다)
-const pending = () => Object.keys(marks).map(k => byKey[k]).filter(x => x && (!SAVE_URL || !x.tab));
+const pending = () => SAVE_URL ? [] : Object.keys(marks).map(k => byKey[k]).filter(Boolean);
 function mine(owner) {
   if (who === 'all') return true;
   if (who === '지형') return /지형|대표|공동/.test(owner);
@@ -156,7 +164,7 @@ function row(x, T) {
   const nl = notesFor(x.key), files = nl.filter(n => n.fileName).length;
   const meta = x.meta.filter(Boolean).map(m => `<span>${esc(m)}</span>`).join('')
     + (nl.length ? `<span class="c-blue">메모 ${nl.length - files}${files ? ` · 첨부 ${files}` : ''}</span>` : '');
-  const flag = x.key in marks ? (SAVE_URL && x.tab ? '<span class="c-blue">시트에 저장 중…</span>' : '<span class="c-orange">이 기기에만 표시됨</span>') : '';
+  const flag = x.key in marks ? (SAVE_URL ? '<span class="c-blue">시트에 저장 중…</span>' : '<span class="c-orange">이 기기에만 표시됨</span>') : '';
   return `<tr data-key="${x.key}" class="${ok ? 'is-done' : ''} ${picked === x.key ? 'is-picked' : ''}">
     <td class="c"><input type="checkbox" id="ck-${x.key}" data-key="${x.key}" ${ok ? 'checked' : ''}></td>
     <td><label for="ck-${x.key}" class="tt"><span class="no">${esc(x.no)}</span> ${esc(x.title)}</label>
@@ -190,7 +198,7 @@ function render() {
   document.getElementById('totalBar').style.width = vis.length ? `${Math.round(done / vis.length * 100)}%` : '0';
 
   const p = pending();
-  document.getElementById('report').innerHTML = p.length ? `<div class="banner"><div><b>이 기기에만 표시된 체크 ${p.length}개</b>가 있어요${SAVE_URL ? ' (기획 단계는 시트에 칸이 없어요)' : ''}. 아래 문장을 클로드 세션에 붙여 넣으면 클로드가 반영해요.</div><pre class="msg">${esc(reportText())}</pre><button class="copy" data-copy="${esc(reportText())}">보고 문장 복사</button></div>` : '';
+  document.getElementById('report').innerHTML = p.length ? `<div class="banner"><div><b>이 기기에만 표시된 체크 ${p.length}개</b>가 있어요. 아래 문장을 클로드 세션에 붙여 넣으면 클로드가 반영해요.</div><pre class="msg">${esc(reportText())}</pre><button class="copy" data-copy="${esc(reportText())}">보고 문장 복사</button></div>` : '';
 
   const html = s => {
     const all = vis.filter(x => x.sec === s.id);
@@ -222,6 +230,8 @@ async function refresh() {
     const s = fromSheet(t, dcs, o);
     build({ tasks: s.tasks, decisions: dcs.length ? s.decisions : CS.decisions, orders: o.length ? s.orders : CS.orders });
     live = true; last = new Date();
+    // 예전에 이 기기에만 남은 체크가 있으면 한 번 시트로 보낸다
+    if (!flushed && SAVE_URL) { flushed = true; for (const k of Object.keys(marks)) if (byKey[k]) send(byKey[k], marks[k]); }
   } catch (e) {
     if (!live) build(CS);
   }
@@ -234,9 +244,14 @@ function check(x, on) {
   save('cs-marks', marks);
   render();
   const again = document.getElementById(`ck-${x.key}`); if (again) again.focus();
-  if (!SAVE_URL || !x.tab) return;
+  send(x, on);
+}
+// 시트(또는 메모 탭)에 체크를 보낸다
+function send(x, on) {
+  if (!SAVE_URL) return;
   saving++;
-  fetch(SAVE_URL, { method: 'POST', mode: 'no-cors', body: new URLSearchParams({ tab: x.tab, no: String(x.sheetNo), done: on ? '1' : '0' }) })
+  const body = x.tab ? { tab: x.tab, no: String(x.sheetNo), done: on ? '1' : '0' } : { action: 'note', key: x.key, author: me(), text: on ? PLAN_ON : PLAN_OFF };
+  fetch(SAVE_URL, { method: 'POST', mode: 'no-cors', body: new URLSearchParams(body) })
     .catch(() => { })
     .finally(() => setTimeout(() => { saving--; refresh(); }, 2500));
 }
