@@ -62,9 +62,9 @@ async function loadNotes() {
   if (hi < 0) return {}; // 탭이 아직 없으면 시트가 첫 탭을 돌려준다
   const out = {};
   for (const r of rows.slice(hi + 1)) {
-    const [when, key, author, text, fileName, url2, ask] = r.map(c => (c || '').trim());
+    const [when, key, author, text, fileName, url2] = r.map(c => (c || '').trim());
     if (!/^[PTDO]\d+$/.test(key)) continue;
-    (out[key] = out[key] || []).push({ when, author, text, fileName, url: /^https:\/\//.test(url2) ? url2 : '', ask: ask || '' });
+    (out[key] = out[key] || []).push({ when, author, text, fileName, url: /^https:\/\//.test(url2) ? url2 : '' });
   }
   return out;
 }
@@ -279,7 +279,7 @@ function showPanel(key) {
 function noteListHTML(key) {
   const nl = notesFor(key);
   if (!nl.length) return '<div class="empty">아직 메모가 없어요.</div>';
-  return `<ul class="notes">${nl.map(n => `<li class="${n.author === '클로드' ? 'from-ai' : ''}"><div class="nh"><b>${n.author === '클로드' ? '✦ 클로드' : esc(n.author)}</b> <span>${esc(n.when || '저장 중…')}</span>${n.ask === '대기' ? ' <span class="chip c-orange">클로드 요청 · 대기</span>' : n.ask === '완료' ? ' <span class="chip c-green">클로드 요청 · 답함</span>' : ''}</div>${n.text ? `<div>${esc(n.text)}</div>` : ''}${n.fileName ? (n.url ? `<a href="${esc(n.url)}" target="_blank" rel="noopener">📎 ${esc(n.fileName)}</a>` : `<span>📎 ${esc(n.fileName)} (올리는 중)</span>`) : ''}</li>`).join('')}</ul>`;
+  return `<ul class="notes">${nl.map(n => `<li><div class="nh"><b>${esc(n.author)}</b> <span>${esc(n.when || '저장 중…')}</span></div>${n.text ? `<div>${esc(n.text)}</div>` : ''}${n.fileName ? (n.url ? `<a href="${esc(n.url)}" target="_blank" rel="noopener">📎 ${esc(n.fileName)}</a>` : `<span>📎 ${esc(n.fileName)} (올리는 중)</span>`) : ''}</li>`).join('')}</ul>`;
 }
 function noteFormHTML(x) {
   if (!SAVE_URL) return '<div class="note-off">메모·첨부 저장은 Apps Script 웹 앱 주소를 연결하면 켜져요.</div>';
@@ -290,7 +290,6 @@ function noteFormHTML(x) {
       <select id="nWho" aria-label="작성자"><option value="">작성자</option>${['지형(대표)', '하빈'].map(n => `<option ${n === me ? 'selected' : ''}>${n}</option>`).join('')}</select>
       <input type="file" id="nFile" aria-label="파일 첨부">
     </div>
-    <label class="nrow"><input type="checkbox" id="nAsk"> 클로드에게 작업 요청 (정기 확인 때 처리하고 여기에 답을 남겨요)</label>
     ${x.sec === 'dec' ? '<label class="nrow"><input type="checkbox" id="nDecide"> 이 내용을 시트의 결정 내용 칸에 쓰기</label>' : ''}
     <div class="nrow"><button type="submit" class="btn">저장</button><span id="nMsg" class="ck-note"></span></div>
     <div class="ck-note">메모는 공개 시트에 저장돼요. 금액·연락처·개인정보는 파일로 올려 주세요(파일은 드라이브에서 공유받은 사람만 열려요). 파일은 10MB까지.</div>
@@ -308,7 +307,6 @@ async function submitNote(form) {
   const author = form.querySelector('#nWho').value;
   const f = form.querySelector('#nFile').files[0];
   const decide = form.querySelector('#nDecide')?.checked;
-  const ask = form.querySelector('#nAsk')?.checked ? '1' : '';
   const msg = form.querySelector('#nMsg');
   if (!author) { msg.textContent = '작성자를 골라 주세요.'; return; }
   if (!text && !f) { msg.textContent = '내용이나 파일을 넣어 주세요.'; return; }
@@ -316,10 +314,10 @@ async function submitNote(form) {
   form.querySelector('button[type="submit"]').disabled = true;
   msg.textContent = f ? '파일을 올리는 중…' : '저장하는 중…';
   try {
-    if (f) await post({ action: 'upload', key: x.key, author, text, ask, name: f.name, mime: f.type || 'application/octet-stream', data: await fileToBase64(f) });
-    else await post({ action: 'note', key: x.key, author, text, ask });
+    if (f) await post({ action: 'upload', key: x.key, author, text, name: f.name, mime: f.type || 'application/octet-stream', data: await fileToBase64(f) });
+    else await post({ action: 'note', key: x.key, author, text });
     if (decide && text && x.tab) await post({ action: 'decide', no: String(x.sheetNo), text });
-    sent.push({ key: x.key, author, text, fileName: f ? f.name : '', url: '', when: '', ask: ask ? '대기' : '' });
+    sent.push({ key: x.key, author, text, fileName: f ? f.name : '', url: '', when: '' });
     form.reset();
     msg.textContent = '보냈어요. 몇 초 뒤 목록에 반영돼요.';
   } catch (e) {
