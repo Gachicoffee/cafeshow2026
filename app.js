@@ -106,13 +106,13 @@ function me() { return who === '하빈' ? '하빈' : who === '지형' ? '지형(
 function build(src) {
   items = [
     ...CS.plan.map(x => ({ key: x.no, sec: 'plan', tab: '', no: x.no, title: x.title, owner: x.owner, due: x.due, base: planDone(x), progress: x.status === '진행',
-      meta: [x.output && `결과물: ${x.output}`, x.memo], say: x.say, can: x.can, help: x.help })),
+      meta: [x.output && `결과물: ${x.output}`, x.memo], say: x.say, can: x.can, help: x.help, brief: x.brief, files: x.files })),
     ...src.tasks.map(x => ({ key: 'T' + x.no, sec: 'task', tab: '일정표', sheetNo: x.no, no: '#' + x.no, title: x.title, owner: x.owner, due: x.due, base: isDoneStatus(x.status), progress: /진행/.test(x.status),
-      deps: (x.deps || []).map(n => 'T' + n), meta: [x.group, x.output && `결과물: ${x.output}`, x.memo], say: x.say, can: x.can, help: x.help })),
+      deps: (x.deps || []).map(n => 'T' + n), meta: [x.group, x.output && `결과물: ${x.output}`, x.memo], say: x.say, can: x.can, help: x.help, brief: x.brief, files: x.files })),
     ...src.decisions.map(x => ({ key: 'D' + x.no, sec: 'dec', tab: '대표 결정사항', sheetNo: x.no, no: '결정 ' + x.no, title: x.title, owner: '지형(대표)', due: x.due, base: !!x.decided,
-      meta: [x.decided ? `결정: ${x.decided}` : `고려할 점: ${x.consider}`, `영향: ${x.affects}`], say: x.say, can: x.can, help: x.help })),
+      meta: [x.decided ? `결정: ${x.decided}` : `고려할 점: ${x.consider}`, `영향: ${x.affects}`], say: x.say, can: x.can, help: x.help, brief: x.brief, files: x.files })),
     ...src.orders.map(x => ({ key: 'O' + x.no, sec: 'order', tab: '발주·구매', sheetNo: x.no, no: '발주 ' + x.no, title: x.title, owner: x.owner, due: x.target, base: isDoneStatus(x.status),
-      meta: [x.kind, x.vendor ? `업체: ${x.vendor}` : '업체 미정', x.lead ? `리드타임 ${x.lead}일` : '', x.memo], say: x.say, can: x.can })),
+      meta: [x.kind, x.vendor ? `업체: ${x.vendor}` : '업체 미정', x.lead ? `리드타임 ${x.lead}일` : '', x.memo], say: x.say, can: x.can, brief: x.brief, files: x.files })),
   ];
   byKey = Object.fromEntries(items.map(x => [x.key, x]));
   // 원본(시트·data.js)에 이미 반영된 표시는 지운다
@@ -238,6 +238,7 @@ function render() {
   };
   for (const c of ['colL', 'colR']) document.getElementById(c).innerHTML = SECTIONS.filter(s => s.col === c).map(html).join('');
 
+  document.getElementById('library').innerHTML = (CS.files || []).map(f => `<div class="lib">${fileLink(f)}<span>${esc(f.desc || '')}</span></div>`).join('');
   document.getElementById('external').innerHTML = CS.external.map(([s, e, txt]) => {
     const S = parseDate(s), E = parseDate(e);
     return `<div class="${E < T ? 'past' : ''}"><b>${fmt(S)}${s !== e ? '~' + fmt(E) : ''}</b> ${esc(txt)}</div>`;
@@ -283,9 +284,23 @@ function send(x, on) {
 }
 
 // ---------- 클로드 의견: 마우스 오버 팝업 + 아래 칸 ----------
+// 클로드 개요: 확정된 것 / 확인이 필요한 것 / 기대 효과
+function briefHTML(b) {
+  const part = (t, l, c) => l && l.length ? `<div class="brief ${c}"><b>${t}</b><ul>${l.map(v => `<li>${esc(v)}</li>`).join('')}</ul></div>` : '';
+  return part('확정된 것', b.done, 'b-done') + part('확인이 필요한 것', b.check, 'b-check') + part('기대 효과', b.effect, 'b-eff')
+    + (b.at ? `<div class="ai-hint">클로드 확인: ${esc(b.at)}</div>` : '');
+}
+// 저장소 파일 링크: 엑셀은 바로 내려받기, 문서(.md)는 GitHub에서 읽기
+function fileHref(path) { return /\.md$/.test(path) ? `https://github.com/Gachicoffee/cafeshow2026/blob/main/${path}` : path; }
+function fileLink(f) {
+  const md = /\.md$/.test(f.path);
+  return `<a class="flink" href="${encodeURI(fileHref(f.path))}" ${md ? 'target="_blank" rel="noopener"' : 'download'}>${md ? '📄' : '⬇'} ${esc(f.name)}</a>`;
+}
 function claudeHTML(x, full) {
   return `<div class="ai-say">${esc(x.say || '아직 의견이 없어요. 클로드 세션에 물어봐 주세요.')}</div>
     ${x.can ? `<div class="ai-can"><b>클로드가 해 드릴 수 있는 것</b> ${esc(x.can)}</div>` : ''}
+    ${full && x.brief ? briefHTML(x.brief) : ''}
+    ${full && x.files ? `<div class="ai-files"><b>관련 파일</b>${x.files.map(fileLink).join('')}</div>` : ''}
     ${full && x.help ? `<ul class="ai-li">${x.help.map(h => `<li>${esc(h)}</li>`).join('')}</ul>` : ''}
     ${full ? `<div class="ai-ask"><span>클로드 세션에 붙여 넣을 부탁 문장</span><pre class="msg">${esc(askText(x))}</pre><button class="copy" data-copy="${esc(askText(x))}">부탁 문장 복사</button></div>` : '<div class="ai-hint">누르면 아래 칸에 자세히 보여요</div>'}`;
 }
@@ -302,10 +317,18 @@ function showPanel(key) {
   document.getElementById('panel').classList.add('open');
   setPicked(key);
 }
+// 첨부 미리보기: 이미지는 작은 그림(누르면 크게), 그 밖의 파일은 열기·내려받기
+function driveId(url) { const m = String(url).match(/\/d\/([\w-]+)/) || String(url).match(/[?&]id=([\w-]+)/); return m ? m[1] : ''; }
+function attachHTML(n) {
+  const id = driveId(n.url), img = /\.(png|jpe?g|gif|webp|heic)$/i.test(n.fileName);
+  const dl = id ? `https://drive.google.com/uc?export=download&id=${id}` : n.url;
+  return `<div class="att">${img && id ? `<button class="thumb" data-full="https://drive.google.com/thumbnail?id=${id}&sz=w1600" data-open="${esc(n.url)}" data-dl="${esc(dl)}" aria-label="${esc(n.fileName)} 크게 보기"><img src="https://drive.google.com/thumbnail?id=${id}&sz=w400" alt="${esc(n.fileName)}" loading="lazy"></button>` : ''}
+    <span>📎 ${esc(n.fileName)}</span> <a href="${esc(n.url)}" target="_blank" rel="noopener">열기</a> · <a href="${esc(dl)}" target="_blank" rel="noopener">내려받기</a></div>`;
+}
 function noteListHTML(key) {
   const nl = notesFor(key);
   if (!nl.length) return '<div class="empty">아직 메모가 없어요.</div>';
-  return `<ul class="notes">${nl.map(n => `<li><div class="nh"><b>${esc(n.author)}</b> <span>${esc(n.when || '저장 중…')}</span></div>${n.text ? `<div>${esc(n.text)}</div>` : ''}${n.fileName ? (n.url ? `<a href="${esc(n.url)}" target="_blank" rel="noopener">📎 ${esc(n.fileName)}</a>` : `<span>📎 ${esc(n.fileName)} (올리는 중)</span>`) : ''}</li>`).join('')}</ul>`;
+  return `<ul class="notes">${nl.map(n => `<li><div class="nh"><b>${esc(n.author)}</b> <span>${esc(n.when || '저장 중…')}</span></div>${n.text ? `<div>${esc(n.text)}</div>` : ''}${n.fileName ? (n.url ? attachHTML(n) : `<span>📎 ${esc(n.fileName)} (올리는 중)</span>`) : ''}</li>`).join('')}</ul>`;
 }
 function noteFormHTML(x) {
   if (!SAVE_URL) return '<div class="note-off">메모·첨부 저장은 Apps Script 웹 앱 주소를 연결하면 켜져요.</div>';
@@ -390,6 +413,15 @@ document.addEventListener('submit', e => {
   const f = e.target.closest('#noteForm'); if (!f) return;
   e.preventDefault(); submitNote(f);
 });
+document.addEventListener('click', e => {
+  const t = e.target.closest('.thumb'); if (!t) return;
+  const lb = document.getElementById('lightbox');
+  lb.querySelector('img').src = t.dataset.full;
+  lb.querySelector('.lb-open').href = t.dataset.open; lb.querySelector('.lb-dl').href = t.dataset.dl;
+  lb.hidden = false;
+});
+document.getElementById('lightbox').addEventListener('click', e => { if (!e.target.closest('a')) e.currentTarget.hidden = true; });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') document.getElementById('lightbox').hidden = true; });
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && !e.target.closest('#noteForm')) { hidePanel(); hidePop(); } });
 document.addEventListener('mouseover', e => {
   if (!fine.matches) return;
@@ -403,5 +435,15 @@ document.addEventListener('mouseover', e => {
 document.addEventListener('mouseout', e => { const b = e.target.closest('.ai'); if (b && !b.contains(e.relatedTarget)) hidePop(); });
 document.getElementById('sheetLink').href = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit`;
 
-build(CS); render();
+// 결정 기록: planning/결정사항.md를 읽어 날짜별로 접어 보여 준다(최신이 위)
+async function loadLog() {
+  try {
+    const r = await fetch('planning/결정사항.md', { cache: 'no-store' }); if (!r.ok) return;
+    const t = await r.text();
+    const blocks = t.split(/^## /m).slice(1).map(b => { const [h, ...rest] = b.split('\n'); return { h: h.trim(), body: rest.join('\n').trim() }; }).reverse();
+    const md = l => esc(l).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/`(.+?)`/g, '<code>$1</code>');
+    document.getElementById('declog').innerHTML = blocks.map((b, i) => `<details ${i < 2 ? 'open' : ''}><summary>${esc(b.h)}</summary><ul>${b.body.split('\n').filter(l => /^\s*-/.test(l)).map(l => `<li class="${/^\s{2,}-/.test(l) ? 'sub' : ''}">${md(l.replace(/^\s*-\s*/, ''))}</li>`).join('')}</ul></details>`).join('');
+  } catch (e) { }
+}
+build(CS); render(); loadLog();
 refresh(); setInterval(refresh, 60000);
