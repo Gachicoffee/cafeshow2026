@@ -68,6 +68,25 @@ async function loadNotes() {
   }
   return out;
 }
+// 클로드 답글: [{ key, re: 답한 메모 시각, when, text, done: 반영한 내용 }]
+async function loadReplies() {
+  const r = await fetch('ops/클로드_답글.json', { cache: 'no-store' });
+  if (!r.ok) throw new Error(r.status);
+  const j = await r.json();
+  return Array.isArray(j.replies) ? j.replies : [];
+}
+const repliesFor = key => replies.filter(r => r.key === key);
+// 클로드 댓글 확인: 수~일 11시·17시 (월·화는 쉼)
+const CHECK_DAYS = [0, 3, 4, 5, 6], CHECK_HOURS = [11, 17];
+function nextCheck(now = new Date()) {
+  for (let i = 0; i < 8; i++) {
+    const day = new Date(now.getFullYear(), now.getMonth(), now.getDate() + i);
+    if (!CHECK_DAYS.includes(day.getDay())) continue;
+    for (const h of CHECK_HOURS) { const t = new Date(day); t.setHours(h); if (t > now) return t; }
+  }
+  return null;
+}
+const REQ = '[반영 요청]';
 function notesFor(key) {
   const got = notes[key] || [];
   // 방금 보낸 메모가 시트에 보이면 '저장 중' 목록에서 뺀다
@@ -129,6 +148,7 @@ let marks = load('cs-marks', {});
 let live = false, last = null, saving = 0;
 let flushed = false;
 let notes = {}, sent = []; // 메모: 시트 '메모' 탭에서 읽은 것 / 방금 보내서 아직 시트에 안 보이는 것
+let replies = []; // 클로드 답글: ops/클로드_답글.json (정기 확인 때 클로드가 쓴다)
 let picked = null;
 
 const isDone = x => x.key in marks ? marks[x.key] : x.base;
@@ -161,9 +181,9 @@ function chip(x, T) {
 function row(x, T) {
   const ok = isDone(x), due = parseDate(x.due);
   const wait = (x.deps || []).map(k => byKey[k]).filter(y => y && !isDone(y));
-  const nl = notesFor(x.key), files = nl.filter(n => n.fileName).length;
+  const nl = notesFor(x.key).filter(n => n.text !== PLAN_ON && n.text !== PLAN_OFF), files = nl.filter(n => n.fileName).length, rl = repliesFor(x.key).length;
   const meta = x.meta.filter(Boolean).map(m => `<span>${esc(m)}</span>`).join('')
-    + (nl.length ? `<span class="c-blue">메모 ${nl.length - files}${files ? ` · 첨부 ${files}` : ''}</span>` : '');
+    + (nl.length ? `<span class="c-blue">메모 ${nl.length - files}${files ? ` · 첨부 ${files}` : ''}${rl ? ` · ✦ 답글 ${rl}` : ''}</span>` : '');
   const flag = x.key in marks ? (SAVE_URL ? '<span class="c-blue">시트에 저장 중…</span>' : '<span class="c-orange">이 기기에만 표시됨</span>') : '';
   return `<tr data-key="${x.key}" class="${ok ? 'is-done' : ''} ${picked === x.key ? 'is-picked' : ''}">
     <td class="c"><input type="checkbox" id="ck-${x.key}" data-key="${x.key}" aria-label="${esc(x.no)} 완료" ${ok ? 'checked' : ''}></td>
@@ -308,8 +328,9 @@ function render() {
 async function refresh() {
   if (saving) return; // 저장 직후에는 시트가 바뀔 때까지 기다린다
   try {
-    const [t, dcs, o, nt, ct] = await Promise.all([sheet('일정표'), sheet('대표 결정사항'), sheet('발주·구매'), loadNotes().catch(() => null), loadCosts().catch(() => null)]);
+    const [t, dcs, o, nt, ct, rp] = await Promise.all([sheet('일정표'), sheet('대표 결정사항'), sheet('발주·구매'), loadNotes().catch(() => null), loadCosts().catch(() => null), loadReplies().catch(() => null)]);
     if (nt) notes = nt;
+    if (rp) replies = rp;
     if (ct) costs = ct;
     if (!t.length) throw new Error('empty');
     const s = fromSheet(t, dcs, o);
@@ -384,10 +405,24 @@ function attachHTML(n) {
     <span>📎 ${esc(n.fileName)}</span> <a href="${esc(n.url)}" target="_blank" rel="noopener">열기</a> · <a href="${esc(dl)}" target="_blank" rel="noopener">내려받기</a></div>`;
 }
 function noteListHTML(key) {
-  const nl = notesFor(key);
-  if (!nl.length) return '<div class="empty">아직 메모가 없어요.</div>';
-  return `<ul class="notes">${nl.map(n => `<li><div class="nh"><b>${esc(n.author)}</b> <span>${esc(n.when || '저장 중…')}</span></div>${n.text ? `<div>${esc(n.text)}</div>` : ''}${n.fileName ? (n.url ? attachHTML(n) : `<span>📎 ${esc(n.fileName)} (올리는 중)</span>`) : ''}</li>`).join('')}</ul>`;
+  const nl = notesFor(key).filter(n => n.text !== PLAN_ON && n.text !== PLAN_OFF), rl = repliesFor(key);
+  if (!nl.length && !rl.length) return '<div class="empty">아직 메모가 없어요.</div>';
+  const used = new Set();
+  const reply = r => `<li class="cl"><div class="nh"><b>✦ 클로드</b> <span>${esc(r.when)}</span></div><div>${esc(r.text)}</div>${r.done ? `<div class="cl-done">${esc(r.done)}</div>` : ''}</li>`;
+  const note = n => {
+    const req = n.text.startsWith(REQ), text = req ? n.text.slice(REQ.length).trim() : n.text;
+    const mine = n.when ? rl.filter(r => r.re === n.when && !used.has(r)) : [];
+    mine.forEach(r => used.add(r));
+    const wait = !mine.length && n.when && n.author !== '클로드' && !replies.some(r => r.re === n.when) && isAfterReplies(n.when);
+    return `<li><div class="nh"><b>${esc(n.author)}</b> <span>${esc(n.when || '저장 중…')}</span>${req ? ' <span class="chip c-orange">반영 요청</span>' : ''}</div>${text ? `<div>${esc(text)}</div>` : ''}${n.fileName ? (n.url ? attachHTML(n) : `<span>📎 ${esc(n.fileName)} (올리는 중)</span>`) : ''}${wait ? `<div class="ck-note">✦ 클로드 확인 대기${waitText()}</div>` : ''}</li>${mine.map(reply).join('')}`;
+  };
+  const body = nl.map(note).join('');
+  return `<ul class="notes">${body}${rl.filter(r => !used.has(r)).map(reply).join('')}</ul>`;
 }
+// 답글 기능을 켠 뒤(10/7 21시)의 메모만 '확인 대기'로 표시한다
+const REPLY_START = new Date(YEAR, 9, 7, 21, 0);
+function isAfterReplies(w) { const m = String(w).match(/(\d{1,2})\/(\d{1,2})\s+(\d{1,2}):(\d{2})/); return !m || new Date(YEAR, m[1] - 1, +m[2], +m[3], +m[4]) >= REPLY_START; }
+function waitText() { const t = nextCheck(); return t ? ` · 다음 확인 ${fmt(t)} ${t.getHours()}시` : ''; }
 function noteFormHTML(x) {
   if (!SAVE_URL) return '<div class="note-off">메모·첨부 저장은 Apps Script 웹 앱 주소를 연결하면 켜져요.</div>';
   const me = who === '하빈' ? '하빈' : who === '지형' ? '지형(대표)' : '';
@@ -397,8 +432,10 @@ function noteFormHTML(x) {
       <select id="nWho" aria-label="작성자"><option value="">작성자</option>${['지형(대표)', '하빈', '효진', '찬양', '다빈', '서준'].map(n => `<option ${n === me ? 'selected' : ''}>${n}</option>`).join('')}</select>
       <input type="file" id="nFile" aria-label="파일 첨부">
     </div>
+    <label class="nrow"><input type="checkbox" id="nReq"> 클로드에게 반영 요청 (페이지·기획 자료에 반영해 달라는 뜻)</label>
     ${x.sec === 'dec' ? '<label class="nrow"><input type="checkbox" id="nDecide"> 이 내용을 시트의 결정 내용 칸에 쓰기</label>' : ''}
     <div class="nrow"><button type="submit" class="btn">저장</button><span id="nMsg" class="ck-note"></span></div>
+    <div class="ck-note">✦ 클로드가 수~일 오전 11시·오후 5시에 댓글을 읽고 이 칸에 답을 달아요.${waitText()}</div>
     <div class="ck-note">메모는 링크가 있는 사람이 볼 수 있는 시트에 저장돼요. 고객 연락처 같은 개인정보는 파일로 올려 주세요(파일은 드라이브에서 공유받은 사람만 열려요). 파일은 10MB까지.</div>
   </form>`;
 }
@@ -410,7 +447,8 @@ function fileToBase64(f) {
 }
 async function submitNote(form) {
   const x = byKey[form.dataset.key]; if (!x) return;
-  const text = form.querySelector('#nText').value.trim();
+  const raw = form.querySelector('#nText').value.trim();
+  const text = raw && form.querySelector('#nReq').checked ? `${REQ} ${raw}` : raw;
   const author = form.querySelector('#nWho').value;
   const f = form.querySelector('#nFile').files[0];
   const decide = form.querySelector('#nDecide')?.checked;
@@ -423,7 +461,7 @@ async function submitNote(form) {
   try {
     if (f) await post({ action: 'upload', key: x.key, author, text, name: f.name, mime: f.type || 'application/octet-stream', data: await fileToBase64(f) });
     else await post({ action: 'note', key: x.key, author, text });
-    if (decide && text && x.tab) await post({ action: 'decide', no: String(x.sheetNo), text });
+    if (decide && raw && x.tab) await post({ action: 'decide', no: String(x.sheetNo), text: raw });
     sent.push({ key: x.key, author, text, fileName: f ? f.name : '', url: '', when: '' });
     form.reset();
     msg.textContent = '보냈어요. 몇 초 뒤 목록에 반영돼요.';
