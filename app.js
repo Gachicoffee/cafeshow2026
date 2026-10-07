@@ -179,10 +179,9 @@ function sortRows(a, b) {
   return isDone(a) - isDone(b) || (parseDate(a.due) || Infinity) - (parseDate(b.due) || Infinity);
 }
 
-// ---------- 상단 대시보드: 지금 눈여겨볼 8가지 ----------
+// ---------- 상단 대시보드: 마감(한 카드) · 결정 대기 · 발주 ----------
 function dday(n) { return n > 0 ? 'D-' + n : n === 0 ? 'D-DAY' : 'D+' + -n; }
-function noteTime(w) { const m = String(w || '').match(/(\d{1,2})\/(\d{1,2})\s+(\d{1,2}):(\d{2})/); return m ? new Date(YEAR, m[1] - 1, +m[2], +m[3], +m[4]) : null; }
-function dashboard(T, open, late) {
+function dashboard(T, open) {
   const byDue = list => list.slice().sort((a, b) => parseDate(a.due) - parseDate(b.due));
   const names = list => list.slice(0, 2).map(x => esc(short(x.title))).join(' · ') + (list.length > 2 ? ` 외 ${list.length - 2}개` : '');
   const lateL = byDue(open.filter(x => { const e = parseDate(x.due); return e && e < T; }));
@@ -192,22 +191,81 @@ function dashboard(T, open, late) {
   const ordL = byDue(open.filter(x => x.sec === 'order'));
   const noLead = ordL.filter(x => !/리드타임/.test(x.meta.join(' '))).length;
   const ext = CS.external.map(([s, e, t]) => ({ S: parseDate(s), E: parseDate(e), t })).filter(x => x.E >= T && x.S >= T).sort((a, b) => a.S - b.S)[0];
-  const since = Date.now() - DAY;
-  const recent = Object.entries(notes).flatMap(([k, l]) => l.map(n => ({ ...n, key: k, at: noteTime(n.when) })))
-    .filter(n => n.at && n.at.getTime() >= since && n.text !== PLAN_ON && n.text !== PLAN_OFF).sort((a, b) => b.at - a.at);
-  const done = items.filter(isDone).length;
-  const pct = items.length ? Math.round(done / items.length * 100) : 0;
   const card = (tone, label, big, sub, key) => `<button class="dc ${tone}" ${key ? `data-key="${key}"` : 'disabled'}><span class="dl">${label}</span><b>${big}</b><span class="ds">${sub || '&nbsp;'}</span></button>`;
+  // 마감 카드 안의 한 줄: 누르면 그 항목으로 간다
+  const line = (tone, label, big, sub, key) => `<${key ? `button data-key="${key}"` : 'div'} class="dr ${tone}"><span class="dl">${label}</span><b>${big}</b><span class="ds">${sub}</span></${key ? 'button' : 'div'}>`;
+  const dueCard = `<div class="dc main wide">
+    <div class="dtop"><span class="dl">카페쇼 11/11(수)</span><b>${dday(diff(SHOW, T))}</b><span class="ds">준비 완료 10/25 ${dday(diff(READY, T))} · 소품 도착 10/17 ${dday(diff(ARRIVE, T))}</span></div>
+    <div class="drows">${[
+      line(lateL.length ? 'red' : 'ok', '마감 지난 일', `${lateL.length}개`, lateL.length ? names(lateL) : '밀린 일 없음', lateL[0]?.key),
+      line(soonL.length ? 'orange' : 'ok', '오늘·내일 마감', `${soonL.length}개`, soonL.length ? names(soonL) : '없음', soonL[0]?.key),
+      line('', '앞으로 7일 마감', `${weekL.length}개`, weekL.length ? names(weekL) : '없음', weekL[0]?.key),
+      line(ext && diff(ext.S, T) <= 7 ? 'orange' : '', '다음 주최측 마감', ext ? dday(diff(ext.S, T)) : '-', ext ? `${fmt(ext.S)} ${esc(ext.t)}` : '남은 마감 없음'),
+    ].join('')}</div>
+  </div>`;
   return [
-    card('main', '카페쇼 11/11(수)', dday(diff(SHOW, T)), `준비 완료 10/25 ${dday(diff(READY, T))} · 소품 도착 10/17 ${dday(diff(ARRIVE, T))}`),
-    card(lateL.length ? 'red' : 'ok', '마감 지난 일', `${lateL.length}개`, lateL.length ? names(lateL) : '밀린 일 없음', lateL[0]?.key),
-    card(soonL.length ? 'orange' : 'ok', '오늘·내일 마감', `${soonL.length}개`, soonL.length ? names(soonL) : '없음', soonL[0]?.key),
+    dueCard,
     card(decL.length ? 'orange' : 'ok', '대표님 결정 대기', `${decL.length}개`, decL.length ? `가장 급한 것: ${esc(short(decL[0].title))} (${esc(decL[0].due)})` : '모두 결정됨', decL[0]?.key),
-    card('', '앞으로 7일 마감', `${weekL.length}개`, weekL.length ? names(weekL) : '없음', weekL[0]?.key),
-    card(ext && diff(ext.S, T) <= 7 ? 'orange' : '', '다음 주최측 마감', ext ? dday(diff(ext.S, T)) : '-', ext ? `${fmt(ext.S)} ${esc(ext.t)}` : '남은 마감 없음'),
     card(ordL.length ? '' : 'ok', '발주·구매 남은 것', `${ordL.length}개`, ordL.length ? `가장 이른 입고 ${esc(ordL[0].due)} ${dday(diff(parseDate(ordL[0].due), T))}${noLead ? ` · 리드타임 미입력 ${noLead}개` : ''}` : '모두 끝남', ordL[0]?.key),
-    card(recent.length ? 'blue' : '', '최근 24시간 메모', `${recent.length}개`, recent.length ? `${esc(recent[0].author)}: ${esc(recent[0].text || recent[0].fileName).slice(0, 40)}` : `전체 진행률 ${pct}%`, recent[0]?.key),
   ].join('');
+}
+
+// ---------- 비용: 시트 '비용' 탭(ID·시각·품목·수량·금액(원)·상태·작성자)을 읽어 합계를 보여 준다 ----------
+// 예산 상한 200만원(결정사항 10/6). 금액은 부가세 포함 총액으로 적는다.
+const BUDGET = 2000000;
+const won = n => n.toLocaleString('ko-KR') + '원';
+let costs = null; // null = 아직 시트에서 못 읽음
+async function loadCosts() {
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&headers=0&sheet=${encodeURIComponent('비용')}`;
+  const r = await fetch(url, { cache: 'no-store' });
+  const t = await r.text();
+  if (!r.ok || t.trim().startsWith('<')) throw new Error('no costs');
+  const rows = parseCSV(t);
+  // 숫자 열은 머리글이 비어 올 수 있어 글자 열(품목·작성자)로 머리글 줄을 찾고, 칸은 순서대로 읽는다
+  const hi = rows.findIndex(r => r.map(c => c.trim()).includes('품목') && r.map(c => c.trim()).includes('작성자'));
+  if (hi < 0) return []; // 탭이 아직 없으면 시트가 첫 탭을 돌려준다
+  return rows.slice(hi + 1).map(r => r.map(c => (c || '').trim())).filter(r => r[2])
+    .map(([id, when, item, qty, amount, status, author]) => ({ id, when, item, qty, amount: +String(amount).replace(/\.\d*$/, '').replace(/[^\d]/g, '') || 0, status: status === '지출' ? '지출' : '예정', author }));
+}
+function renderCost() {
+  const sumEl = document.getElementById('costSum'), listEl = document.getElementById('costList');
+  document.querySelector('#costForm button[type="submit"]').disabled = costs === null;
+  if (costs === null) { sumEl.innerHTML = ''; listEl.innerHTML = '<div class="empty">비용 목록은 시트에 연결되면 보여요.</div>'; return; }
+  const sum = list => list.reduce((a, c) => a + c.amount, 0);
+  const spent = sum(costs.filter(c => c.status === '지출')), all = sum(costs), left = BUDGET - all;
+  const pct = n => Math.min(100, n / BUDGET * 100);
+  sumEl.innerHTML = `<div class="chead">
+      <div><span class="dl">지금까지 쓴 비용 (지출)</span><b>${won(spent)}</b></div>
+      <div><span class="dl">예정 포함 합계</span><b>${won(all)}</b></div>
+      <div class="${left < 0 ? 'over' : ''}"><span class="dl">예산 ${won(BUDGET)} 중 남은 것 (예정 포함)</span><b>${left < 0 ? '초과 ' + won(-left) : won(left)}</b></div>
+    </div>
+    <div class="cbar" aria-hidden="true"><i class="spent" style="width:${pct(spent).toFixed(1)}%"></i><i class="plan" style="width:${Math.max(0, pct(all) - pct(spent)).toFixed(1)}%"></i></div>`;
+  const list = costs.slice().reverse(); // 최근 것이 위
+  listEl.innerHTML = list.length ? `<table class="ct"><thead><tr><th>품목</th><th>수량</th><th class="r">금액</th><th>상태</th><th class="w">작성자</th><th></th></tr></thead><tbody>${list.map(c => `<tr>
+      <td>${esc(c.item)}</td><td>${esc(c.qty)}</td><td class="r">${won(c.amount)}</td>
+      <td>${c.id ? `<button class="cst ${c.status === '지출' ? 'paid' : ''}" data-cid="${esc(c.id)}" title="누르면 예정↔지출">${c.status}</button>` : esc(c.status)}</td>
+      <td class="w">${esc(c.author)}</td>
+      <td>${c.id ? `<button class="cdel" data-cid="${esc(c.id)}" aria-label="${esc(c.item)} 지우기">지우기</button>` : ''}</td></tr>`).join('')}</tbody></table>`
+    : '<div class="empty">아직 적은 비용이 없어요. 아래에 품목과 금액을 넣어 주세요.</div>';
+}
+// 비용 추가·상태 바꾸기·지우기: 화면에 먼저 반영하고 시트로 보낸 뒤 다시 읽는다
+function costPost(params) {
+  saving++;
+  return post(params).catch(() => { }).finally(() => setTimeout(() => { saving--; refresh(); }, 2500));
+}
+function addCost(form) {
+  const msg = form.querySelector('#cMsg');
+  const item = form.querySelector('#cItem').value.trim(), qty = form.querySelector('#cQty').value.trim();
+  const amount = +form.querySelector('#cAmt').value.replace(/[^\d]/g, '');
+  const status = form.querySelector('#cStatus').value, author = form.querySelector('#cWho').value;
+  if (!item || !amount) { msg.textContent = '품목과 금액을 넣어 주세요.'; return; }
+  if (!author) { msg.textContent = '작성자를 골라 주세요.'; return; }
+  const id = 'c' + Date.now();
+  costs.push({ id, when: '', item, qty, amount, status, author });
+  ['#cItem', '#cQty', '#cAmt'].forEach(q => { form.querySelector(q).value = ''; });
+  msg.textContent = '보냈어요. 몇 초 뒤 시트에 반영돼요.';
+  renderCost();
+  costPost({ action: 'cost', id, item, qty, amount: String(amount), status, author });
 }
 
 function render() {
@@ -215,11 +273,10 @@ function render() {
   const vis = items.filter(x => mine(x.owner));
   const done = vis.filter(isDone).length;
   const open = vis.filter(x => !isDone(x));
-  const due = open.filter(x => { const e = parseDate(x.due); return e && e <= T; });
-  const late = due.filter(x => parseDate(x.due) < T).length;
 
   document.getElementById('sync').textContent = live ? `시트 연결됨 · ${last.getHours()}:${String(last.getMinutes()).padStart(2, '0')}` : `시트 연결 안 됨 · ${CS.updated} 사본`;
-  document.getElementById('dash').innerHTML = dashboard(T, open, late);
+  document.getElementById('dash').innerHTML = dashboard(T, open);
+  renderCost();
   document.getElementById('total').textContent = `${done} / ${vis.length} 완료`;
   document.getElementById('totalBar').style.width = vis.length ? `${Math.round(done / vis.length * 100)}%` : '0';
 
@@ -251,8 +308,9 @@ function render() {
 async function refresh() {
   if (saving) return; // 저장 직후에는 시트가 바뀔 때까지 기다린다
   try {
-    const [t, dcs, o, nt] = await Promise.all([sheet('일정표'), sheet('대표 결정사항'), sheet('발주·구매'), loadNotes().catch(() => null)]);
+    const [t, dcs, o, nt, ct] = await Promise.all([sheet('일정표'), sheet('대표 결정사항'), sheet('발주·구매'), loadNotes().catch(() => null), loadCosts().catch(() => null)]);
     if (nt) notes = nt;
+    if (ct) costs = ct;
     if (!t.length) throw new Error('empty');
     const s = fromSheet(t, dcs, o);
     build({ tasks: s.tasks, decisions: dcs.length ? s.decisions : CS.decisions, orders: o.length ? s.orders : CS.orders });
@@ -399,7 +457,22 @@ document.addEventListener('click', e => {
   }
   if (e.target.closest('#panelClose')) { hidePanel(); return; }
   if (e.target.closest('table.ck input, table.ck label')) return;
-  const dc = e.target.closest('.dc[data-key]');
+  const cs = e.target.closest('.cst');
+  if (cs) {
+    const c = costs.find(x => x.id === cs.dataset.cid); if (!c) return;
+    c.status = c.status === '지출' ? '예정' : '지출'; renderCost();
+    costPost({ action: 'costset', id: c.id, status: c.status });
+    return;
+  }
+  const cd = e.target.closest('.cdel');
+  if (cd) {
+    const c = costs.find(x => x.id === cd.dataset.cid); if (!c) return;
+    if (!confirm(`"${c.item}" ${won(c.amount)}을(를) 지울까요? 시트에서도 지워져요.`)) return;
+    costs = costs.filter(x => x !== c); renderCost();
+    costPost({ action: 'costdel', id: c.id });
+    return;
+  }
+  const dc = e.target.closest('.dash [data-key]');
   if (dc) {
     showPanel(dc.dataset.key);
     const row = document.querySelector(`table.ck tr[data-key="${dc.dataset.key}"]`);
@@ -410,6 +483,7 @@ document.addEventListener('click', e => {
   if (t) { hidePop(); showPanel(t.dataset.key); }
 });
 document.addEventListener('submit', e => {
+  if (e.target.closest('#costForm')) { e.preventDefault(); addCost(e.target); return; }
   const f = e.target.closest('#noteForm'); if (!f) return;
   e.preventDefault(); submitNote(f);
 });
