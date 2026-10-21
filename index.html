@@ -116,8 +116,15 @@ table.ct th,table.ct td{text-align:left;padding:5px 8px;border-bottom:1px solid 
 table.ct th{font-size:12px;color:var(--sub);font-weight:500;position:sticky;top:0;background:var(--paper)}
 table.ct .r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 table.ct .up{color:var(--sub);font-size:12.5px}
-.cst,.cdel{font:inherit;font-size:12px;font-weight:700;background:transparent;border:1px solid currentColor;padding:1px 8px;cursor:pointer;min-height:28px;color:var(--orange)}
+.cord,.cst,.cdel{font:inherit;font-size:12px;font-weight:700;background:transparent;border:1px solid currentColor;padding:1px 8px;cursor:pointer;min-height:28px;color:var(--orange)}
 .cst.paid{color:var(--green)}
+.cord{color:var(--blue);margin-right:4px}
+table.ct td.cbtn{white-space:nowrap;text-align:right}
+table.ct tr.cdone td{color:var(--sub)}
+tr.oform td{background:var(--card)}
+.ofw{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;font-size:13px}
+.ofw label{display:flex;gap:4px;align-items:center}
+.ofw input{font:inherit;font-size:14px;color:var(--ink);background:var(--paper);border:1px solid var(--hair);padding:4px 6px;width:120px;min-height:32px}
 .cdel{color:var(--sub)}
 @media (max-width:600px){table.ct .w{display:none}}
 .cform{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
@@ -226,7 +233,7 @@ footer a{color:inherit}
 
   <div class="dash" id="dash" aria-label="지금 눈여겨볼 것"></div>
   <section id="sec-cost" class="cost" aria-label="비용">
-    <h2>비용 <small>시트 '비용' 탭 · 금액은 부가세 포함 · '주문' 칸을 누르면 완료↔미주문 · 같은 품목을 다시 적으면 그 줄을 고쳐요</small></h2>
+    <h2>비용 <small>시트 '비용' 탭 · 금액은 부가세 포함 · 주문할 것이 위 · '주문함'을 누르면 수량·금액·주문일 입력 · 같은 품목을 다시 적으면 그 줄을 고쳐요</small></h2>
     <div id="costSum"></div>
     <div id="costList" class="clist"></div>
     <form id="costForm" class="cform">
