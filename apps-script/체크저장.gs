@@ -10,7 +10,9 @@
 //  - costrow : item, done(o|x), qty, vendor, amount, date → '비용' 탭(품목·주문 완료 여부·수량·구매처·금액·주문일 … 총합계).
 //              같은 품목 줄이 있으면 보낸 칸만 고치고, 없으면 '총합계' 바로 위에 줄을 넣는다. 총합계 금액은 SUM 수식으로 맞춘다.
 //              같은 품목 이름이 여러 줄이면 key_amount(지금 금액)로 줄을 가린다.
-//  - costdel : item, key_amount → 그 줄을 지우고 총합계 SUM을 다시 맞춘다.
+//  - costdel : item, key_amount, reason, author → '폐기 기록' 탭에 사유를 남기고 그 줄을 지운 뒤 총합계 SUM을 다시 맞춘다.
+//  - status  : tab(일정표 | 발주·구매), no, status(완료|대기|진행|폐기) → 상태 칸을 그 글자로.
+//  - dropdone: when, item, note → '폐기 기록'의 그 줄 '처리' 칸에 note를 쓴다(클로드가 관련 일을 정리한 뒤).
 const TARGET = {
   '일정표': { head: '상태', fallback: 8 },
   '발주·구매': { head: '상태', fallback: 11 },
@@ -25,7 +27,10 @@ const MAX_BYTES = 10 * 1024 * 1024;
 const COST_TAB = '비용';
 const COST_COL = { item: 0, done: 1, qty: 2, vendor: 3, amount: 4, date: 5 }; // A~F
 
-const VERSION = 6;
+const DROP_TAB = '폐기 기록';
+const DROP_HEAD = ['시각', '구분', '품목', '수량', '금액(원)', '사유', '작성자', '처리'];
+
+const VERSION = 7;
 
 // 연결 확인용: 브라우저 주소창에 웹 앱 주소를 넣으면 버전과 연결된 시트 이름이 보인다
 function doGet() {
@@ -45,6 +50,8 @@ function doPost(e) {
       case 'upload': return out(upload(p));
       case 'costrow': return out(costRow(p));
       case 'costdel': return out(costDel(p));
+      case 'status': return out(setStatus(p));
+      case 'dropdone': return out(dropDone(p));
       default: return out('bad action');
     }
   } finally {
@@ -178,11 +185,48 @@ function costRow(p) {
 }
 function costDel(p) {
   const item = String(p.item || '').trim();
+  const reason = String(p.reason || '').trim().slice(0, 500);
+  if (!reason) return 'no reason';
   const t = costTable();
   if (!t || !item) return 'not found';
   const row = costFind(t, item, p.key_amount);
   if (!row) return 'not found';
+  const r = t.v[row - 1];
+  const when = Utilities.formatDate(new Date(), 'Asia/Seoul', 'M/d HH:mm');
+  dropSheet().appendRow([when, '비용', safe(item), safe(String(r[COST_COL.qty])), Number(r[COST_COL.amount]) || 0, safe(reason), safe(String(p.author || '').trim().slice(0, 20) || '익명'), '']);
   t.sh.deleteRow(row);
   costTotal(t.sh);
   return 'ok';
+}
+
+function dropSheet() {
+  const ss = SpreadsheetApp.getActive();
+  let sh = ss.getSheetByName(DROP_TAB);
+  if (!sh) {
+    sh = ss.insertSheet(DROP_TAB);
+    sh.appendRow(DROP_HEAD);
+    sh.setFrozenRows(1);
+  }
+  return sh;
+}
+function setStatus(p) {
+  const tab = String(p.tab || '');
+  if (['일정표', '발주·구매'].indexOf(tab) < 0) return 'bad tab';
+  const st = String(p.status || '').trim();
+  if (['완료', '대기', '진행', '폐기'].indexOf(st) < 0) return 'bad status';
+  const cell = findCell(tab, String(p.no || '').trim());
+  if (!cell) return 'not found';
+  cell.setValue(st);
+  return 'ok';
+}
+function dropDone(p) {
+  const sh = dropSheet(), v = sh.getDataRange().getValues();
+  for (let i = 1; i < v.length; i++) {
+    const w = v[i][0] instanceof Date ? Utilities.formatDate(v[i][0], 'Asia/Seoul', 'M/d HH:mm') : String(v[i][0]);
+    if (w === String(p.when) && String(v[i][2]).trim() === String(p.item || '').trim()) {
+      sh.getRange(i + 1, 8).setValue(safe(String(p.note || '처리함').slice(0, 500)));
+      return 'ok';
+    }
+  }
+  return 'not found';
 }
