@@ -230,8 +230,8 @@ function dashboard(T, open) {
   ].join('');
 }
 
-// ---------- 비용: 시트 '비용' 탭(ID·시각·품목·수량·금액(원)·상태·작성자)을 읽어 합계를 보여 준다 ----------
-// 예산 상한 200만원(결정사항 10/6). 금액은 부가세 포함 총액으로 적는다.
+// ---------- 비용: 시트 '비용' 탭(품목·주문 완료 여부(o/x)·수량·구매처·금액·주문일 … 마지막 줄 총합계)을 읽어 합계를 보여 준다 ----------
+// 예산 상한 200만원(결정사항 10/6). 금액은 부가세 포함 총액.
 const BUDGET = 2000000;
 const won = n => n.toLocaleString('ko-KR') + '원';
 let costs = null; // null = 아직 시트에서 못 읽음
@@ -240,52 +240,57 @@ async function loadCosts() {
   const r = await fetch(url, { cache: 'no-store' });
   const t = await r.text();
   if (!r.ok || t.trim().startsWith('<')) throw new Error('no costs');
-  const rows = parseCSV(t);
-  // 숫자 열은 머리글이 비어 올 수 있어 글자 열(품목·작성자)로 머리글 줄을 찾고, 칸은 순서대로 읽는다
-  const hi = rows.findIndex(r => r.map(c => c.trim()).includes('품목') && r.map(c => c.trim()).includes('작성자'));
-  if (hi < 0) return []; // 탭이 아직 없으면 시트가 첫 탭을 돌려준다
-  return rows.slice(hi + 1).map(r => r.map(c => (c || '').trim())).filter(r => r[2])
-    .map(([id, when, item, qty, amount, status, author]) => ({ id, when, item, qty, amount: +String(amount).replace(/\.\d*$/, '').replace(/[^\d]/g, '') || 0, status: status === '지출' ? '지출' : '예정', author }));
+  const rows = parseCSV(t).map(r => r.map(c => (c || '').trim()));
+  // 숫자 열(금액)은 머리글이 비어 오므로 칸 순서로 읽는다: A 품목 · B 주문 완료 여부 · C 수량 · D 구매처 · E 금액 · F 주문일
+  const hi = rows.findIndex(r => r[0] === '품목');
+  if (hi < 0) return [];
+  const out = [];
+  for (const r of rows.slice(hi + 1)) {
+    if (r[0] === '총합계') break;
+    if (!r[0]) continue;
+    out.push({ item: r[0], done: r[1].toLowerCase() === 'o', qty: r[2], amount: +String(r[4]).replace(/\.\d*$/, '').replace(/[^\d]/g, '') || 0, date: r[5] });
+  }
+  return out;
 }
 function renderCost() {
   const sumEl = document.getElementById('costSum'), listEl = document.getElementById('costList');
   document.querySelector('#costForm button[type="submit"]').disabled = costs === null;
   if (costs === null) { sumEl.innerHTML = ''; listEl.innerHTML = '<div class="empty">비용 목록은 시트에 연결되면 보여요.</div>'; return; }
   const sum = list => list.reduce((a, c) => a + c.amount, 0);
-  const spent = sum(costs.filter(c => c.status === '지출')), all = sum(costs), left = BUDGET - all;
+  const spent = sum(costs.filter(c => c.done)), all = sum(costs), left = BUDGET - all;
+  const zero = costs.filter(c => !c.amount).length;
   const pct = n => Math.min(100, n / BUDGET * 100);
   sumEl.innerHTML = `<div class="chead">
-      <div><span class="dl">지금까지 쓴 비용 (지출)</span><b>${won(spent)}</b></div>
-      <div><span class="dl">예정 포함 합계</span><b>${won(all)}</b></div>
-      <div class="${left < 0 ? 'over' : ''}"><span class="dl">예산 ${won(BUDGET)} 중 남은 것 (예정 포함)</span><b>${left < 0 ? '초과 ' + won(-left) : won(left)}</b></div>
+      <div><span class="dl">주문 완료 합계</span><b>${won(spent)}</b></div>
+      <div><span class="dl">미주문 포함 합계</span><b>${won(all)}</b></div>
+      <div class="${left < 0 ? 'over' : ''}"><span class="dl">예산 ${won(BUDGET)} 중 남은 것${zero ? ` · 금액 미정 ${zero}개` : ''}</span><b>${left < 0 ? '초과 ' + won(-left) : won(left)}</b></div>
     </div>
     <div class="cbar" aria-hidden="true"><i class="spent" style="width:${pct(spent).toFixed(1)}%"></i><i class="plan" style="width:${Math.max(0, pct(all) - pct(spent)).toFixed(1)}%"></i></div>`;
-  const list = costs.slice().reverse(); // 최근 것이 위
-  listEl.innerHTML = list.length ? `<table class="ct"><thead><tr><th>품목</th><th>수량</th><th class="r">금액</th><th>상태</th><th class="w">작성자</th><th></th></tr></thead><tbody>${list.map(c => `<tr>
-      <td>${esc(c.item)}</td><td>${esc(c.qty)}</td><td class="r">${won(c.amount)}</td>
-      <td>${c.id ? `<button class="cst ${c.status === '지출' ? 'paid' : ''}" data-cid="${esc(c.id)}" title="누르면 예정↔지출">${c.status}</button>` : esc(c.status)}</td>
-      <td class="w">${esc(c.author)}</td>
-      <td>${c.id ? `<button class="cdel" data-cid="${esc(c.id)}" aria-label="${esc(c.item)} 지우기">지우기</button>` : ''}</td></tr>`).join('')}</tbody></table>`
+  listEl.innerHTML = costs.length ? `<table class="ct"><thead><tr><th>품목</th><th>수량</th><th class="r">금액</th><th>주문</th><th class="w">주문일</th></tr></thead><tbody>${costs.map(c => `<tr>
+      <td>${esc(c.item)}</td><td>${esc(c.qty)}</td><td class="r">${c.amount ? won(c.amount) : '<span class="c-orange">미정</span>'}</td>
+      <td><button class="cst ${c.done ? 'paid' : ''}" data-item="${esc(c.item)}" title="누르면 주문 완료↔미주문">${c.done ? '완료' : '미주문'}</button></td>
+      <td class="w">${esc(c.date)}</td></tr>`).join('')}</tbody></table>`
     : '<div class="empty">아직 적은 비용이 없어요. 아래에 품목과 금액을 넣어 주세요.</div>';
 }
-// 비용 추가·상태 바꾸기·지우기: 화면에 먼저 반영하고 시트로 보낸 뒤 다시 읽는다
+// 비용 추가·고치기: 같은 품목이 있으면 시트에서 그 줄을 고치고, 없으면 총합계 위에 넣는다
 function costPost(params) {
   saving++;
-  return post(params).catch(() => { }).finally(() => setTimeout(() => { saving--; refresh(); }, 2500));
+  return post({ action: 'costrow', ...params }).catch(() => { }).finally(() => setTimeout(() => { saving--; refresh(); }, 2500));
 }
 function addCost(form) {
   const msg = form.querySelector('#cMsg');
-  const item = form.querySelector('#cItem').value.trim(), qty = form.querySelector('#cQty').value.trim();
-  const amount = +form.querySelector('#cAmt').value.replace(/[^\d]/g, '');
-  const status = form.querySelector('#cStatus').value, author = form.querySelector('#cWho').value;
+  const v = id => form.querySelector(id).value.trim();
+  const item = v('#cItem'), qty = v('#cQty'), vendor = v('#cVendor'), date = v('#cDate');
+  const amount = +v('#cAmt').replace(/[^\d]/g, '');
+  const done = form.querySelector('#cDone').value;
   if (!item || !amount) { msg.textContent = '품목과 금액을 넣어 주세요.'; return; }
-  if (!author) { msg.textContent = '작성자를 골라 주세요.'; return; }
-  const id = 'c' + Date.now();
-  costs.push({ id, when: '', item, qty, amount, status, author });
-  ['#cItem', '#cQty', '#cAmt'].forEach(q => { form.querySelector(q).value = ''; });
-  msg.textContent = '보냈어요. 몇 초 뒤 시트에 반영돼요.';
+  const old = costs.find(c => c.item === item);
+  if (old) Object.assign(old, { qty: qty || old.qty, amount, done: done === 'o', date: date || old.date });
+  else costs.push({ item, qty, amount, done: done === 'o', date });
+  ['#cItem', '#cQty', '#cVendor', '#cAmt', '#cDate'].forEach(q => { form.querySelector(q).value = ''; });
+  msg.textContent = old ? '같은 품목 줄을 고쳤어요. 몇 초 뒤 시트에 반영돼요.' : '보냈어요. 몇 초 뒤 시트에 반영돼요.';
   renderCost();
-  costPost({ action: 'cost', id, item, qty, amount: String(amount), status, author });
+  costPost({ item, qty, vendor, amount: String(amount), done, date });
 }
 
 function render() {
@@ -497,17 +502,9 @@ document.addEventListener('click', e => {
   if (e.target.closest('table.ck input, table.ck label')) return;
   const cs = e.target.closest('.cst');
   if (cs) {
-    const c = costs.find(x => x.id === cs.dataset.cid); if (!c) return;
-    c.status = c.status === '지출' ? '예정' : '지출'; renderCost();
-    costPost({ action: 'costset', id: c.id, status: c.status });
-    return;
-  }
-  const cd = e.target.closest('.cdel');
-  if (cd) {
-    const c = costs.find(x => x.id === cd.dataset.cid); if (!c) return;
-    if (!confirm(`"${c.item}" ${won(c.amount)}을(를) 지울까요? 시트에서도 지워져요.`)) return;
-    costs = costs.filter(x => x !== c); renderCost();
-    costPost({ action: 'costdel', id: c.id });
+    const c = costs.find(x => x.item === cs.dataset.item); if (!c) return;
+    c.done = !c.done; renderCost();
+    costPost({ item: c.item, done: c.done ? 'o' : 'x' });
     return;
   }
   const dc = e.target.closest('.dash [data-key]');
