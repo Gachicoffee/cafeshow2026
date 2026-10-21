@@ -121,7 +121,7 @@ table.ct .r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowra
 @media (max-width:600px){table.ct .w{display:none}}
 .cform{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .cform input,.cform select{font:inherit;font-size:14px;color:var(--ink);background:var(--paper);border:1px solid var(--hair);padding:5px 8px;min-height:34px}
-#cItem{flex:2 1 200px} #cQty{flex:1 1 100px} #cAmt{flex:1 1 120px}
+#cItem{flex:2 1 180px} #cQty,#cVendor,#cDate{flex:1 1 110px} #cAmt{flex:1 1 110px}
 section{display:flex;flex-direction:column;gap:10px}
 h2{font-size:18px;font-weight:900;margin:0;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;border-top:1px solid var(--ink);padding-top:10px}
 h2 small{font-family:var(--mono);font-size:11px;color:var(--sub);font-weight:400}
@@ -225,16 +225,17 @@ footer a{color:inherit}
 
   <div class="dash" id="dash" aria-label="지금 눈여겨볼 것"></div>
   <section id="sec-cost" class="cost" aria-label="비용">
-    <h2>비용 <small>시트 '비용' 탭 · 금액은 부가세 포함 총액 · 상태를 누르면 예정↔지출</small></h2>
+    <h2>비용 <small>시트 '비용' 탭 · 금액은 부가세 포함 · '주문' 칸을 누르면 완료↔미주문 · 같은 품목을 다시 적으면 그 줄을 고쳐요</small></h2>
     <div id="costSum"></div>
     <div id="costList" class="clist"></div>
     <form id="costForm" class="cform">
-      <input id="cItem" placeholder="품목 (예: B2B 브로슈어 인쇄)" aria-label="품목">
-      <input id="cQty" placeholder="수량 (예: 300부)" aria-label="수량">
+      <input id="cItem" placeholder="품목 (예: 떡메모지)" aria-label="품목">
+      <input id="cQty" placeholder="수량 (예: 1,000권)" aria-label="수량">
+      <input id="cVendor" placeholder="구매처" aria-label="구매처">
       <input id="cAmt" inputmode="numeric" placeholder="금액 (원)" aria-label="금액">
-      <select id="cStatus" aria-label="상태"><option>예정</option><option>지출</option></select>
-      <select id="cWho" aria-label="작성자"><option value="">작성자</option><option>지형(대표)</option><option>하빈</option><option>효진</option><option>찬양</option><option>다빈</option><option>서준</option></select>
-      <button type="submit" class="btn">추가</button>
+      <input id="cDate" placeholder="주문일 (예: 10/21(수))" aria-label="주문일">
+      <select id="cDone" aria-label="주문 완료 여부"><option value="x">미주문</option><option value="o">주문 완료</option></select>
+      <button type="submit" class="btn">추가·고치기</button>
       <span id="cMsg" class="ck-note"></span>
     </form>
   </section>

@@ -7,9 +7,8 @@
 //  - note  : key(P1·T5·D2·O7 같은 항목 번호), author, text → '메모' 탭에 한 줄 추가.
 //  - upload: key, author, text, name, mime, data(base64) → 드라이브 '카페쇼2026_첨부' 폴더에 저장하고 '메모' 탭에 링크를 남긴다.
 //            파일은 공유 설정을 바꾸지 않는다(소유자와 폴더를 공유받은 사람만 열 수 있음).
-//  - cost    : id(c+숫자), item, qty, amount, status(예정|지출), author → '비용' 탭에 한 줄 추가.
-//  - costset : id, status → 그 줄의 상태를 바꾼다.
-//  - costdel : id → 그 줄을 지운다.
+//  - costrow : item, done(o|x), qty, vendor, amount, date → '비용' 탭(품목·주문 완료 여부·수량·구매처·금액·주문일 … 총합계).
+//              같은 품목 줄이 있으면 보낸 칸만 고치고, 없으면 '총합계' 바로 위에 줄을 넣는다. 총합계 금액은 SUM 수식으로 맞춘다.
 const TARGET = {
   '일정표': { head: '상태', fallback: 8 },
   '발주·구매': { head: '상태', fallback: 11 },
@@ -22,9 +21,9 @@ const FOLDER = '카페쇼2026_첨부';
 const MAX_BYTES = 10 * 1024 * 1024;
 
 const COST_TAB = '비용';
-const COST_HEAD = ['ID', '시각', '품목', '수량', '금액(원)', '상태', '작성자'];
+const COST_COL = { item: 0, done: 1, qty: 2, vendor: 3, amount: 4, date: 5 }; // A~F
 
-const VERSION = 4;
+const VERSION = 5;
 
 // 연결 확인용: 브라우저 주소창에 웹 앱 주소를 넣으면 버전과 연결된 시트 이름이 보인다
 function doGet() {
@@ -42,9 +41,7 @@ function doPost(e) {
       case 'decide': return out(decide(p));
       case 'note': return out(note(p, '', ''));
       case 'upload': return out(upload(p));
-      case 'cost': return out(costAdd(p));
-      case 'costset': return out(costSet(p));
-      case 'costdel': return out(costDel(p));
+      case 'costrow': return out(costRow(p));
       default: return out('bad action');
     }
   } finally {
@@ -127,46 +124,32 @@ function upload(p) {
   return note(p, name, file.getUrl());
 }
 
-function costSheet() {
-  const ss = SpreadsheetApp.getActive();
-  let sh = ss.getSheetByName(COST_TAB);
-  if (!sh) {
-    sh = ss.insertSheet(COST_TAB);
-    sh.appendRow(COST_HEAD);
-    sh.setFrozenRows(1);
-  }
-  return sh;
-}
-// ID로 줄 번호(1부터)를 찾는다
-function costRow(sh, id) {
-  if (!/^c\d{10,16}$/.test(String(id))) return 0;
-  const v = sh.getDataRange().getValues();
-  for (let i = 1; i < v.length; i++) if (String(v[i][0]) === String(id)) return i + 1;
-  return 0;
-}
-function costAdd(p) {
-  const id = String(p.id || '');
-  if (!/^c\d{10,16}$/.test(id)) return 'bad id';
+// '비용' 탭: 대표가 만든 표(머리글 '품목'으로 시작, 마지막 줄 '총합계')에 맞춰 쓴다
+function costRow(p) {
   const item = String(p.item || '').trim().slice(0, 100);
-  const amount = Number(String(p.amount || '').replace(/[^\d]/g, ''));
-  if (!item || !amount) return 'empty';
-  const sh = costSheet();
-  if (costRow(sh, id)) return 'ok'; // 같은 요청이 두 번 와도 한 줄만
-  const qty = String(p.qty || '').trim().slice(0, 40);
-  const author = String(p.author || '').trim().slice(0, 20) || '익명';
-  const when = Utilities.formatDate(new Date(), 'Asia/Seoul', 'M/d HH:mm');
-  sh.appendRow([id, when, safe(item), safe(qty), amount, p.status === '지출' ? '지출' : '예정', safe(author)]);
-  return 'ok';
-}
-function costSet(p) {
-  const sh = costSheet(), r = costRow(sh, p.id);
-  if (!r) return 'not found';
-  sh.getRange(r, 6).setValue(p.status === '지출' ? '지출' : '예정');
-  return 'ok';
-}
-function costDel(p) {
-  const sh = costSheet(), r = costRow(sh, p.id);
-  if (!r) return 'not found';
-  sh.deleteRow(r);
+  if (!item) return 'empty';
+  const sh = SpreadsheetApp.getActive().getSheetByName(COST_TAB);
+  if (!sh) return 'no tab';
+  const v = sh.getDataRange().getValues();
+  const hr = v.findIndex(r => String(r[0]).trim() === '품목');
+  const tr = v.findIndex((r, i) => i > hr && String(r[0]).trim() === '총합계');
+  if (hr < 0 || tr < 0) return 'no table';
+  let row = 0;
+  for (let i = hr + 1; i < tr; i++) if (String(v[i][0]).trim() === item) { row = i + 1; break; }
+  if (!row) {
+    sh.insertRowBefore(tr + 1);
+    row = tr + 1;
+    sh.getRange(row, COST_COL.item + 1).setValue(safe(item));
+  }
+  const set = (k, val) => { if (val !== undefined && String(val).trim() !== '') sh.getRange(row, COST_COL[k] + 1).setValue(val); };
+  set('done', p.done === 'o' || p.done === 'x' ? p.done : undefined);
+  set('qty', p.qty ? safe(String(p.qty).trim().slice(0, 40)) : undefined);
+  set('vendor', p.vendor ? safe(String(p.vendor).trim().slice(0, 60)) : undefined);
+  if (p.amount !== undefined && String(p.amount).trim() !== '') sh.getRange(row, COST_COL.amount + 1).setValue(Number(String(p.amount).replace(/[^\d]/g, '')) || 0);
+  set('date', p.date ? safe(String(p.date).trim().slice(0, 40)) : undefined);
+  // 총합계(이제 한 줄 아래로 밀렸을 수 있음)를 품목 줄 전체 SUM으로
+  const total = sh.getDataRange().getValues().findIndex((r, i) => i > hr && String(r[0]).trim() === '총합계') + 1;
+  const col = String.fromCharCode(65 + COST_COL.amount);
+  sh.getRange(total, COST_COL.amount + 1).setFormula(`=SUM(${col}${hr + 2}:${col}${total - 1})`);
   return 'ok';
 }
