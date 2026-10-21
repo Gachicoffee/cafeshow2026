@@ -14,7 +14,8 @@ const WD = ['일', '월', '화', '수', '목', '금', '토'];
 function fmt(dt) { return `${dt.getMonth() + 1}/${dt.getDate()}(${WD[dt.getDay()]})`; }
 function esc(s) { return String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
 function short(s) { return String(s).split(' (')[0].trim(); }
-const isDoneStatus = s => /완료|done/i.test(s || '');
+const isDoneStatus = s => /완료|done|폐기/i.test(s || '');
+const isDropStatus = s => /폐기/.test(s || '');
 
 // ---------- 구글 시트 읽기 (gviz CSV) ----------
 function parseCSV(text) {
@@ -126,11 +127,11 @@ function build(src) {
   items = [
     ...CS.plan.map(x => ({ key: x.no, sec: 'plan', tab: '', no: x.no, title: x.title, owner: x.owner, due: x.due, base: planDone(x), progress: x.status === '진행',
       meta: [x.output && `결과물: ${x.output}`, x.memo], say: x.say, can: x.can, help: x.help, brief: x.brief, files: x.files })),
-    ...src.tasks.map(x => ({ key: 'T' + x.no, sec: 'task', tab: '일정표', sheetNo: x.no, no: '#' + x.no, title: x.title, owner: x.owner, due: x.due, base: isDoneStatus(x.status), progress: /진행/.test(x.status),
+    ...src.tasks.map(x => ({ key: 'T' + x.no, sec: 'task', tab: '일정표', sheetNo: x.no, no: '#' + x.no, title: x.title, owner: x.owner, due: x.due, base: isDoneStatus(x.status), dropped: isDropStatus(x.status), progress: /진행/.test(x.status),
       deps: (x.deps || []).map(n => 'T' + n), meta: [x.group, x.output && `결과물: ${x.output}`, x.memo], say: x.say, can: x.can, help: x.help, brief: x.brief, files: x.files })),
     ...src.decisions.map(x => ({ key: 'D' + x.no, sec: 'dec', tab: '대표 결정사항', sheetNo: x.no, no: '결정 ' + x.no, title: x.title, owner: '지형(대표)', due: x.due, base: !!x.decided,
       meta: [x.decided ? `결정: ${x.decided}` : `고려할 점: ${x.consider}`, `영향: ${x.affects}`], say: x.say, can: x.can, help: x.help, brief: x.brief, files: x.files })),
-    ...src.orders.map(x => ({ key: 'O' + x.no, sec: 'order', tab: '발주·구매', sheetNo: x.no, no: '발주 ' + x.no, title: x.title, owner: x.owner, due: x.target, base: isDoneStatus(x.status),
+    ...src.orders.map(x => ({ key: 'O' + x.no, sec: 'order', tab: '발주·구매', sheetNo: x.no, no: '발주 ' + x.no, title: x.title, owner: x.owner, due: x.target, base: isDoneStatus(x.status), dropped: isDropStatus(x.status),
       meta: [x.kind, x.vendor ? `업체: ${x.vendor}` : '업체 미정', x.lead ? `리드타임 ${x.lead}일` : '', x.memo], say: x.say, can: x.can, brief: x.brief, files: x.files })),
   ];
   byKey = Object.fromEntries(items.map(x => [x.key, x]));
@@ -172,6 +173,7 @@ function reportText() {
 
 // ---------- 그리기 ----------
 function chip(x, T) {
+  if (x.dropped && isDone(x)) return '<span class="chip c-sub">폐기</span>';
   if (isDone(x)) return '<span class="chip c-green">완료</span>';
   const due = parseDate(x.due);
   if (!due) return x.progress ? '<span class="chip c-blue">진행 중</span>' : '<span class="chip c-sub">날짜 미정</span>';
@@ -268,6 +270,17 @@ function unitPrice(c) {
 // 줄 하나를 가리키는 열쇠: 품목 이름이 같은 줄이 있어 금액까지 붙인다
 const costKey = c => `${c.item}|${c.amount}`;
 let orderOpen = null, orderDraft = null; // 지금 펼친 '주문함' 입력 칸
+let dropOpen = null, dropDraft = null; // 지금 펼친 '삭제' 사유 칸
+function dropFormHTML(c) {
+  const d = dropDraft;
+  return `<tr class="oform dform"><td colspan="7"><div class="ofw">
+    <b>${esc(c.item)} 삭제</b>
+    <label class="grow">사유 <input data-df="reason" value="${esc(d.reason)}" placeholder="예: 수저 봉투 차림표는 하지 않기로 함"></label>
+    <label>작성자 <select data-df="author"><option value="">고르기</option>${['지형(대표)', '하빈', '효진', '찬양', '다빈', '서준'].map(n => `<option ${n === d.author ? 'selected' : ''}>${n}</option>`).join('')}</select></label>
+    <button class="btn" data-dfsave>삭제하고 사유 기록</button><button class="btn" data-dfcancel>취소</button>
+    <span id="dfMsg" class="ck-note"></span>
+    <span class="ck-note">사유는 시트 '폐기 기록' 탭에 남고, 클로드가 다음 정기 확인(수~일 11·17시) 때 관련 일정·발주·기획 문서를 함께 정리해요.</span></div></td></tr>`;
+}
 function orderFormHTML(c) {
   const d = orderDraft;
   return `<tr class="oform"><td colspan="7"><div class="ofw">
@@ -294,8 +307,9 @@ function renderCost() {
     </div>
     <div class="cbar" aria-hidden="true"><i class="spent" style="width:${pct(spent).toFixed(1)}%"></i><i class="plan" style="width:${Math.max(0, pct(all) - pct(spent)).toFixed(1)}%"></i></div>`;
   // 주문 칸을 쓰는 중이면 목록을 다시 그리지 않는다(입력이 날아가지 않게)
-  if (orderOpen && listEl.querySelector('.oform')?.contains(document.activeElement)) return;
+  if ((orderOpen || dropOpen) && listEl.querySelector('.oform')?.contains(document.activeElement)) return;
   if (orderOpen && !costs.some(c => costKey(c) === orderOpen)) orderOpen = null;
+  if (dropOpen && !costs.some(c => costKey(c) === dropOpen)) dropOpen = null;
   // 주문할 것 먼저, 그다음 주문 완료
   const list = [...costs.filter(c => !c.done), ...costs.filter(c => c.done)];
   listEl.innerHTML = list.length ? `<table class="ct"><thead><tr><th>품목</th><th>수량</th><th class="r">금액</th><th class="r">개당</th><th>상태</th><th class="w">주문일</th><th></th></tr></thead><tbody>${list.map(c => {
@@ -304,7 +318,7 @@ function renderCost() {
       <td>${esc(c.item)}</td><td>${esc(c.qty)}</td><td class="r">${c.amount ? won(c.amount) : '<span class="c-orange">미정</span>'}</td><td class="r up">${unitPrice(c)}</td>
       <td>${c.done ? '<span class="chip c-green">주문함</span>' : '<span class="chip c-orange">주문할 것</span>'}</td>
       <td class="w">${esc(c.date)}</td>
-      <td class="cbtn"><button class="cord" data-ck="${k}">${c.done ? '고치기' : '주문함'}</button><button class="cdel" data-ck="${k}">삭제</button></td></tr>${orderOpen === costKey(c) ? orderFormHTML(c) : ''}`;
+      <td class="cbtn"><button class="cord" data-ck="${k}">${c.done ? '고치기' : '주문함'}</button><button class="cdel" data-ck="${k}">삭제</button></td></tr>${orderOpen === costKey(c) ? orderFormHTML(c) : ''}${dropOpen === costKey(c) ? dropFormHTML(c) : ''}`;
   }).join('')}</tbody></table>`
     : '<div class="empty">아직 적은 비용이 없어요. 아래에 품목과 금액을 넣어 주세요.</div>';
 }
@@ -525,6 +539,8 @@ hd.checked = hideDone;
 hd.addEventListener('change', () => { hideDone = hd.checked; save('cs-hide', hideDone); render(); });
 
 document.addEventListener('change', e => {
+  const g = e.target.closest('.dform select[data-df]');
+  if (g && dropDraft) { dropDraft[g.dataset.df] = g.value; return; }
   const box = e.target.closest('table.ck input[type="checkbox"]'); if (!box) return;
   check(byKey[box.dataset.key], box.checked);
 });
@@ -539,7 +555,7 @@ document.addEventListener('click', e => {
   const co = e.target.closest('.cord');
   if (co) {
     const c = costs.find(x => costKey(x) === co.dataset.ck); if (!c) return;
-    orderOpen = costKey(c);
+    orderOpen = costKey(c); dropOpen = null;
     orderDraft = { qty: c.qty, amount: c.amount ? String(c.amount) : '', date: c.done && c.date ? c.date : fmt(today()) };
     renderCost();
     document.querySelector('.oform input[data-of="amount"]')?.focus();
@@ -559,10 +575,22 @@ document.addEventListener('click', e => {
   const cd = e.target.closest('.cdel');
   if (cd) {
     const c = costs.find(x => costKey(x) === cd.dataset.ck); if (!c) return;
-    if (!confirm(`"${c.item}"${c.amount ? ` ${won(c.amount)}` : ''} 줄을 지울까요? 시트에서도 지워져요.`)) return;
-    costs = costs.filter(x => x !== c); if (orderOpen === costKey(c)) orderOpen = null; renderCost();
+    dropOpen = costKey(c); orderOpen = null;
+    dropDraft = { reason: '', author: dropDraft?.author || '' };
+    renderCost();
+    document.querySelector('.dform input[data-df="reason"]')?.focus();
+    return;
+  }
+  if (e.target.closest('[data-dfcancel]')) { dropOpen = null; renderCost(); return; }
+  if (e.target.closest('[data-dfsave]')) {
+    const c = costs.find(x => costKey(x) === dropOpen); if (!c) return;
+    const msg = document.getElementById('dfMsg');
+    if (!dropDraft.reason.trim()) { msg.textContent = '사유를 적어 주세요.'; return; }
+    if (!dropDraft.author) { msg.textContent = '작성자를 골라 주세요.'; return; }
+    costs = costs.filter(x => x !== c); dropOpen = null; renderCost();
     saving++;
-    post({ action: 'costdel', item: c.item, key_amount: String(c.amount) }).catch(() => { }).finally(() => setTimeout(() => { saving--; refresh(); }, 2500));
+    post({ action: 'costdel', item: c.item, key_amount: String(c.amount), reason: dropDraft.reason.trim(), author: dropDraft.author })
+      .catch(() => { }).finally(() => setTimeout(() => { saving--; refresh(); }, 2500));
     return;
   }
   const dc = e.target.closest('.dash [data-key]');
@@ -576,6 +604,8 @@ document.addEventListener('click', e => {
   if (t) { hidePop(); showPanel(t.dataset.key); }
 });
 document.addEventListener('input', e => {
+  const g = e.target.closest('.dform [data-df]');
+  if (g && dropDraft) { dropDraft[g.dataset.df] = g.value; return; }
   const f = e.target.closest('.oform input[data-of]'); if (!f || !orderDraft) return;
   orderDraft[f.dataset.of] = f.value;
   document.getElementById('ofUnit').textContent = unitPrice({ qty: orderDraft.qty, amount: +String(orderDraft.amount).replace(/[^\d]/g, '') });

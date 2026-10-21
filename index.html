@@ -124,6 +124,9 @@ table.ct tr.cdone td{color:var(--sub)}
 tr.oform td{background:var(--card)}
 .ofw{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;font-size:13px}
 .ofw label{display:flex;gap:4px;align-items:center}
+.ofw label.grow{flex:1 1 280px}.ofw label.grow input{width:100%}
+.ofw select{font:inherit;font-size:14px;min-height:32px;background:var(--paper);color:var(--ink);border:1px solid var(--hair)}
+tr.dform td{box-shadow:inset 3px 0 0 var(--red)}
 .ofw input{font:inherit;font-size:14px;color:var(--ink);background:var(--paper);border:1px solid var(--hair);padding:4px 6px;width:120px;min-height:32px}
 .cdel{color:var(--sub)}
 @media (max-width:600px){table.ct .w{display:none}}
@@ -233,7 +236,7 @@ footer a{color:inherit}
 
   <div class="dash" id="dash" aria-label="지금 눈여겨볼 것"></div>
   <section id="sec-cost" class="cost" aria-label="비용">
-    <h2>비용 <small>시트 '비용' 탭 · 금액은 부가세 포함 · 주문할 것이 위 · '주문함'을 누르면 수량·금액·주문일 입력 · 같은 품목을 다시 적으면 그 줄을 고쳐요</small></h2>
+    <h2>비용 <small>시트 '비용' 탭 · 금액은 부가세 포함 · 주문할 것이 위 · '주문함'을 누르면 수량·금액·주문일 입력 · '삭제'는 사유를 남겨요 · 같은 품목을 다시 적으면 그 줄을 고쳐요</small></h2>
     <div id="costSum"></div>
     <div id="costList" class="clist"></div>
     <form id="costForm" class="cform">
