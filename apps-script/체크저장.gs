@@ -9,6 +9,8 @@
 //            파일은 공유 설정을 바꾸지 않는다(소유자와 폴더를 공유받은 사람만 열 수 있음).
 //  - costrow : item, done(o|x), qty, vendor, amount, date → '비용' 탭(품목·주문 완료 여부·수량·구매처·금액·주문일 … 총합계).
 //              같은 품목 줄이 있으면 보낸 칸만 고치고, 없으면 '총합계' 바로 위에 줄을 넣는다. 총합계 금액은 SUM 수식으로 맞춘다.
+//              같은 품목 이름이 여러 줄이면 key_amount(지금 금액)로 줄을 가린다.
+//  - costdel : item, key_amount → 그 줄을 지우고 총합계 SUM을 다시 맞춘다.
 const TARGET = {
   '일정표': { head: '상태', fallback: 8 },
   '발주·구매': { head: '상태', fallback: 11 },
@@ -23,7 +25,7 @@ const MAX_BYTES = 10 * 1024 * 1024;
 const COST_TAB = '비용';
 const COST_COL = { item: 0, done: 1, qty: 2, vendor: 3, amount: 4, date: 5 }; // A~F
 
-const VERSION = 5;
+const VERSION = 6;
 
 // 연결 확인용: 브라우저 주소창에 웹 앱 주소를 넣으면 버전과 연결된 시트 이름이 보인다
 function doGet() {
@@ -42,6 +44,7 @@ function doPost(e) {
       case 'note': return out(note(p, '', ''));
       case 'upload': return out(upload(p));
       case 'costrow': return out(costRow(p));
+      case 'costdel': return out(costDel(p));
       default: return out('bad action');
     }
   } finally {
@@ -125,20 +128,43 @@ function upload(p) {
 }
 
 // '비용' 탭: 대표가 만든 표(머리글 '품목'으로 시작, 마지막 줄 '총합계')에 맞춰 쓴다
-function costRow(p) {
-  const item = String(p.item || '').trim().slice(0, 100);
-  if (!item) return 'empty';
+function costTable() {
   const sh = SpreadsheetApp.getActive().getSheetByName(COST_TAB);
-  if (!sh) return 'no tab';
+  if (!sh) return null;
   const v = sh.getDataRange().getValues();
   const hr = v.findIndex(r => String(r[0]).trim() === '품목');
   const tr = v.findIndex((r, i) => i > hr && String(r[0]).trim() === '총합계');
-  if (hr < 0 || tr < 0) return 'no table';
-  let row = 0;
-  for (let i = hr + 1; i < tr; i++) if (String(v[i][0]).trim() === item) { row = i + 1; break; }
+  return hr < 0 || tr < 0 ? null : { sh, v, hr, tr };
+}
+// 품목 이름이 같은 줄(1부터 센 줄 번호). key_amount가 오면 금액까지 같은 줄
+function costFind(t, item, keyAmount) {
+  const ka = keyAmount === undefined || String(keyAmount) === '' ? null : Number(String(keyAmount).replace(/[^\d]/g, '')) || 0;
+  for (let i = t.hr + 1; i < t.tr; i++) {
+    if (String(t.v[i][0]).trim() !== item) continue;
+    if (ka !== null && (Number(t.v[i][COST_COL.amount]) || 0) !== ka) continue;
+    return i + 1;
+  }
+  return 0;
+}
+// 총합계 금액 칸을 품목 줄 전체 SUM으로
+function costTotal(sh) {
+  const v = sh.getDataRange().getValues();
+  const hr = v.findIndex(r => String(r[0]).trim() === '품목');
+  const total = v.findIndex((r, i) => i > hr && String(r[0]).trim() === '총합계') + 1;
+  if (hr < 0 || total < 1) return;
+  const col = String.fromCharCode(65 + COST_COL.amount);
+  sh.getRange(total, COST_COL.amount + 1).setFormula(`=SUM(${col}${hr + 2}:${col}${total - 1})`);
+}
+function costRow(p) {
+  const item = String(p.item || '').trim().slice(0, 100);
+  if (!item) return 'empty';
+  const t = costTable();
+  if (!t) return 'no table';
+  const sh = t.sh;
+  let row = costFind(t, item, p.key_amount);
   if (!row) {
-    sh.insertRowBefore(tr + 1);
-    row = tr + 1;
+    sh.insertRowBefore(t.tr + 1);
+    row = t.tr + 1;
     sh.getRange(row, COST_COL.item + 1).setValue(safe(item));
   }
   const set = (k, val) => { if (val !== undefined && String(val).trim() !== '') sh.getRange(row, COST_COL[k] + 1).setValue(val); };
@@ -147,9 +173,16 @@ function costRow(p) {
   set('vendor', p.vendor ? safe(String(p.vendor).trim().slice(0, 60)) : undefined);
   if (p.amount !== undefined && String(p.amount).trim() !== '') sh.getRange(row, COST_COL.amount + 1).setValue(Number(String(p.amount).replace(/[^\d]/g, '')) || 0);
   set('date', p.date ? safe(String(p.date).trim().slice(0, 40)) : undefined);
-  // 총합계(이제 한 줄 아래로 밀렸을 수 있음)를 품목 줄 전체 SUM으로
-  const total = sh.getDataRange().getValues().findIndex((r, i) => i > hr && String(r[0]).trim() === '총합계') + 1;
-  const col = String.fromCharCode(65 + COST_COL.amount);
-  sh.getRange(total, COST_COL.amount + 1).setFormula(`=SUM(${col}${hr + 2}:${col}${total - 1})`);
+  costTotal(sh);
+  return 'ok';
+}
+function costDel(p) {
+  const item = String(p.item || '').trim();
+  const t = costTable();
+  if (!t || !item) return 'not found';
+  const row = costFind(t, item, p.key_amount);
+  if (!row) return 'not found';
+  t.sh.deleteRow(row);
+  costTotal(t.sh);
   return 'ok';
 }

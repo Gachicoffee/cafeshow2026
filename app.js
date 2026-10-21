@@ -254,8 +254,9 @@ async function loadCosts() {
 }
 // 수량 글에서 개수와 단위를 읽는다: "1,000권(500권×2건)" → 1000권, "500장(…)" → 500장. "6개+4개"처럼 섞이면 계산하지 않는다
 function qtyNum(q) {
-  if (/\+/.test(q)) return null;
-  const m = String(q).match(/([\d,]+)\s*(개|권|장|매|세트|박스|병|봉|팩|롤|부|kg|g)?/);
+  const base = String(q).replace(/\(.*?\)/g, ''); // 괄호 속 설명은 빼고 읽는다
+  if (/\+/.test(base)) return null;
+  const m = base.match(/([\d,]+)\s*(개|권|장|매|세트|박스|병|봉|팩|롤|부|kg|g)?/);
   if (!m) return null;
   const n = +m[1].replace(/,/g, '');
   return n ? { n, unit: m[2] || '개' } : null;
@@ -264,24 +265,47 @@ function unitPrice(c) {
   const q = qtyNum(c.qty);
   return q && q.n > 1 && c.amount ? `${Math.round(c.amount / q.n).toLocaleString('ko-KR')}원/${q.unit}` : '-';
 }
+// 줄 하나를 가리키는 열쇠: 품목 이름이 같은 줄이 있어 금액까지 붙인다
+const costKey = c => `${c.item}|${c.amount}`;
+let orderOpen = null, orderDraft = null; // 지금 펼친 '주문함' 입력 칸
+function orderFormHTML(c) {
+  const d = orderDraft;
+  return `<tr class="oform"><td colspan="7"><div class="ofw">
+    <b>${esc(c.item)} 주문 기록</b>
+    <label>수량 <input data-of="qty" value="${esc(d.qty)}" placeholder="예: 500개"></label>
+    <label>금액(원) <input data-of="amount" inputmode="numeric" value="${esc(d.amount)}" placeholder="부가세 포함"></label>
+    <label>주문일 <input data-of="date" value="${esc(d.date)}"></label>
+    <span class="ck-note">개당 <b id="ofUnit">${unitPrice({ qty: d.qty, amount: +String(d.amount).replace(/[^\d]/g, '') })}</b></span>
+    <button class="btn" data-ofsave>주문함으로 저장</button><button class="btn" data-ofcancel>취소</button>
+    <span id="ofMsg" class="ck-note"></span></div></td></tr>`;
+}
 function renderCost() {
   const sumEl = document.getElementById('costSum'), listEl = document.getElementById('costList');
   document.querySelector('#costForm button[type="submit"]').disabled = costs === null;
   if (costs === null) { sumEl.innerHTML = ''; listEl.innerHTML = '<div class="empty">비용 목록은 시트에 연결되면 보여요.</div>'; return; }
   const sum = list => list.reduce((a, c) => a + c.amount, 0);
   const spent = sum(costs.filter(c => c.done)), all = sum(costs), left = BUDGET - all;
-  const zero = costs.filter(c => !c.amount).length;
+  const zero = costs.filter(c => !c.amount).length, todo = costs.filter(c => !c.done).length;
   const pct = n => Math.min(100, n / BUDGET * 100);
   sumEl.innerHTML = `<div class="chead">
       <div><span class="dl">주문 완료 합계</span><b>${won(spent)}</b></div>
-      <div><span class="dl">미주문 포함 합계</span><b>${won(all)}</b></div>
+      <div><span class="dl">미주문 포함 합계 · 주문할 것 ${todo}개</span><b>${won(all)}</b></div>
       <div class="${left < 0 ? 'over' : ''}"><span class="dl">예산 ${won(BUDGET)} 중 남은 것${zero ? ` · 금액 미정 ${zero}개` : ''}</span><b>${left < 0 ? '초과 ' + won(-left) : won(left)}</b></div>
     </div>
     <div class="cbar" aria-hidden="true"><i class="spent" style="width:${pct(spent).toFixed(1)}%"></i><i class="plan" style="width:${Math.max(0, pct(all) - pct(spent)).toFixed(1)}%"></i></div>`;
-  listEl.innerHTML = costs.length ? `<table class="ct"><thead><tr><th>품목</th><th>수량</th><th class="r">금액</th><th class="r">개당</th><th>주문</th><th class="w">주문일</th></tr></thead><tbody>${costs.map(c => `<tr>
+  // 주문 칸을 쓰는 중이면 목록을 다시 그리지 않는다(입력이 날아가지 않게)
+  if (orderOpen && listEl.querySelector('.oform')?.contains(document.activeElement)) return;
+  if (orderOpen && !costs.some(c => costKey(c) === orderOpen)) orderOpen = null;
+  // 주문할 것 먼저, 그다음 주문 완료
+  const list = [...costs.filter(c => !c.done), ...costs.filter(c => c.done)];
+  listEl.innerHTML = list.length ? `<table class="ct"><thead><tr><th>품목</th><th>수량</th><th class="r">금액</th><th class="r">개당</th><th>상태</th><th class="w">주문일</th><th></th></tr></thead><tbody>${list.map(c => {
+    const k = esc(costKey(c));
+    return `<tr class="${c.done ? 'cdone' : ''}">
       <td>${esc(c.item)}</td><td>${esc(c.qty)}</td><td class="r">${c.amount ? won(c.amount) : '<span class="c-orange">미정</span>'}</td><td class="r up">${unitPrice(c)}</td>
-      <td><button class="cst ${c.done ? 'paid' : ''}" data-item="${esc(c.item)}" title="누르면 주문 완료↔미주문">${c.done ? '완료' : '미주문'}</button></td>
-      <td class="w">${esc(c.date)}</td></tr>`).join('')}</tbody></table>`
+      <td>${c.done ? '<span class="chip c-green">주문함</span>' : '<span class="chip c-orange">주문할 것</span>'}</td>
+      <td class="w">${esc(c.date)}</td>
+      <td class="cbtn"><button class="cord" data-ck="${k}">${c.done ? '고치기' : '주문함'}</button><button class="cdel" data-ck="${k}">삭제</button></td></tr>${orderOpen === costKey(c) ? orderFormHTML(c) : ''}`;
+  }).join('')}</tbody></table>`
     : '<div class="empty">아직 적은 비용이 없어요. 아래에 품목과 금액을 넣어 주세요.</div>';
 }
 // 비용 추가·고치기: 같은 품목이 있으면 시트에서 그 줄을 고치고, 없으면 총합계 위에 넣는다
@@ -512,11 +536,33 @@ document.addEventListener('click', e => {
   }
   if (e.target.closest('#panelClose')) { hidePanel(); return; }
   if (e.target.closest('table.ck input, table.ck label')) return;
-  const cs = e.target.closest('.cst');
-  if (cs) {
-    const c = costs.find(x => x.item === cs.dataset.item); if (!c) return;
-    c.done = !c.done; renderCost();
-    costPost({ item: c.item, done: c.done ? 'o' : 'x' });
+  const co = e.target.closest('.cord');
+  if (co) {
+    const c = costs.find(x => costKey(x) === co.dataset.ck); if (!c) return;
+    orderOpen = costKey(c);
+    orderDraft = { qty: c.qty, amount: c.amount ? String(c.amount) : '', date: c.done && c.date ? c.date : fmt(today()) };
+    renderCost();
+    document.querySelector('.oform input[data-of="amount"]')?.focus();
+    return;
+  }
+  if (e.target.closest('[data-ofcancel]')) { orderOpen = null; renderCost(); return; }
+  if (e.target.closest('[data-ofsave]')) {
+    const c = costs.find(x => costKey(x) === orderOpen); if (!c) return;
+    const amount = +String(orderDraft.amount).replace(/[^\d]/g, '');
+    if (!amount || !orderDraft.qty.trim()) { document.getElementById('ofMsg').textContent = '수량과 금액을 넣어 주세요.'; return; }
+    const key_amount = String(c.amount);
+    Object.assign(c, { done: true, qty: orderDraft.qty.trim(), amount, date: orderDraft.date.trim() });
+    orderOpen = null; renderCost();
+    costPost({ item: c.item, key_amount, done: 'o', qty: c.qty, amount: String(amount), date: c.date });
+    return;
+  }
+  const cd = e.target.closest('.cdel');
+  if (cd) {
+    const c = costs.find(x => costKey(x) === cd.dataset.ck); if (!c) return;
+    if (!confirm(`"${c.item}"${c.amount ? ` ${won(c.amount)}` : ''} 줄을 지울까요? 시트에서도 지워져요.`)) return;
+    costs = costs.filter(x => x !== c); if (orderOpen === costKey(c)) orderOpen = null; renderCost();
+    saving++;
+    post({ action: 'costdel', item: c.item, key_amount: String(c.amount) }).catch(() => { }).finally(() => setTimeout(() => { saving--; refresh(); }, 2500));
     return;
   }
   const dc = e.target.closest('.dash [data-key]');
@@ -528,6 +574,11 @@ document.addEventListener('click', e => {
   }
   const t = e.target.closest('.ai') || e.target.closest('table.ck tbody tr');
   if (t) { hidePop(); showPanel(t.dataset.key); }
+});
+document.addEventListener('input', e => {
+  const f = e.target.closest('.oform input[data-of]'); if (!f || !orderDraft) return;
+  orderDraft[f.dataset.of] = f.value;
+  document.getElementById('ofUnit').textContent = unitPrice({ qty: orderDraft.qty, amount: +String(orderDraft.amount).replace(/[^\d]/g, '') });
 });
 document.addEventListener('submit', e => {
   if (e.target.closest('#costForm')) { e.preventDefault(); addCost(e.target); return; }
