@@ -252,6 +252,18 @@ async function loadCosts() {
   }
   return out;
 }
+// 수량 글에서 개수와 단위를 읽는다: "1,000권(500권×2건)" → 1000권, "500장(…)" → 500장. "6개+4개"처럼 섞이면 계산하지 않는다
+function qtyNum(q) {
+  if (/\+/.test(q)) return null;
+  const m = String(q).match(/([\d,]+)\s*(개|권|장|매|세트|박스|병|봉|팩|롤|부|kg|g)?/);
+  if (!m) return null;
+  const n = +m[1].replace(/,/g, '');
+  return n ? { n, unit: m[2] || '개' } : null;
+}
+function unitPrice(c) {
+  const q = qtyNum(c.qty);
+  return q && q.n > 1 && c.amount ? `${Math.round(c.amount / q.n).toLocaleString('ko-KR')}원/${q.unit}` : '-';
+}
 function renderCost() {
   const sumEl = document.getElementById('costSum'), listEl = document.getElementById('costList');
   document.querySelector('#costForm button[type="submit"]').disabled = costs === null;
@@ -266,8 +278,8 @@ function renderCost() {
       <div class="${left < 0 ? 'over' : ''}"><span class="dl">예산 ${won(BUDGET)} 중 남은 것${zero ? ` · 금액 미정 ${zero}개` : ''}</span><b>${left < 0 ? '초과 ' + won(-left) : won(left)}</b></div>
     </div>
     <div class="cbar" aria-hidden="true"><i class="spent" style="width:${pct(spent).toFixed(1)}%"></i><i class="plan" style="width:${Math.max(0, pct(all) - pct(spent)).toFixed(1)}%"></i></div>`;
-  listEl.innerHTML = costs.length ? `<table class="ct"><thead><tr><th>품목</th><th>수량</th><th class="r">금액</th><th>주문</th><th class="w">주문일</th></tr></thead><tbody>${costs.map(c => `<tr>
-      <td>${esc(c.item)}</td><td>${esc(c.qty)}</td><td class="r">${c.amount ? won(c.amount) : '<span class="c-orange">미정</span>'}</td>
+  listEl.innerHTML = costs.length ? `<table class="ct"><thead><tr><th>품목</th><th>수량</th><th class="r">금액</th><th class="r">개당</th><th>주문</th><th class="w">주문일</th></tr></thead><tbody>${costs.map(c => `<tr>
+      <td>${esc(c.item)}</td><td>${esc(c.qty)}</td><td class="r">${c.amount ? won(c.amount) : '<span class="c-orange">미정</span>'}</td><td class="r up">${unitPrice(c)}</td>
       <td><button class="cst ${c.done ? 'paid' : ''}" data-item="${esc(c.item)}" title="누르면 주문 완료↔미주문">${c.done ? '완료' : '미주문'}</button></td>
       <td class="w">${esc(c.date)}</td></tr>`).join('')}</tbody></table>`
     : '<div class="empty">아직 적은 비용이 없어요. 아래에 품목과 금액을 넣어 주세요.</div>';
