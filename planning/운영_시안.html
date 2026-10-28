@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>카페쇼 운영 시안</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{--ink:#1d1d1b;--sub:#5b5b58;--line:#d9d6cc;--blue:#1E3FA3;--orange:#DE531E;--yellow:#F2C230;--warn:#FDE7DF;--warnInk:#a2401c;--bg:#faf9f5;--card:#fff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,system-ui,sans-serif;font-size:15px;line-height:1.6}
+.wrap{max-width:1040px;margin:0 auto;padding:24px 16px 80px}
+h1{font-size:26px;margin:0}.meta{color:var(--sub);font-size:13px;margin:4px 0 16px}
+nav{display:flex;flex-wrap:wrap;gap:8px;position:sticky;top:0;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--line);z-index:2}
+nav a{text-decoration:none;color:var(--blue);border:1px solid var(--blue);border-radius:99px;padding:3px 12px;font-size:13px;font-weight:600}
+h2{font-size:20px;margin:36px 0 12px;padding-left:10px;border-left:5px solid var(--blue)}
+h3{font-size:16px;margin:18px 0 6px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:12px 0}
+.warn{background:var(--warn);color:var(--warnInk);border-radius:8px;padding:8px 12px;font-size:14px;margin:8px 0}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;margin:8px 0;min-width:560px}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+thead th{background:#f1efe8}
+td.t{white-space:nowrap;font-weight:700;color:var(--blue)}
+.r1{background:#fdeee7}.r2{background:#eef1fb}.r3{background:#fff7d9}.off{background:#f1efe8;color:var(--sub)}
+.tag{display:inline-block;font-size:12px;border-radius:99px;padding:0 8px;background:#eef1fb;color:var(--blue);font-weight:600}
+.say{border-left:4px solid var(--blue);background:#f4f6fd;padding:8px 12px;margin:6px 0;border-radius:0 8px 8px 0}
+.do{color:var(--sub);font-size:13px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.sc{background:#fff;border:2px solid var(--blue);border-radius:6px;padding:14px;min-height:300px;display:flex;flex-direction:column}
+.sc .ttl{font-weight:800;color:var(--blue);font-size:17px}
+.sc ol{padding-left:18px;margin:10px 0;font-size:14px;flex:1}
+.sc .foot{background:var(--blue);color:#fff;margin:0 -14px -14px;padding:10px 14px;font-size:14px;font-weight:700;line-height:1.4}
+.sc .foot small{display:block;font-weight:500;opacity:.85;font-size:12px}
+.pick{display:inline-block;background:var(--orange);color:#fff;border-radius:99px;font-size:12px;padding:0 8px;margin-left:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>카페쇼 운영 시안</h1>
+<p class="meta">2026-10-28 · 클로드 초안 — 고쳐 쓰세요 · 기준: planning/결정사항.md, 메모 D8(대표 안 3개)</p>
+<nav><a href="#s1">1 4일 근무표</a><a href="#s2">2 스태프 대본</a><a href="#s3">3 소반 카드 문구</a><a href="#s4">4 B2B 연락처</a></nav>
+
+<h2 id="s1">1. 4일 근무표</h2>
+<div class="warn">가정: 현장 = <b>대표·서준·다빈</b>(메모 D8 기준), 여수 매장 = <b>효진·찬양</b>. 하빈이 반입일에 오는지는 확인 못 함. 다르면 이름만 바꾸면 됩니다.</div>
+
+<div class="card">
+<h3>역할 3개</h3>
+<table>
+<thead><tr><th>역할</th><th>하는 일</th><th>자리</th></tr></thead>
+<tbody>
+<tr class="r1"><td><b>발표</b></td><td>상보 열기 · 서버로 따르기 · 5분 설명 · 리필 · 상 물림 인사 · 팔로우 확인 후 노트</td><td>시음 책상 뒤</td></tr>
+<tr class="r2"><td><b>줄·판매</b></td><td>줄 세우기 · 번호 집게 · 드립백 판매·결제 · 원두 QR 안내 · 숫자판 넘기기</td><td>판매대</td></tr>
+<tr class="r3"><td><b>대표(뒷받침)</b></td><td>서버 채우기·라떼 소분 · 컵·원물 보충 · 휴게 대신 서기 · B2B 상담(바이어 라운지)</td><td>제조대 · 이동</td></tr>
+</tbody>
+</table>
+<p class="do">추천: <b>발표는 2시간마다 서준·다빈이 바꿉니다.</b> 한 시간에 10회차 설명이라 목이 먼저 지칩니다(처리량_계산.xlsx: 시간당 10회차).</p>
+</div>
+
+<div class="card scroll">
+<h3>평일 하루 (11/11 수 · 12 목 · 13 금, 10~18시)</h3>
+<table>
+<thead><tr><th>시간</th><th>대표</th><th>서준</th><th>다빈</th></tr></thead>
+<tbody>
+<tr><td class="t">9:00</td><td>머신 예열 → 끝나면 온수기 켜기</td><td>소반 세팅 · 분쇄 원두 새로 담기</td><td>향미 원물 확인(9:30) · 판매대·숫자판 0으로</td></tr>
+<tr><td class="t">9:45</td><td colspan="3">맛 확인(4종 한 잔씩) · 오늘 역할 확인 · 서버 채우기</td></tr>
+<tr><td class="t">10:00~11:00</td><td class="r3">뒷받침 + <b>서준 자리 대신</b></td><td class="off">식사·휴게 1시간</td><td class="r1">발표</td></tr>
+<tr><td class="t">11:00~12:00</td><td class="r3">뒷받침 + <b>다빈 자리 대신</b></td><td class="r1">발표</td><td class="off">식사·휴게 1시간</td></tr>
+<tr><td class="t">12:00~14:00</td><td class="r3">뒷받침 · B2B 상담 가능</td><td class="r1">발표</td><td class="r2">줄·판매</td></tr>
+<tr><td class="t">13:00</td><td colspan="3">향미 원물 확인 · 라떼 통·아이스팩 확인 · 컵 보충</td></tr>
+<tr><td class="t">14:00~16:00</td><td class="r3">뒷받침 · B2B 상담 가능</td><td class="r2">줄·판매</td><td class="r1">발표</td></tr>
+<tr><td class="t">15:30</td><td colspan="3">향미 원물 확인 · 각자 10분 화장실·물 (대표가 돌아가며 대신)</td></tr>
+<tr><td class="t">16:00~18:00</td><td class="r3">뒷받침 · B2B 상담 가능</td><td class="r1">발표</td><td class="r2">줄·판매</td></tr>
+<tr><td class="t">17:30</td><td colspan="3">줄 마감 멘트 · 번호 집게 그만 주기</td></tr>
+<tr><td class="t">18:00~18:40</td><td>정산(드립백 수량·단말기 매출) · 내일 원두·우유 확인</td><td>세척 · 쓰레기 반출</td><td>숫자판 기록(사진) · 인쇄물·노트 남은 수 세기</td></tr>
+</tbody>
+</table>
+<p class="do">휴게는 대표 안 3번(10~12시 사이 1시간씩 식사+휴게)을 골랐습니다. 이유: 4일 연속이라 밥은 챙겨야 하고, 오전이 비교적 덜 붐빌 것으로 봄 <span class="tag">추정</span>. <b>조건: 10~12시에는 대표가 부스를 비우지 않고, B2B 상담은 12시 뒤로 잡기.</b></p>
+</div>
+
+<div class="card scroll">
+<h3>반입일 · 토요일 · 반출</h3>
+<table>
+<thead><tr><th>날짜</th><th>시간</th><th>할 일</th><th>사람</th></tr></thead>
+<tbody>
+<tr><td class="t">11/10(화)</td><td>16시 전</td><td>차량 하역 (차량 진입 16시까지)</td><td>대표·서준·다빈</td></tr>
+<tr><td></td><td>12~20시</td><td>뒷벽 시트·포스터·액자 붙이기 · 픽스잇 장비 받기(작동·누수 확인, 명판 사진) · DK4 필터 설치 · 소반 가세팅 · 한 회차 시연</td><td>전원</td></tr>
+<tr><td class="t">11/14(토)</td><td>10~16시</td><td>평일과 같음. 줄 마감 멘트는 <b>15:30</b></td><td>전원</td></tr>
+<tr><td></td><td>16:30~20:00</td><td>반출 · 장비 픽스잇 반납 · 폐기물 100% 반출 · 남은 짐 택배</td><td>전원</td></tr>
+<tr><td class="t">11/10~14</td><td>매장 영업시간</td><td>여수 매장 운영</td><td>효진·찬양 <span class="tag">확인 필요</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="s2">2. 스태프 대본 (발표 5분)</h2>
+<div class="card">
+<p class="do">시음 순서: 코스모스 → 허벌 → 구수 라떼(차갑게) → 보통. 블랙은 약 40℃. 상보는 그 상 차례에 하나씩 엽니다. 말투는 편한 남도 말투로 고쳐 주세요.</p>
+
+<h3>0:00 앉을 때 (20초)</h3>
+<div class="say">"어서 오세요. 여수에서 올라온 가치커피예요. 오늘은 커피 네 잔을 남도 한상처럼 차려 드릴게요. 편하게 앉으세요."</div>
+<p class="do">행동: 컵 3개 앞에 놓기. 노트는 여기서 주지 않음.</p>
+
+<h3>0:20 첫째 상 · 코스모스 (1분)</h3>
+<div class="say">"첫째 상은 물김치처럼 입맛 여는 커피예요. (상보를 걷으며) 짜잔. 에티오피아 커피 두 가지를 섞은 코스모스예요. 이 그릇 먼저 맡아 보시고, 한 모금 드셔 보세요. 복숭아랑 꽃향, 끝에 얼그레이 같은 향이 남아요."</div>
+
+<h3>1:20 둘째 상 · 허벌 (1분)</h3>
+<div class="say">"둘째 상은 나물이에요. 카페쇼 때만 내는 허벌 블렌드예요. 콜롬비아 게이샤가 들어갔어요. 로즈마리를 손으로 한 번 비벼서 맡아 보세요. 그 향이 커피에서 나요."</div>
+
+<h3>2:20 셋째 상 · 구수 라떼 (1분)</h3>
+<div class="say">"이 상의 밥, 주인공이에요. 구수 라떼예요. 차갑게 드리니까 바로 드세요. 볶은 보리, 죠리퐁 우유 같은 맛이에요. 저희 여수 매장에서 제일 많이 나가요."</div>
+<p class="do">"제일 많이 나가요"는 사실일 때만 쓰기 — 대표 확인.</p>
+
+<h3>3:20 넷째 상 · 보통 (50초)</h3>
+<div class="say">"마지막은 후식이에요. 보통 블렌드예요. 처음엔 블루베리처럼 새콤하다가 다크초콜릿 단맛으로 끝나요. 이름은 보통인데 맛은 안 보통이에요."</div>
+
+<h3>4:10 리필 (30초)</h3>
+<div class="say">"조금 더 드릴까요? 마음에 드신 거 하나 말씀해 주세요."</div>
+<p class="do">1회만. 더 묻지 않기.</p>
+
+<h3>4:40 상 물림 (20초)</h3>
+<div class="say">"같이 해 주셔서 감사합니다. 인스타 팔로우 화면 한 번만 보여 주시겠어요? 아카이브 노트 덤이에요. 마음에 드신 커피는 오른쪽 판매대에서 드립백이나 원두로 가져가실 수 있어요."</div>
+<p class="do">행동: 팔로우 확인 → 노트 1권 + 블렌드 소개서. 숫자판에 3명 더하기(줄·판매 담당). 상보 다시 덮기.</p>
+
+<h3>자주 나올 질문</h3>
+<table>
+<thead><tr><th>질문</th><th>답</th></tr></thead>
+<tbody>
+<tr><td>어디서 살 수 있어요?</td><td>"판매대 QR로 주문하시면 배송비 없이 11월 19일에 갓 볶아 보내 드려요. 드립백도 같이 넣어 드려요."</td></tr>
+<tr><td>디카페인 있어요?</td><td>"오늘은 네 가지만 차렸어요." (디카페인 판매 여부는 대표 확인)</td></tr>
+<tr><td>우유 빼고 주실 수 있어요?</td><td>"구수는 라떼로만 차렸어요. 대신 다른 세 잔은 블랙이에요."</td></tr>
+<tr><td>카페 하는데요</td><td>"납품 문의시면 대표가 직접 말씀드릴게요." → 4번 B2B 방식</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="s3">3. 소반 카드 맨 아래 문구 (팔로우 안내)</h2>
+<div class="card">
+<p class="do">카드 위 3단계("이렇게 맛보세요")는 그대로 두고, 파란 띠 부분만 바꿉니다. 노트는 <b>나가실 때</b> 드린다는 점이 꼭 들어가야 합니다(10/28 결정).</p>
+<div class="cards">
+  <div class="sc"><div class="ttl">이렇게 맛보세요</div><ol><li>향 먼저</li><li>한 모금</li><li>잔을 잠시 두었다가</li></ol>
+    <div class="foot">팔로우하면 아카이브 노트 1권,<br>나가실 때 드려요<small>@gachi_coffee</small></div></div>
+  <div class="sc"><div class="ttl">이렇게 맛보세요</div><ol><li>향 먼저</li><li>한 모금</li><li>잔을 잠시 두었다가</li></ol>
+    <div class="foot">@gachi_coffee 팔로우하시면<br>상 물릴 때 노트 한 권 덤이에요<small>팔로우 화면만 보여 주세요</small></div></div>
+  <div class="sc"><div class="ttl">이렇게 맛보세요</div><ol><li>향 먼저</li><li>한 모금</li><li>잔을 잠시 두었다가</li></ol>
+    <div class="foot">남도 인심, 노트 한 권 덤<small>@gachi_coffee 팔로우 → 나가실 때 화면 보여 주세요</small></div></div>
+</div>
+<p>추천: <b>첫째 안</b><span class="pick">추천</span> — 결정사항 문구 그대로라 안내판·멘트와 말이 같습니다. 셋째 안은 컨셉 말맛은 좋지만 조건이 작은 글씨로 밀립니다.</p>
+</div>
+
+<h2 id="s4">4. B2B 연락처 받는 방식 (제안)</h2>
+<div class="card">
+<p><b>추천: 명함 + 종이 상담 카드 한 장.</b> QR 폼은 보조로만.</p>
+<table>
+<thead><tr><th>방식</th><th>좋은 점</th><th>걱정</th></tr></thead>
+<tbody>
+<tr><td><b>명함 + 상담 카드</b> <span class="pick">추천</span></td><td>사장님들은 명함이 있음. 10초면 끝. 대표가 없어도 직원이 받음. 카드에 메모를 남겨 다음 주 전화 때 바로 씀</td><td>종이 분실 → 매일 마감 때 사진 찍어 두기</td></tr>
+<tr><td>QR 구글 폼</td><td>바로 표로 쌓임</td><td>폰 꺼내 쓰다가 그만둠. 바쁜 부스에서 직원이 확인하기 어려움</td></tr>
+</tbody>
+</table>
+<h3>상담 카드(A6) 칸</h3>
+<ol>
+<li>명함 붙이는 자리 (없으면 상호 · 이름 · 연락처 직접)</li>
+<li>지역 · 매장 규모(좌석 수)</li>
+<li>지금 원두 월 사용량 (kg)</li>
+<li>오늘 마음에 든 커피: □코스모스 □허벌 □구수 □보통</li>
+<li>연락 좋은 시간</li>
+<li>받은 사람 · 날짜 · 메모(대표가 바로 쓸 한 줄)</li>
+<li>맨 아래 한 줄: "납품 안내 전화를 위해서만 씁니다." <span class="tag">문구 확인 필요</span></li>
+</ol>
+<p class="do">명함함 옆 B2B QR 카드는 "명함 없고 적기 번거로운 분"용으로 남겨 둡니다. 카드 원본은 대표가 보관하고, 연락처는 시트·저장소(공개)에 옮기지 않습니다(CLAUDE.md 규칙). 다음 주 전화 목록은 대표 통합앱에.</p>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CA107 부스 배치도</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{--ink:#1d1d1b;--sub:#5b5b58;--line:#d9d6cc;--blue:#1E3FA3;--blue2:#c9d3f2;--yellow:#F2C230;--orange:#DE531E;--warn:#FDE7DF;--warnInk:#a2401c;--bg:#faf9f5;--card:#fff;--aisle:#efece4}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,system-ui,sans-serif;font-size:15px;line-height:1.6}
+.wrap{max-width:1040px;margin:0 auto;padding:24px 16px 80px}
+h1{font-size:26px;margin:0}.meta{color:var(--sub);font-size:13px;margin:4px 0 16px}
+h2{font-size:20px;margin:36px 0 12px;padding-left:10px;border-left:5px solid var(--blue)}
+h3{font-size:16px;margin:18px 0 6px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:12px 0}
+.warn{background:var(--warn);color:var(--warnInk);border-radius:8px;padding:8px 12px;font-size:14px;margin:8px 0}
+svg{width:100%;height:auto;display:block}
+svg text{font-family:Pretendard,system-ui,sans-serif}
+table{border-collapse:collapse;width:100%;font-size:14px;margin:8px 0}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+thead th{background:#f1efe8}
+.ctrl{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;margin:8px 0}
+.ctrl label{font-size:14px;font-weight:600}
+.ctrl input{vertical-align:middle;width:180px}
+.big{font-size:18px;font-weight:700;color:var(--blue)}
+.tag{display:inline-block;font-size:12px;border-radius:99px;padding:0 8px;background:#eef1fb;color:var(--blue);font-weight:600}
+.say{border-left:4px solid var(--blue);background:#f4f6fd;padding:8px 12px;margin:6px 0;border-radius:0 8px 8px 0}
+.say b{color:var(--blue)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>CA107 부스 배치도 (시안)</h1>
+<p class="meta">2026-10-28 · 대표 최종 디자인 시뮬레이션 기준 · 3m(폭) × 2m(깊이) · 치수 중 <span class="tag">추정</span> 표시는 현장·사무국 도면으로 고쳐야 함</p>
+
+<h2>1. 부스 안 (위에서 본 그림)</h2>
+<div class="card">
+<svg viewBox="-40 -50 700 530" role="img" aria-label="부스 안 평면도">
+  <!-- 바닥 -->
+  <rect x="0" y="0" width="600" height="400" fill="#fff" stroke="#1d1d1b" stroke-width="2"/>
+  <!-- 벽 -->
+  <rect x="0" y="-8" width="600" height="8" fill="#1d1d1b"/>
+  <rect x="-8" y="-8" width="8" height="408" fill="#1d1d1b"/>
+  <rect x="600" y="-8" width="8" height="408" fill="#1d1d1b"/>
+  <text x="300" y="-18" text-anchor="middle" font-size="14" font-weight="700">뒷벽 — "남도 커피한상" · 액자 4개 · "맛보기 한상 0원"</text>
+  <text x="-18" y="200" text-anchor="middle" font-size="13" transform="rotate(-90 -18 200)">왼쪽 벽 — 전남 카페 사장님 응원 카드</text>
+  <text x="626" y="200" text-anchor="middle" font-size="13" transform="rotate(90 626 200)">오른쪽 벽 — 티셔츠 2 · 포스터 · 선반 2단</text>
+
+  <!-- 뒤 제조대 -->
+  <rect x="0" y="0" width="400" height="120" fill="#e9e6dd" stroke="#8a867a"/>
+  <rect x="16" y="14" width="96" height="80" fill="#cfcabd" stroke="#555"/><text x="64" y="58" text-anchor="middle" font-size="13">머신 1그룹</text>
+  <g fill="#d9d4c6" stroke="#555"><rect x="124" y="20" width="26" height="40"/><rect x="156" y="20" width="26" height="40"/><rect x="188" y="20" width="26" height="40"/><rect x="220" y="20" width="26" height="40"/></g>
+  <text x="185" y="80" text-anchor="middle" font-size="12">그라인더 4</text>
+  <rect x="258" y="20" width="36" height="44" fill="#d9d4c6" stroke="#555"/><text x="276" y="80" text-anchor="middle" font-size="12">온수기</text>
+  <g fill="#fff" stroke="#1E3FA3"><circle cx="318" cy="40" r="11"/><circle cx="346" cy="40" r="11"/><circle cx="374" cy="40" r="11"/><circle cx="318" cy="72" r="11"/><circle cx="346" cy="72" r="11"/><circle cx="374" cy="72" r="11"/></g>
+  <text x="346" y="104" text-anchor="middle" font-size="12">하리오 서버 6</text>
+  <text x="200" y="114" text-anchor="middle" font-size="11" fill="#5b5b58">제조대 200×60cm</text>
+  <!-- 옆 작은 책상 -->
+  <rect x="404" y="0" width="100" height="120" fill="#c9d3f2" stroke="#1E3FA3"/>
+  <text x="454" y="52" text-anchor="middle" font-size="12">컵·아이스박스</text><text x="454" y="68" text-anchor="middle" font-size="12">(책상 아래)</text>
+  <!-- 판매대(노랑 수납장) -->
+  <rect x="510" y="120" width="90" height="280" fill="#F2C230" stroke="#9a7a10"/>
+  <text x="555" y="250" text-anchor="middle" font-size="13" font-weight="700">판매대</text>
+  <text x="555" y="268" text-anchor="middle" font-size="11">드립백 세트</text><text x="555" y="282" text-anchor="middle" font-size="11">QR·결제 단말기</text>
+  <text x="555" y="300" text-anchor="middle" font-size="11">숫자판</text>
+  <!-- 직원 통로 -->
+  <rect x="0" y="120" width="510" height="120" fill="none"/>
+  <text x="200" y="178" text-anchor="middle" font-size="12" fill="#5b5b58">직원 통로 약 60cm</text>
+  <circle cx="200" cy="200" r="14" fill="#DE531E"/><text x="200" y="205" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">발표</text>
+  <circle cx="470" cy="300" r="14" fill="#1E3FA3"/><text x="470" y="305" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">판매</text>
+  <circle cx="300" cy="80" r="0"/>
+  <!-- 시음 책상 -->
+  <rect x="20" y="240" width="380" height="120" fill="#1E3FA3" opacity=".9"/>
+  <g fill="#8a5a2b" stroke="#5a3a1a"><rect x="36" y="262" width="78" height="70" rx="6"/><rect x="128" y="262" width="78" height="70" rx="6"/><rect x="220" y="262" width="78" height="70" rx="6"/><rect x="312" y="262" width="78" height="70" rx="6"/></g>
+  <g fill="#fff" font-size="12" text-anchor="middle" font-weight="700"><text x="75" y="294">① 코스모스</text><text x="167" y="294">② 허벌</text><text x="259" y="294">③ 구수 라떼</text><text x="351" y="294">④ 보통</text></g>
+  <g fill="#fff" font-size="11" text-anchor="middle"><text x="75" y="312">소반</text><text x="167" y="312">소반</text><text x="259" y="312">소반</text><text x="351" y="312">소반</text></g>
+  <text x="210" y="354" text-anchor="middle" font-size="11" fill="#fff">시음 책상 190×60cm (파랑 천)</text>
+  <!-- 출입 틈 -->
+  <line x1="400" y1="380" x2="510" y2="380" stroke="#DE531E" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="455" y="374" text-anchor="middle" font-size="12" fill="#a2401c" font-weight="700">직원 출입 약 55cm</text>
+  <!-- 의자 -->
+  <circle cx="110" cy="392" r="30" fill="#DE531E" stroke="#8a2f0c"/>
+  <circle cx="210" cy="392" r="30" fill="#fff" stroke="#555"/>
+  <circle cx="310" cy="392" r="30" fill="#F2C230" stroke="#9a7a10"/>
+  <text x="210" y="397" text-anchor="middle" font-size="12">손님 3</text>
+  <!-- 앞선 -->
+  <line x1="-30" y1="400" x2="630" y2="400" stroke="#1d1d1b" stroke-dasharray="2 4"/>
+  <text x="300" y="460" text-anchor="middle" font-size="13" fill="#5b5b58">↓ 앞 통로 (손님이 앉으면 무릎·등이 통로 쪽으로 30~40cm 나옴 <tspan font-weight="700">추정</tspan>)</text>
+  <!-- 자 -->
+  <g font-size="11" fill="#5b5b58"><text x="0" y="490">0</text><text x="190" y="490">1m</text><text x="390" y="490">2m</text><text x="585" y="490">3m</text></g>
+  <line x1="0" y1="478" x2="600" y2="478" stroke="#5b5b58"/>
+</svg>
+<p style="font-size:13px;color:var(--sub);margin:4px 0 0">1칸 = 50cm. 판매대는 디자인의 노랑 낮은 수납장(오른쪽 벽, 깊이 약 45cm <span class="tag">추정</span>).</p>
+</div>
+
+<div class="card">
+<h3>디자인 그대로 놓았을 때 확인할 것</h3>
+<table>
+<thead><tr><th>곳</th><th>문제</th><th>제안</th></tr></thead>
+<tbody>
+<tr><td>직원 출입(시음 책상 ↔ 판매대 사이)</td><td>약 55cm <span class="tag">추정</span>. 서버 들고 지나가기 빠듯함</td><td>시음 책상을 왼쪽 벽에 붙여 출입을 <b>60cm 이상</b>으로</td></tr>
+<tr><td>의자 3개</td><td>앉으면 부스 앞선 밖으로 나옴. 줄과 겹침</td><td>줄은 의자 뒤 60cm 띄워 세우기(아래 2번)</td></tr>
+<tr><td>디자인 속 머신</td><td>그림은 2그룹, 실제는 MRC 1그룹</td><td>제조대 왼쪽 40~50cm가 비므로 하리오 서버·원두 통 자리로</td></tr>
+<tr><td>컵·아이스박스</td><td>바닥에 두면 통로가 좁아짐</td><td>옆 작은 책상 아래 수납</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>2. 주변 부스와 줄 세우기</h2>
+<div class="warn">통로 폭과 건너편 부스 위치는 <b>추정</b>입니다. 사무국 배치도(커피앨리 C홀 도면)의 통로 폭을 아래 칸에 넣으면 그림과 남는 폭이 바뀝니다.</div>
+<div class="card">
+<div class="ctrl">
+  <label>앞 통로 폭 <input type="range" id="aisle" min="200" max="500" step="10" value="300"> <span id="aisleV"></span></label>
+  <label>줄에 선 사람 <input type="range" id="q" min="0" max="5" step="1" value="5"> <span id="qV"></span></label>
+</div>
+<svg id="map" viewBox="0 0 1000 800" role="img" aria-label="주변 부스와 통로"></svg>
+<p>사람이 지나갈 수 있는 폭: <span class="big" id="free"></span> · 줄 끝 사람 기다리는 시간: <span class="big" id="wait"></span></p>
+<p style="font-size:13px;color:var(--sub)">계산: 통로 폭 − 앉은 손님이 나오는 폭 35cm(추정) − 줄 폭 60cm(줄이 있을 때). 기다리는 시간은 한 회차 3명·6분(처리량_계산.xlsx) 기준.</p>
+</div>
+
+<div class="card">
+<h3>줄 세우는 방식 (추천)</h3>
+<ol>
+<li><b>부스 앞 3m 안에서만 한 줄, 최대 5명.</b> 의자 뒤 60cm 띄우고 부스 앞선과 나란히 섭니다. 옆 부스(CA106·CA108) 앞을 막지 않습니다.</li>
+<li><b>5명이 차면 번호 집게.</b> 6번째 손님부터 번호 집게를 드리고 "약 ○분 뒤" 시각을 알려 드립니다. 다른 부스를 보고 오시게 합니다.</li>
+<li>번호 손님이 돌아오면 줄 맨 뒤가 아니라 <b>다음 회차</b>로 바로 앉힙니다.</li>
+<li>대기줄 A4 안내판(인스타 QR)은 줄 서는 자리 바로 옆 판매대 앞면에 붙입니다.</li>
+</ol>
+<p style="font-size:13px;color:var(--sub)">근거: 사무국 운영 규칙 "대기줄은 벽에 붙여 관리"(행사정보.md). 통로로 길게 늘어서면 사무국 제지·옆 부스 불만 위험. 번호 집게는 1~30번, 집게 30개면 충분(하루 240명, 줄이 30명 넘을 일은 드묾 <span class="tag">추정</span>).</p>
+</div>
+
+<div class="card">
+<h3>줄 세우기 멘트</h3>
+<div class="say"><b>줄 첫 안내</b> "여수에서 왔어요. 커피 한상 무료로 차려 드려요. 세 분씩 5분이면 끝나요. 여기 한 줄로 서 주시겠어요?"</div>
+<div class="say"><b>기다리는 동안</b> "기다리시는 동안 인스타 팔로우해 두시면, 다 드시고 나가실 때 노트 한 권 드려요."</div>
+<div class="say"><b>5명이 찼을 때</b> "지금 줄이 다 찼어요. 번호 드릴게요. ○번이세요, 한 15분 뒤에 오시면 바로 앉혀 드릴게요."</div>
+<div class="say"><b>번호 손님이 돌아왔을 때</b> "○번 손님, 기다리셨죠. 이번 상에 바로 앉으세요."</div>
+<div class="say"><b>옆 부스 앞으로 줄이 밀릴 때</b> "죄송해요, 옆집 앞은 비워 둘게요. 이쪽으로 한 걸음만 와 주세요."</div>
+<div class="say"><b>마감 30분 전</b> "오늘 상은 지금 서신 분까지 차려 드려요. 내일 10시에 다시 와 주세요." (토요일은 15시 30분)</div>
+</div>
+</div>
+
+<script>
+const S=1; // 1cm = 1 단위
+const BOOTH_W=300, BOOTH_D=200;
+function draw(){
+  const A=+aisle.value, n=+q.value;
+  aisleV.textContent=(A/100).toFixed(1)+'m'; qV.textContent=n+'명';
+  const top=40, x0=50, rowY=top, oppY=top+BOOTH_D+A, H=oppY+BOOTH_D+40;
+  map.setAttribute('viewBox',`0 0 1000 ${H}`);
+  let s='';
+  const booth=(x,y,label,ours,flip)=>{
+    s+=`<rect x="${x}" y="${y}" width="${BOOTH_W}" height="${BOOTH_D}" fill="${ours?'#c9d3f2':'#f6f4ee'}" stroke="${ours?'#1E3FA3':'#8a867a'}" stroke-width="${ours?3:1.5}"/>`;
+    s+=`<text x="${x+BOOTH_W/2}" y="${y+BOOTH_D/2+6}" text-anchor="middle" font-size="${ours?20:16}" font-weight="${ours?800:600}" fill="${ours?'#1E3FA3':'#5b5b58'}">${label}</text>`;
+    const fy=flip?y:y+BOOTH_D; s+=`<line x1="${x}" y1="${fy}" x2="${x+BOOTH_W}" y2="${fy}" stroke="${ours?'#1E3FA3':'#8a867a'}" stroke-dasharray="6 5" stroke-width="2"/>`;
+  };
+  s+=`<rect x="0" y="${rowY+BOOTH_D}" width="1000" height="${A}" fill="#efece4"/>`;
+  s+=`<text x="${x0+BOOTH_W*3+20}" y="${rowY+BOOTH_D+A/2+5}" font-size="14" fill="#5b5b58">통로 ${(A/100).toFixed(1)}m</text>`;
+  booth(x0,rowY,'CA106',false,false); booth(x0+BOOTH_W,rowY,'CA107 가치커피',true,false); booth(x0+BOOTH_W*2,rowY,'CA108',false,false);
+  booth(x0,oppY,'건너편',false,true); booth(x0+BOOTH_W,oppY,'건너편',false,true); booth(x0+BOOTH_W*2,oppY,'건너편',false,true);
+  s+=`<text x="${x0}" y="${top-14}" font-size="13" fill="#5b5b58">커피앨리 바깥 열 · 옆 부스와는 벽 한 장(간격 0m)</text>`;
+  // 우리 부스 안 간단 표시
+  const bx=x0+BOOTH_W, by=rowY;
+  s+=`<rect x="${bx+10}" y="${by+120}" width="190" height="60" fill="#1E3FA3" opacity=".85"/><text x="${bx+105}" y="${by+156}" text-anchor="middle" font-size="12" fill="#fff">소반 4상</text>`;
+  s+=`<rect x="${bx+255}" y="${by+60}" width="45" height="140" fill="#F2C230"/><text x="${bx+277}" y="${by+135}" text-anchor="middle" font-size="11">판매</text>`;
+  // 의자
+  [55,105,155].forEach(c=>{s+=`<circle cx="${bx+c}" cy="${by+BOOTH_D+5}" r="16" fill="#DE531E" opacity=".85"/>`});
+  s+=`<rect x="${bx}" y="${by+BOOTH_D}" width="${BOOTH_W}" height="35" fill="#DE531E" opacity=".12"/>`;
+  // 줄
+  const qy=by+BOOTH_D+35+30;
+  if(n>0) s+=`<rect x="${bx}" y="${by+BOOTH_D+35}" width="${BOOTH_W}" height="60" fill="#1E3FA3" opacity=".08"/>`;
+  for(let i=0;i<n;i++){const cx=bx+30+i*60; s+=`<circle cx="${cx}" cy="${qy}" r="16" fill="#1E3FA3"/><text x="${cx}" y="${qy+5}" text-anchor="middle" font-size="12" fill="#fff" font-weight="700">${i+1}</text>`;}
+  if(n>0) s+=`<text x="${bx+BOOTH_W+10}" y="${qy+5}" font-size="12" fill="#1E3FA3" font-weight="700">← 줄 머리 왼쪽 · 6번째부터 번호 집게</text>`;
+  // 남는 통로 화살표
+  const used=35+(n>0?60:0), free=A-used, fy1=by+BOOTH_D+used, fy2=oppY;
+  s+=`<line x1="${x0+BOOTH_W*2+150}" y1="${fy1}" x2="${x0+BOOTH_W*2+150}" y2="${fy2}" stroke="#DE531E" stroke-width="2" marker-start="url(#ar)" marker-end="url(#ar)"/>`;
+  s+=`<text x="${x0+BOOTH_W*2+160}" y="${(fy1+fy2)/2+5}" font-size="14" fill="#a2401c" font-weight="700">지나갈 폭 ${(free/100).toFixed(2)}m</text>`;
+  s=`<defs><marker id="ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#DE531E"/></marker></defs>`+s;
+  map.innerHTML=s;
+  free_el.textContent=(free/100).toFixed(2)+'m';
+  wait.textContent=n? Math.ceil(n/3)*6+'분' : '0분';
+}
+const aisle=document.getElementById('aisle'),q=document.getElementById('q'),map=document.getElementById('map');
+const aisleV=document.getElementById('aisleV'),qV=document.getElementById('qV'),free_el=document.getElementById('free'),wait=document.getElementById('wait');
+aisle.oninput=q.oninput=draw; draw();
+</script>
+</body>
+</html>
