@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CA107 부스 배치도</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{--ink:#1d1d1b;--sub:#5b5b58;--line:#d9d6cc;--blue:#1E3FA3;--yellow:#F2C230;--orange:#DE531E;--warn:#FDE7DF;--warnInk:#a2401c;--bg:#faf9f5;--card:#fff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,system-ui,sans-serif;font-size:15px;line-height:1.6}
+.wrap{max-width:1040px;margin:0 auto;padding:24px 16px 80px}
+h1{font-size:26px;margin:0}.meta{color:var(--sub);font-size:13px;margin:4px 0 16px}
+h2{font-size:20px;margin:36px 0 12px;padding-left:10px;border-left:5px solid var(--blue)}
+h3{font-size:16px;margin:18px 0 6px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:12px 0}
+.warn{background:var(--warn);color:var(--warnInk);border-radius:8px;padding:8px 12px;font-size:14px;margin:8px 0}
+svg{width:100%;height:auto;display:block}
+svg text{font-family:Pretendard,system-ui,sans-serif}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;margin:8px 0;min-width:560px}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:middle}
+thead th{background:#f1efe8}
+td input{width:80px;font:inherit;padding:2px 4px;border:1px solid #bbb;border-radius:4px;background:#fffbea;color:var(--blue);font-weight:700}
+.tag{display:inline-block;font-size:12px;border-radius:99px;padding:0 8px;font-weight:600}
+.ok{background:#e6efe4;color:#2f6b2a}.est{background:#fdeee7;color:#a2401c}.no{background:#f1efe8;color:#5b5b58}
+.big{font-size:18px;font-weight:700;color:var(--blue)}
+.ctrl{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;margin:8px 0}
+.ctrl label{font-size:14px;font-weight:600}.ctrl input{vertical-align:middle;width:160px}
+.say{border-left:4px solid var(--blue);background:#f4f6fd;padding:8px 12px;margin:6px 0;border-radius:0 8px 8px 0}
+.say b{color:var(--blue)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>CA107 부스 배치도</h1>
+<p class="meta">2026-10-28 수정 · 대표 최종 디자인 시뮬레이션 + 사무국 배치도(CafeShow2026_Floor Plan(Design)_1022.pdf) 기준 · 단위 mm</p>
+
+<h2>1. 부스 안 치수 도면 (위에서 본 그림)</h2>
+<div class="warn">노란 칸 숫자를 바꾸면 도면과 통로 폭이 다시 그려집니다. <b>모르는 치수는 추정</b>이니 실측해서 넣어 주세요.</div>
+<div class="card scroll">
+<table>
+<thead><tr><th>항목</th><th>폭(가로)</th><th>깊이</th><th>근거</th></tr></thead>
+<tbody>
+<tr><td>부스(목공벽 바깥)</td><td>3000</td><td>2000</td><td><span class="tag ok">확인</span> 행사정보·사무국</td></tr>
+<tr><td>목공벽 두께</td><td colspan="2"><input id="wall" type="number" value="80"></td><td><span class="tag ok">확인</span> 기획 문서(주최측 기본 제공) — 벽이 부스 안쪽에 선다고 가정 <span class="tag est">추정</span></td></tr>
+<tr><td>제조 책상 (뒷벽)</td><td><input id="mkW" type="number" value="1800"></td><td><input id="mkD" type="number" value="600"></td><td>폭 <span class="tag ok">확인</span> 모듈 렌탈 1800mm · 깊이 <span class="tag est">추정</span></td></tr>
+<tr><td>인포데스크 (제조 책상 옆, 컵·물품)</td><td><input id="ifW" type="number" value="1000"></td><td><input id="ifD" type="number" value="600"></td><td><span class="tag ok">확인</span> 주최측 기본 제공 1000×600×750</td></tr>
+<tr><td>시음 책상 (앞, 소반 4상)</td><td><input id="tsW" type="number" value="1800"></td><td><input id="tsD" type="number" value="600"></td><td>폭 <span class="tag ok">확인</span> 모듈 렌탈 1800mm · 깊이 <span class="tag est">추정</span></td></tr>
+<tr><td>판매대 (오른쪽 벽, 노랑 2개)</td><td><input id="slL" type="number" value="1400"></td><td><input id="slD" type="number" value="450"></td><td><span class="tag no">모름</span> 구매 2개 — 크기 알려 주세요</td></tr>
+<tr><td>벽 선반 (판매대 위, 2단)</td><td colspan="2">바닥 안 차지</td><td><span class="tag no">모름</span> 자체 제작</td></tr>
+<tr><td>시음 의자</td><td colspan="2"><input id="stD" type="number" value="350"> 지름</td><td><span class="tag est">추정</span></td></tr>
+</tbody>
+</table>
+</div>
+<div class="card">
+<svg id="plan" viewBox="0 0 1000 900" role="img" aria-label="부스 안 치수 도면"></svg>
+<p>직원 통로(제조 책상 ↔ 시음 책상): <span class="big" id="o1"></span> · 직원 출입(시음 책상 ↔ 판매대): <span class="big" id="o2"></span></p>
+<p style="font-size:13px;color:var(--sub);margin:0">60cm 아래면 서버 들고 지나가기 빠듯합니다. 디자인 그림처럼 판매대 앞쪽 끝이 부스 앞선까지 오면 출입 틈이 출입구 역할을 합니다.</p>
+</div>
+
+<h2>2. 주변 부스 (사무국 도면 기준)</h2>
+<div class="card">
+<p><b>CA107은 C홀 동쪽 커피앨리의 오른쪽 세로 줄</b>에 있습니다. 뒤는 홀 동쪽 벽, 앞(서쪽)은 통로입니다. 통로에서 부스를 보면 <b>왼쪽이 CA108(폴리), 오른쪽이 CA106(상두그레이)</b>입니다. 건너편은 <b>CA203(베르크 로스터스)·CA202(커피 몽타주)</b>입니다.</p>
+<p>앞 통로 폭: 도면 비율로 재면 <b>약 3.0m</b>입니다(부스 3m 길이를 자로 삼음). 디자인용 도면이라 <b>±0.2m 오차</b>가 있을 수 있습니다 <span class="tag est">추정</span>.</p>
+<div class="ctrl">
+  <label>앞 통로 폭 <input type="range" id="aisle" min="200" max="400" step="10" value="300"> <span id="aisleV"></span></label>
+  <label>줄에 선 사람 <input type="range" id="q" min="0" max="5" step="1" value="5"> <span id="qV"></span></label>
+</div>
+<svg id="map" viewBox="0 0 1000 700" role="img" aria-label="주변 부스와 통로"></svg>
+<p>사람이 지나갈 폭: <span class="big" id="free"></span> · 줄 끝 사람 기다리는 시간: <span class="big" id="wait"></span></p>
+<p style="font-size:13px;color:var(--sub)">계산: 통로 폭 − 앉은 손님이 앞선 밖으로 나오는 폭 35cm(추정) − 줄 폭 60cm. 기다리는 시간은 한 회차 3명·4분(발표 3분+교대 1분) 기준.</p>
+</div>
+
+<div class="card">
+<h3>줄 세우는 방식 (추천)</h3>
+<ol>
+<li><b>우리 부스 앞 3m 안에서만 한 줄, 최대 5명.</b> 의자 뒤에 서서 부스 앞선과 나란히. CA108·CA106 앞은 비웁니다.</li>
+<li><b>6번째 손님부터 번호 집게</b>와 돌아올 시각을 드립니다. 다른 부스를 보고 오시게 합니다.</li>
+<li>번호 손님이 돌아오면 줄 맨 뒤가 아니라 <b>다음 회차</b>로 바로 앉힙니다.</li>
+<li>대기줄 A4 안내판(인스타 QR)은 줄 서는 자리 옆, 판매대 앞면에 붙입니다.</li>
+</ol>
+<p style="font-size:13px;color:var(--sub)">근거: 사무국 규칙 "대기줄은 벽에 붙여 관리"(행사정보.md). 통로로 길게 늘어서면 건너편 CA203·CA202 앞까지 막혀 사무국 제지 위험.</p>
+</div>
+
+<div class="card">
+<h3>줄 세우기 멘트</h3>
+<div class="say"><b>줄 첫 안내</b> "여수에서 왔어요. 커피 한상 무료로 차려 드려요. 세 분씩 3분이면 끝나요. 여기 한 줄로 서 주시겠어요?"</div>
+<div class="say"><b>기다리는 동안</b> "기다리시는 동안 인스타 팔로우해 두시면, 다 드시고 나가실 때 노트 한 권 드려요."</div>
+<div class="say"><b>5명이 찼을 때</b> "지금 줄이 다 찼어요. 번호 드릴게요. ○번이세요, 한 10분 뒤에 오시면 바로 앉혀 드릴게요."</div>
+<div class="say"><b>번호 손님이 돌아왔을 때</b> "○번 손님, 기다리셨죠. 이번 상에 바로 앉으세요."</div>
+<div class="say"><b>옆 부스 앞으로 줄이 밀릴 때</b> "죄송해요, 옆집 앞은 비워 둘게요. 이쪽으로 한 걸음만 와 주세요."</div>
+<div class="say"><b>마감 30분 전</b> "오늘 상은 지금 서신 분까지 차려 드려요. 내일 10시에 다시 와 주세요." (토요일은 15시 30분)</div>
+</div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const v=id=>+$(id).value||0;
+function dim(x1,y1,x2,y2,label,off,vert){ // 치수선
+  let s='';const c='#a2401c';
+  if(!vert){const y=y1+off;s+=`<line x1="${x1}" y1="${y}" x2="${x2}" y2="${y}" stroke="${c}" marker-start="url(#t)" marker-end="url(#t)"/><text x="${(x1+x2)/2}" y="${y-5}" text-anchor="middle" font-size="13" fill="${c}" font-weight="700">${label}</text>`;}
+  else{const x=x1+off;s+=`<line x1="${x}" y1="${y1}" x2="${x}" y2="${y2}" stroke="${c}" marker-start="url(#t)" marker-end="url(#t)"/><text x="${x+6}" y="${(y1+y2)/2+4}" font-size="13" fill="${c}" font-weight="700">${label}</text>`;}
+  return s;
+}
+function drawPlan(){
+  const k=0.28, W=3000, D=2000, w=v('wall'); // 1mm = 0.28 단위
+  const ox=90, oy=60, X=mm=>ox+mm*k, Y=mm=>oy+mm*k;
+  const mkW=v('mkW'),mkD=v('mkD'),ifW=v('ifW'),ifD=v('ifD'),tsW=v('tsW'),tsD=v('tsD'),slL=v('slL'),slD=v('slD'),st=v('stD');
+  let s=`<defs><marker id="t" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#a2401c"/></marker></defs>`;
+  // 바닥·벽
+  s+=`<rect x="${X(0)}" y="${Y(0)}" width="${W*k}" height="${D*k}" fill="#fff" stroke="#1d1d1b"/>`;
+  s+=`<rect x="${X(0)}" y="${Y(0)}" width="${W*k}" height="${w*k}" fill="#1d1d1b"/><rect x="${X(0)}" y="${Y(0)}" width="${w*k}" height="${D*k}" fill="#1d1d1b"/><rect x="${X(W-w)}" y="${Y(0)}" width="${w*k}" height="${D*k}" fill="#1d1d1b"/>`;
+  s+=`<text x="${X(W/2)}" y="${Y(0)-28}" text-anchor="middle" font-size="13" font-weight="700">뒷벽 (홀 동쪽 벽 쪽) — 남도 커피한상 · 메뉴판 액자 4 · 맛보기 한상 0원</text>`;
+  s+=`<text x="${X(0)-40}" y="${Y(D/2)}" text-anchor="middle" font-size="12" transform="rotate(-90 ${X(0)-40} ${Y(D/2)})">왼쪽 벽 · CA108 쪽 · 응원 카드</text>`;
+  s+=`<text x="${X(W)+44}" y="${Y(D/2)}" text-anchor="middle" font-size="12" transform="rotate(90 ${X(W)+44} ${Y(D/2)})">오른쪽 벽 · CA106 쪽 · 포스터 6 · 선반 2단</text>`;
+  // 제조 책상
+  const mx=w, my=w;
+  s+=`<rect x="${X(mx)}" y="${Y(my)}" width="${mkW*k}" height="${mkD*k}" fill="#e9e6dd" stroke="#555"/><text x="${X(mx+mkW/2)}" y="${Y(my+mkD/2)+4}" text-anchor="middle" font-size="13">제조 책상 · 머신 1그룹 · 그라인더 4 · 온수기 · 하리오 서버 6</text>`;
+  // 인포데스크
+  const ix=mx+mkW;
+  s+=`<rect x="${X(ix)}" y="${Y(my)}" width="${ifW*k}" height="${ifD*k}" fill="#c9d3f2" stroke="#1E3FA3"/><text x="${X(ix+ifW/2)}" y="${Y(my+ifD/2)-2}" text-anchor="middle" font-size="12">인포데스크</text><text x="${X(ix+ifW/2)}" y="${Y(my+ifD/2)+14}" text-anchor="middle" font-size="11">컵·아이스박스</text>`;
+  // 판매대 (오른쪽 벽, 앞선까지)
+  const sx=W-w-slD, sy=D-slL;
+  s+=`<rect x="${X(sx)}" y="${Y(sy)}" width="${slD*k}" height="${slL*k}" fill="#F2C230" stroke="#9a7a10"/><text x="${X(sx+slD/2)}" y="${Y(sy+slL/2)}" text-anchor="middle" font-size="13" font-weight="700">판매대</text>`;
+  // 시음 책상 (왼쪽 벽 붙임, 앞선 맞춤)
+  const tx=w, ty=D-tsD;
+  s+=`<rect x="${X(tx)}" y="${Y(ty)}" width="${tsW*k}" height="${tsD*k}" fill="#1E3FA3"/>`;
+  const sb=Math.min(400,(tsW-100)/4);
+  for(let i=0;i<4;i++){const bx=tx+50+i*(tsW-100)/4+((tsW-100)/4-sb)/2;s+=`<rect x="${X(bx)}" y="${Y(ty+80)}" width="${sb*k}" height="${(tsD-260)*k}" rx="5" fill="#8a5a2b"/>`;}
+  ['① 코스모스','② 허벌','③ 구수 라떼','④ 보통'].forEach((t,i)=>{const cx=tx+50+(i+.5)*(tsW-100)/4;s+=`<text x="${X(cx)}" y="${Y(ty+tsD/2-20)}" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">${t}</text>`;});
+  s+=`<text x="${X(tx+tsW/2)}" y="${Y(D)-8}" text-anchor="middle" font-size="11" fill="#fff">시음컵은 소반 앞 책상 위</text>`;
+  // 의자
+  [0.2,0.5,0.8].forEach((f,i)=>{s+=`<circle cx="${X(tx+tsW*f)}" cy="${Y(D+st/2)}" r="${st/2*k}" fill="${['#DE531E','#fff','#F2C230'][i]}" stroke="#555"/>`;});
+  // 사람
+  s+=`<circle cx="${X(tx+tsW/2)}" cy="${Y((my+mkD+ty)/2)}" r="13" fill="#DE531E"/><text x="${X(tx+tsW/2)}" y="${Y((my+mkD+ty)/2)+4}" text-anchor="middle" font-size="10" fill="#fff" font-weight="700">발표</text>`;
+  // 치수
+  s+=dim(X(0),Y(0),X(W),Y(0),'3000',-12);
+  s+=dim(X(mx),Y(my),X(mx+mkW),Y(my),String(mkW),mkD*k+16);
+  s+=dim(X(ix),Y(my),X(ix+ifW),Y(my),String(ifW),ifD*k+16);
+  s+=dim(X(tx),Y(D),X(tx+tsW),Y(D),String(tsW),st*k+22);
+  const gap=sx-(tx+tsW); s+=dim(X(tx+tsW),Y(D),X(sx),Y(D),String(gap),-16);
+  s+=dim(X(W),Y(0),X(W),Y(D),'2000',30,true);
+  const aisle=ty-(my+mkD); s+=dim(X(tx+tsW+40),Y(my+mkD),X(tx+tsW+40),Y(ty),String(aisle),0,true);
+  s+=dim(X(sx),Y(sy),X(sx),Y(D),String(slL),-16,true);
+  s+=`<line x1="${X(0)-20}" y1="${Y(D)}" x2="${X(W)+20}" y2="${Y(D)}" stroke="#1d1d1b" stroke-dasharray="3 4"/>`;
+  s+=`<text x="${X(W/2)}" y="${Y(D)+st*k+60}" text-anchor="middle" font-size="13" fill="#5b5b58">↓ 앞 통로 (서쪽) — 건너편 CA203·CA202</text>`;
+  $('plan').setAttribute('viewBox',`0 0 1000 ${Y(D)+st*k+80}`);
+  $('plan').innerHTML=s;
+  $('o1').textContent=aisle+'mm'; $('o2').textContent=gap+'mm';
+  $('o1').style.color=aisle<600?'#a2401c':'#1E3FA3'; $('o2').style.color=gap<600?'#a2401c':'#1E3FA3';
+}
+// 주변: 통로에서 부스를 바라본 방향(왼쪽=북 CA108, 오른쪽=남 CA106). 위치는 사무국 도면 비율로 잰 값(m)
+function drawMap(){
+  const A=v('aisle'), n=v('q'); $('aisleV').textContent=(A/100).toFixed(1)+'m'; $('qV').textContent=n+'명';
+  const s1=90, ox=40+3*s1, top=60, D=200*s1/300; // 1m = 90 단위
+  const X=m=>ox+m*s1, rowY=top, aY=top+D, oppY=aY+A*s1/100, H=oppY+D+60;
+  let s=`<defs><marker id="ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#DE531E"/></marker></defs>`;
+  s+=`<rect x="0" y="${top-26}" width="1000" height="10" fill="#DE531E" opacity=".5"/><text x="10" y="${top-32}" font-size="12" fill="#a2401c">C홀 동쪽 벽</text>`;
+  s+=`<rect x="0" y="${aY}" width="1000" height="${oppY-aY}" fill="#efece4"/>`;
+  const b=(m0,m1,y,lab,ours,dash)=>{s+=`<rect x="${X(m0)}" y="${y}" width="${(m1-m0)*s1}" height="${D}" fill="${ours?'#c9d3f2':'#f6f4ee'}" stroke="${ours?'#1E3FA3':'#8a867a'}" stroke-width="${ours?3:1.2}"/><text x="${X((m0+m1)/2)}" y="${y+D/2+5}" text-anchor="middle" font-size="${ours?16:13}" font-weight="${ours?800:600}" fill="${ours?'#1E3FA3':'#5b5b58'}">${lab}</text>`;};
+  b(-6,-3,rowY,'CA109 테라폼'); b(-3,0,rowY,'CA108 폴리'); b(0,3,rowY,'CA107 가치커피',true); b(3,6,rowY,'CA106 상두그레이'); b(6,9,rowY,'SPONSOR');
+  b(-7.1,-4.1,oppY,'CA207 아야커피'); b(-1.1,1.9,oppY,'CA203 베르크'); b(1.9,4.9,oppY,'CA202 커피몽타주'); b(4.9,7.9,oppY,'CA201 올웨이즈');
+  s+=`<text x="${X(-2.6)}" y="${oppY+D/2+5}" text-anchor="middle" font-size="12" fill="#5b5b58">가로 통로 약 3m</text>`;
+  // 의자·줄
+  const bx=X(0);
+  [0.55,1.05,1.55].forEach(m=>{s+=`<circle cx="${X(m)}" cy="${aY+8}" r="15" fill="#DE531E" opacity=".85"/>`;});
+  const qy=aY+0.35*s1+0.3*s1;
+  for(let i=0;i<n;i++){const cx=X(0.3+i*0.6);s+=`<circle cx="${cx}" cy="${qy}" r="15" fill="#1E3FA3"/><text x="${cx}" y="${qy+5}" text-anchor="middle" font-size="12" fill="#fff" font-weight="700">${i+1}</text>`;}
+  const used=0.35+(n>0?0.6:0), free=A/100-used, fy1=aY+used*s1;
+  s+=`<line x1="${X(5)}" y1="${fy1}" x2="${X(5)}" y2="${oppY}" stroke="#DE531E" stroke-width="2" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="${X(5)+10}" y="${(fy1+oppY)/2+5}" font-size="14" fill="#a2401c" font-weight="700">지나갈 폭 ${free.toFixed(2)}m</text>`;
+  s+=`<line x1="${X(-0.4)}" y1="${aY}" x2="${X(-0.4)}" y2="${oppY}" stroke="#5b5b58" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="${X(-0.4)-8}" y="${(aY+oppY)/2+5}" text-anchor="end" font-size="13" fill="#5b5b58">통로 ${(A/100).toFixed(1)}m</text>`;
+  $('map').setAttribute('viewBox',`0 0 1000 ${H}`); $('map').innerHTML=s;
+  $('free').textContent=free.toFixed(2)+'m'; $('wait').textContent=n?Math.ceil(n/3)*4+'분':'0분';
+}
+document.querySelectorAll('td input').forEach(i=>i.oninput=drawPlan);
+$('aisle').oninput=$('q').oninput=drawMap;
+drawPlan(); drawMap();
+</script>
+</body>
+</html>
