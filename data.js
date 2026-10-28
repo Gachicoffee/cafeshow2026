@@ -5,7 +5,7 @@
 // 필드: id, no, group, title, owner, start, due, deps(같은 종류의 no), output, status('대기'|'진행'|'완료'), memo
 //       say = 클로드 한 줄 의견, can = 클로드가 해 줄 수 있는 것, help = 참고 목록
 window.CS = {
-  updated: '2026-10-28',
+  updated: '2026-10-29',
 
   // ---------- 기획 단계 (CLAUDE.md '지금 단계', 클로드와 함께) ----------
   plan: [
