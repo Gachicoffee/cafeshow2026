@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>미니 브로셔 5안 · A6</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Gothic+Coding:wght@400;700&family=Nanum+Pen+Script&family=Montserrat:wght@700;800&display=swap">
+<style>
+:root{--paper:#ECE3D4;--ink:#151936;--green:#00593b;--orange:#de531e;--blue:#1c60ad;--red:#bb2e21;--soft:#5b5e70;--white:#fbf8f1;--fw:105mm;--fh:148.5mm;
+  --bg:var(--paper);--ac:var(--green);--hf:Pretendard,sans-serif;--bf:Pretendard,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Pretendard,"Malgun Gothic",sans-serif;color:var(--ink);background:#d6d1c7;word-break:keep-all;line-height:1.55}
+.wrap{max-width:1180px;margin:0 auto;padding:22px 16px 60px}
+h1{font-size:21px}.note{font-size:13px;color:#3d4055;margin:4px 0}
+.tabs{margin:12px 0 4px}.tabs a{display:inline-block;margin:0 6px 6px 0;padding:7px 12px;border:1px solid var(--ink);color:var(--ink);text-decoration:none;font-size:13.5px;background:#efeae0}.tabs a.on{background:var(--ink);color:#fff}
+.idea{background:#f4f0e7;border-left:4px solid var(--ac);padding:10px 14px;margin:10px 0;font-size:13.5px;max-width:880px}
+.idea b{display:block;font-size:15px;margin-bottom:4px}
+h2{font-size:15px;margin:28px 0 10px;padding-top:12px;border-top:1px solid #9e9888}
+.row{display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start}.cap{font-size:12px;color:#3d4055;margin-top:6px}
+.sheet{display:grid;grid-template-columns:var(--fw) var(--fw);box-shadow:0 2px 10px rgba(0,0,0,.18);position:relative}
+.sheet.one{grid-template-columns:var(--fw)}
+.face{width:var(--fw);height:var(--fh);position:relative;overflow:hidden;display:flex;flex-direction:column;padding:10mm 9mm 9mm;background:var(--bg);font-family:var(--bf);outline:.2mm dashed rgba(21,25,54,.2)}
+.rot{transform:rotate(180deg)}
+.no{position:absolute;right:5mm;bottom:3.5mm;font-size:6pt;color:var(--soft)}
+.push{margin-top:auto}
+.k{font-size:7.5pt;font-weight:700;color:var(--ac);letter-spacing:.06em}
+.t{font-family:var(--hf);font-size:16pt;font-weight:800;line-height:1.32;margin-top:2.5mm}
+.b{font-size:8.8pt;margin-top:3.5mm;line-height:1.7}
+.b p+p{margin-top:2.2mm}
+.sm{font-size:7pt;color:var(--soft);line-height:1.5}
+.q{font-family:"Gowun Batang",serif;font-size:10.5pt;line-height:1.7;border-left:.8mm solid var(--ac);padding-left:3mm;margin-top:4mm}
+.hand{font-family:"Nanum Pen Script",cursive;color:var(--ac);font-size:17pt;line-height:1.15}
+.ph{border:.3mm dashed var(--soft);display:flex;align-items:center;justify-content:center;text-align:center;font-size:7pt;color:var(--soft);background:rgba(255,255,255,.35)}
+.qr{width:27mm;height:27mm;border:.35mm solid var(--ink);display:flex;align-items:center;justify-content:center;font-size:7pt;color:var(--soft);background:#fff;flex:none}
+.chk{background:#fff3c4;outline:1px solid #e0b400}
+.lines div{border-bottom:.3mm solid rgba(21,25,54,.3);height:7.5mm;font-size:7pt;color:var(--soft);display:flex;align-items:flex-end;padding-bottom:.8mm}
+.steps{display:grid;grid-template-columns:1fr 1fr;gap:3mm;margin-top:4mm}
+.steps div{background:rgba(255,255,255,.5);padding:2.5mm;font-size:8pt;line-height:1.45;min-height:20mm}
+.steps b{display:block;font-family:Montserrat,sans-serif;color:var(--ac);font-size:9pt}
+.cups{margin-top:3mm}
+.cups div{display:flex;gap:2.5mm;align-items:baseline;padding:2.2mm 0;border-bottom:.25mm solid rgba(21,25,54,.2);font-size:8.6pt;line-height:1.4}
+.cups i{font-style:normal;width:2.6mm;height:2.6mm;border-radius:50%;flex:none;transform:translateY(.3mm)}
+.cups em{font-style:normal;font-size:7pt;color:var(--soft);margin-left:auto;white-space:nowrap}
+.order{display:flex;gap:4mm;align-items:center;margin-top:5mm}
+.dateStamp{width:24mm;height:24mm;border:.5mm dashed var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;font-size:6pt;color:var(--red);line-height:1.35}
+.d1{background:#f2a48a}.d2{background:#00593b}.d3{background:#c98b4a}.d4{background:#5a3324}
+svg{display:block}
+
+/* 1 편지 */
+.T1{--bg:var(--white);--ac:var(--blue);--hf:"Gowun Batang",serif;--bf:"Gowun Batang",serif}
+.T1 .cover{background:var(--blue);color:#fff;padding:0}
+.T1 .ruled{line-height:7mm;background-image:repeating-linear-gradient(transparent 0 6.7mm,rgba(28,96,173,.25) 6.7mm 7mm);font-size:9.6pt}
+/* 2 벌새 여정 */
+.T2{--bg:var(--paper);--ac:var(--green)}
+.T2 .cover{background:var(--green);color:var(--paper)}
+.T2 .stop{font-family:Montserrat,sans-serif;font-size:7pt;font-weight:800;letter-spacing:.14em;color:var(--orange)}
+/* 3 한상 */
+.T3{--bg:#EFE7D6;--ac:var(--green)}
+.T3 .cover{border:6mm solid var(--blue);align-items:center;text-align:center;padding:8mm 6mm}
+/* 4 계산서 */
+.T4{--bg:#fbfaf6;--ac:var(--red);--hf:Pretendard,sans-serif}
+.T4 .mono{font-family:"Nanum Gothic Coding",monospace}
+.T4 .rr{display:flex;justify-content:space-between;font-family:"Nanum Gothic Coding",monospace;font-size:9pt;margin-top:2.2mm}
+.T4 .rr span:nth-child(2){flex:1;border-bottom:.35mm dotted var(--ink);margin:0 2mm;transform:translateY(-1mm)}
+.T4 .dash{border-top:.4mm dashed var(--ink);margin:3.5mm 0}
+.T4 .stamp{position:absolute;width:26mm;height:26mm;border:.9mm solid var(--red);border-radius:50%;color:var(--red);display:flex;align-items:center;justify-content:center;text-align:center;font-family:"Gowun Batang",serif;font-weight:700;font-size:9.5pt;line-height:1.25;transform:rotate(-12deg);opacity:.88}
+/* 5 향 */
+.T5{--bg:var(--paper);--ac:var(--orange)}
+.T5 .cover{background:var(--ink);color:var(--paper)}
+
+@media print{body{background:none}.screen,.tabs,.idea{display:none}.wrap{padding:0;max-width:none}.print .sheet{box-shadow:none;break-after:page}.face{outline:none}.chk{background:none;outline:none}.print .cap{display:none}}
+@page{size:210mm 297mm;margin:0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="screen">
+  <h1>소반 앞 미니 브로셔 · 기안 5안 (A4 → 접어 A6 세로)</h1>
+  <p class="note">원칙: 다 펼친 4면 중 블랜드는 1면(많아야 2면), 나머지는 가치커피 이야기·집에서 쓸 것. 문장은 확인된 사실로만(운영철학·홈페이지 ABOUT·행사정보·라벨). 노란 칸 = 확인할 값, 점선 칸 = 사진·그림 자리. 기안이라 디자인은 하빈 몫.</p>
+</div>
+<div class="tabs">
+  <a href="?1" data-k="1">① 여수에서 온 편지</a><a href="?2" data-k="2">② 한 잔이 오기까지</a><a href="?3" data-k="3">③ 남도 한상 차림</a><a href="?4" data-k="4">④ 0원 계산서와 주인장 메모</a><a href="?5" data-k="5">⑤ 향을 기억하는 종이</a>
+</div>
+<div class="idea" id="idea"></div>
+<div class="screen">
+  <h2>읽는 순서</h2>
+  <div class="row">
+    <div><div class="sheet one" data-f="1"></div><p class="cap">① 접힌 앞면</p></div>
+    <div><div class="sheet" data-f="2,3"></div><p class="cap">② 한 번 펼침</p></div>
+  </div>
+  <div class="row" style="margin-top:18px">
+    <div><div class="sheet" data-f="4,5,6,7"></div><p class="cap">③ 다 펼침 A4</p></div>
+    <div><div class="sheet one" data-f="8"></div><p class="cap">④ 뒷면</p></div>
+  </div>
+  <h2>인쇄 배치 (A4 양면, 바깥면 윗줄 3·2면 180° 회전)</h2>
+</div>
+<div class="print row">
+  <div><div class="sheet" data-f="3r,2r,8,1"></div><p class="cap">바깥면</p></div>
+  <div><div class="sheet" data-f="4,5,6,7"></div><p class="cap">안쪽면</p></div>
+</div>
+</div>
+
+<!-- 공통: 네 잔 목록 -->
+<template id="cups"><div class="cups">
+  <div><i class="d1"></i><span><b>복숭아 향이 나던 첫 잔</b></span><em>코스모스 블랜드</em></div>
+  <div><i class="d2"></i><span><b>손끝에 비벼 맡던 허브 향</b></span><em>허벌 블랜드</em></div>
+  <div><i class="d3"></i><span><b>죠리퐁 우유 같던 차가운 라떼</b></span><em>구수 블랜드</em></div>
+  <div><i class="d4"></i><span><b>새콤하다 초콜릿으로 끝나던 잔</b></span><em>보통 블랜드</em></div>
+</div></template>
+<template id="bird"><svg width="30mm" height="22mm" viewBox="0 0 120 88"><path d="M8 58 C26 34 52 28 70 36 L112 14 L92 44 C84 64 58 76 30 72Z" fill="currentColor"/><path d="M70 36 C66 20 56 10 44 6 C52 18 56 28 58 38Z" fill="currentColor" opacity=".7"/><circle cx="76" cy="38" r="2.4" fill="#fff"/><path d="M96 28 L118 18" stroke="currentColor" stroke-width="2"/></svg></template>
+
+<!-- ============ ① 여수에서 온 편지 ============ -->
+<template id="I1">
+<b>① 여수에서 온 편지 — 대표가 쓴 편지 한 통</b>
+포인트: 파랑 바다 표지 + 뒷면 우표, <b style="display:inline">현장에서 직원이 날짜 소인을 찍어 드림</b>(고무 도장 1개). 받은 날이 찍힌 편지는 버리기 어려움.<br>
+펼침 4면: 편지 본문 2면 · 여수 카페 안내 1면 · 네 잔(P.S.) 1면.
+</template>
+<template id="11"><div class="face cover"><div style="padding:12mm 9mm 0"><div class="t" style="font-size:21pt;color:#fff">여수에서<br>편지가<br>왔어요</div><div class="sm" style="color:#dfe8f6;margin-top:4mm;letter-spacing:.2em;font-family:Montserrat">GACHI COFFEE · YEOSU</div></div><svg class="push" width="105mm" height="50mm" viewBox="0 0 210 100" preserveAspectRatio="none"><path d="M0 28 Q26 12 52 28 T104 28 T156 28 T210 28 V100 H0Z" fill="#fff" opacity=".18"/><path d="M0 50 Q26 34 52 50 T104 50 T156 50 T210 50 V100 H0Z" fill="#fff" opacity=".35"/><path d="M0 72 Q26 56 52 72 T104 72 T156 72 T210 72 V100 H0Z" fill="#fff"/></svg></div></template>
+<template id="12"><div class="face"><div class="hand">안녕하세요,</div><div class="b ruled" style="margin-top:2mm">여수에서 커피 볶는 가치커피예요.<br>이번 서울카페쇼에 전라남도에서 온 부스는 저희 하나였어요.<br>여수 바다 대신 커피 네 잔을 싸 들고 올라왔어요.</div><div class="no">2</div></div></template>
+<template id="13"><div class="face"><div class="ph" style="height:62mm">사진 · 여수 장성 로스팅실<br>(볶는 날 아침)</div><div class="sm" style="margin-top:2mm">우리가 커피를 볶는 곳, 여수 장성.</div><div class="hand push" style="font-size:14pt">펼치면 편지가 이어져요 →</div><div class="no">3</div></div></template>
+<template id="14"><div class="face"><div class="b ruled" style="margin-top:0">2017년, 여수 신기동의 작은 카페에서 시작했어요.<br>2020년에는 로스터리를 열었고, 지금은 매주 볶은 원두를 전국의 카페와 집으로 보내요.<br>볶는 날은 미루지 않아요. 그게 저희가 지키는 가장 작은 약속이에요.</div><div class="no">4</div></div></template>
+<template id="15"><div class="face"><div class="b ruled" style="margin-top:0">손님들이 저희 커피를 마시고 이런 말을 해 주셨어요.</div><div class="q">"향이 선명하고 강해요.<br>노트가 또렷하게 느껴져요."</div><div class="b ruled">그 말을 기준으로 생두를 고르고 볶아요. 봉투에는 커피가 자란 농장과 만든 사람 이름까지 적어 보내요.</div><div class="hand" style="text-align:right;margin-top:2mm">가치커피 드림</div><div class="no">5</div></div></template>
+<template id="16"><div class="face"><div class="k">여수에 오시면</div><div class="t">이 편지를 들고<br>놀러 오세요</div><div class="ph" style="height:40mm;margin-top:4mm">그림 · 여수 지도에 카페 위치 점</div><div class="b">가치커피 카페 <span class="chk">[주소 확인]</span><br>그날 마신 커피 얘기를 해 주시면 반가워요.</div><div class="no">6</div></div></template>
+<template id="17"><div class="face"><div class="hand">P.S. 그날 마신 네 잔이에요</div><div data-use="cups"></div><div class="sm push">마음에 남은 잔에 동그라미 쳐 두세요. 주문할 때 그 이름만 찾으면 돼요.</div><div class="no">7</div></div></template>
+<template id="18"><div class="face"><div style="display:flex;justify-content:space-between"><div class="hand" style="font-size:20pt">답장은<br>여기로</div><div style="width:22mm;height:26mm;border:.6mm dashed var(--blue);display:flex;align-items:center;justify-content:center;color:var(--blue);background:#eaf1fa" data-use="bird"></div></div><div class="dateStamp" style="position:absolute;right:20mm;top:26mm;transform:rotate(-12deg)">현장 소인<br>2026. 11. __<br>서울 → 여수</div><div class="order" style="margin-top:14mm"><div class="qr">QR</div><div class="b" style="margin:0">그 커피, 집으로 보내 드려요.<br>매주 볶는 날 볶아서요.</div></div><div class="push sm">검색창에 <b>가치커피</b> · gachicoffee.com · @gachi_coffee</div><div class="no">8</div></div></template>
+
+<!-- ============ ② 한 잔이 오기까지 ============ -->
+<template id="I2">
+<b>② 한 잔이 오기까지 — 벌새가 커피를 물고 오는 길</b>
+포인트: 표지 벌새 <b style="display:inline">금박(또는 형압)</b> 하나. 다 펼치면 산지 → 바다 → 여수 → 당신의 식탁으로 이어지는 한 줄 지도가 4면을 가로지름.<br>
+근거: 홈페이지 ABOUT "커피 가지를 물고 날아온 벌새", "커피는 1년에 단 한 번 수확됩니다". 블랜드는 마지막 정류장 1면.
+</template>
+<template id="21"><div class="face cover" style="justify-content:center"><div style="color:#d9b45b" data-use="bird"></div><div class="t" style="font-size:19pt;color:var(--paper);margin-top:6mm">커피 한 가지를 물고<br>여수에서 날아왔어요</div><div class="sm push" style="color:rgba(236,227,212,.8);letter-spacing:.2em;font-family:Montserrat">GACHI COFFEE · SINCE 2017</div></div></template>
+<template id="22"><div class="face"><div class="k">로고 이야기</div><div class="t">벌새는<br>심부름꾼이에요</div><div class="b">가치커피 로고의 벌새는 커피 가지를 물고 있어요.<br>먼 산지의 커피를 당신에게 전하는 일. 저희가 하는 일이 딱 그거예요.</div><div class="no">2</div></div></template>
+<template id="23"><div class="face"><div class="t" style="font-size:18pt">커피는 1년에<br>단 한 번<br>수확돼요</div><div class="b">한 잔에는 농부의 1년이 들어 있어요.<br>그 1년을 덜어내지 않고 온전히 전하고 싶어요.</div><div class="sm push">펼치면, 그 커피가 온 길 →</div><div class="no">3</div></div></template>
+<template id="2S"><svg style="position:absolute;inset:0;pointer-events:none" width="210mm" height="297mm" viewBox="0 0 210 297"><path d="M18 70 C60 40 90 110 120 80 S190 60 186 120 S80 170 60 200 S120 270 186 250" stroke="#de531e" stroke-width=".7" stroke-dasharray="2 2" fill="none"/></svg></template>
+<template id="24"><div class="face"><div class="stop">01 · ORIGIN</div><div class="t">산지</div><div class="b">에티오피아, 콜롬비아, 브라질, 인도.<br>오늘 마신 네 잔은 이 네 나라에서 왔어요.<br>봉투에는 농장 이름과 고도, 만든 사람까지 적어요.</div><div class="ph push" style="height:34mm">그림 · 커피 나무와 빨간 체리</div><div class="no">4</div></div></template>
+<template id="25"><div class="face"><div class="stop">02 · SEA</div><div class="t">바다를 건너</div><div class="b">생두는 배를 타고 몇 달을 와요.<br><span class="chk">[확인] 들어오는 생두를 먼저 맛보고 골라요.</span></div><div class="ph push" style="height:34mm">그림 · 바다 위 생두 자루</div><div class="no">5</div></div></template>
+<template id="26"><div class="face"><div class="stop">03 · YEOSU</div><div class="t">여수, 볶는 날</div><div class="b">2017년 신기동 카페에서 시작해 2020년 로스터리를 열었어요.<br>매주 정해진 날 볶고, 그날을 미루지 않아요.</div><div class="ph push" style="height:34mm">사진 · 로스터 앞 대표</div><div class="no">6</div></div></template>
+<template id="27"><div class="face"><div class="stop">04 · YOUR TABLE</div><div class="t">그리고 그날의 네 잔</div><div data-use="cups"></div><div class="sm push">마음에 남은 잔에 동그라미 쳐 두세요.</div><div class="no">7</div></div></template>
+<template id="28"><div class="face"><div class="t">다음 한 잔도<br>물고 갈게요</div><div class="order"><div class="qr">QR</div><div class="b" style="margin:0">① 찍고<br>② 동그라미 친 커피 고르고<br>③ 볶는 날 볶아 보내 드려요</div></div><div class="push" style="color:var(--green)" data-use="bird"></div><div class="sm">검색창에 <b>가치커피</b> · gachicoffee.com · @gachi_coffee</div><div class="no">8</div></div></template>
+
+<!-- ============ ③ 남도 한상 차림 ============ -->
+<template id="I3">
+<b>③ 남도 한상 차림 — 보자기를 풀면 상이 나와요</b>
+포인트: 보자기 표지 + 실물 <b style="display:inline">끈 한 가닥</b>(선택, 접은 종이에 둘러 묶음). 펼침에 "집에서 차리는 한 상" 그림 레시피 · 보관법 → 부엌에 붙여 두게.<br>
+펼침 4면: 그날의 한 상 1면 · 집에서 내리기 1면 · 보관 1면 · 다음 상 고르기 1면.
+</template>
+<template id="31"><div class="face cover"><svg width="46mm" height="26mm" viewBox="0 0 180 100"><path d="M90 60 C60 30 20 30 12 50 C30 54 60 60 90 62Z" fill="#1c60ad"/><path d="M90 60 C120 30 160 30 168 50 C150 54 120 60 90 62Z" fill="#1c60ad"/><ellipse cx="90" cy="62" rx="14" ry="11" fill="#174f90"/><path d="M84 70 C78 86 70 94 60 98 M96 70 C102 86 110 94 120 98" stroke="#1c60ad" stroke-width="7" fill="none" stroke-linecap="round"/></svg><div class="t" style="font-size:20pt;margin-top:8mm">여수에서 싸 온<br>커피 한 상</div><div class="push" style="font-weight:800;letter-spacing:.2em;color:var(--blue);font-size:9pt">가치커피</div></div></template>
+<template id="32"><div class="face"><div class="k">남도의 상</div><div class="t">손님을 빈손으로<br>보내지 않아요</div><div class="b">남도에선 밥 한 끼도 상 가득 차려 내요.<br>그 동네에서 커피를 볶다 보니, 서울에도 빈손으로 올 수 없었어요.<br>그래서 커피를 상에 올렸어요.</div><div class="no">2</div></div></template>
+<template id="33"><div class="face"><div class="t" style="font-size:18pt">같이 해 주셔서<br>감사합니다</div><div class="b"><b>가치</b>커피의 '가치'는 두 가지 뜻이에요.<br>값어치 있는 커피, 그리고 같이 마시는 시간.</div><div class="q" style="font-size:9.5pt">가치커피의 가치를<br>같이하여 주셔서 감사합니다.</div><div class="sm push">펼치면, 그날의 한 상 →</div><div class="no">3</div></div></template>
+<template id="34"><div class="face"><div class="k">그날의 한 상</div><div class="t">물김치, 나물, 밥, 후식</div><div class="b" style="margin-top:1mm">순서대로 차렸던 네 잔이에요.</div><div data-use="cups"></div><div class="sm push">마음에 남은 상에 동그라미.</div><div class="no">4</div></div></template>
+<template id="35"><div class="face"><div class="k">집에서 차리는 한 상</div><div class="t">드립백 한 잔</div><div class="steps"><div><b>1</b>윗부분을 뜯어 컵에 걸어요</div><div><b>2</b>뜨거운 물을 조금 붓고 20초 기다려요</div><div><b>3</b>두세 번 나눠 <span class="chk">[물 양 ___ml]</span>까지 부어요</div><div><b>4</b>빼고, 조금 식혀서 한 모금</div></div><div class="sm push">진하면 물을 더, 연하면 다음엔 물을 덜.</div><div class="no">5</div></div></template>
+<template id="36"><div class="face"><div class="k">반찬처럼 보관</div><div class="t">향은 공기와<br>햇빛에 약해요</div><div class="steps" style="grid-template-columns:1fr"><div><b>밀봉</b>쓰고 나면 공기를 빼고 꼭 닫아요</div><div><b>그늘</b>햇빛과 가스레인지 옆은 피해요</div><div><b>갈기 직전</b>원두는 내리기 직전에 갈면 향이 오래가요</div></div><div class="no">6</div></div></template>
+<template id="37"><div class="face"><div class="k">다음 상 고르기</div><div class="t">좋았던 맛에서<br>시작해요</div><div class="cups"><div><i class="d1"></i><span>꽃·과일 향이 좋았다면</span><em>에티오피아 원두</em></div><div><i class="d2"></i><span>허브처럼 새로운 향이 좋았다면</span><em>콜롬비아 원두</em></div><div><i class="d3"></i><span>고소하고 편한 맛이 좋았다면</span><em>브라질 원두</em></div><div><i class="d4"></i><span>달고 진한 마무리가 좋았다면</span><em>중강배전 블랜드</em></div></div><div class="sm push"><span class="chk">자사몰 분류 이름과 맞추기</span></div><div class="no">7</div></div></template>
+<template id="38"><div class="face"><div class="t">다음 상은<br>집에서 차리세요</div><div class="order"><div class="qr">QR</div><div class="b" style="margin:0">원두 주문<br>볶는 날 볶아 보내 드려요</div></div><div class="push sm">검색창에 <b>가치커피</b> · gachicoffee.com · @gachi_coffee</div><div class="no">8</div></div></template>
+
+<!-- ============ ④ 0원 계산서와 주인장 메모 ============ -->
+<template id="I4">
+<b>④ 0원 계산서와 주인장 메모 — 웃고, 적고, 다시 오게</b>
+포인트: 계산서 표지에 <b style="display:inline">현장에서 빨간 "잘 먹었습니다" 도장</b>을 직원이 직접 찍음. 펼침에 손님이 집에서 채우는 <b style="display:inline">단골 장부</b> 칸.<br>
+펼침 4면: 계산 내역 1면 · 주인장 메모 1면 · 단골 장부 1면 · 본점 오시는 길 1면.
+</template>
+<template id="41"><div class="face"><div class="mono" style="font-size:20pt;font-weight:700;letter-spacing:.5em;text-align:center;margin-top:6mm">계산서</div><div class="mono" style="text-align:center;font-size:8.5pt">가치커피 남도 한상집</div><div class="dash"></div><div class="rr"><span>본점</span><span></span><span>여수</span></div><div class="rr"><span>오늘</span><span></span><span>서울 출장</span></div><div class="rr"><span>날짜</span><span></span><span>11 / __</span></div><div class="rr"><span>손님</span><span></span><span>__ 명</span></div><div class="dash"></div><div class="stamp" style="right:12mm;bottom:14mm;border-style:dashed;opacity:.5">현장<br>도장 자리</div></div></template>
+<template id="42"><div class="face"><div class="t">본점은<br>여수예요</div><div class="b">2017년 여수 신기동 작은 카페에서 시작했어요.<br>2020년 로스터리를 열고, 매주 직접 볶아요.</div><div class="ph push" style="height:44mm">사진 · 여수 카페 외관</div><div class="no">2</div></div></template>
+<template id="43"><div class="face"><div class="t">오늘은<br>서울 출장 중</div><div class="b">전라남도에서 올라온 부스는 저희 하나였어요.<br>여수 한상을 그대로 들고 왔어요.<br>다음엔 댁으로 배달 갑니다.</div><div class="sm push">펼치면, 계산 내역 →</div><div class="no">3</div></div></template>
+<template id="44"><div class="face"><div class="mono" style="font-weight:700;text-align:center;letter-spacing:.3em">계 산 내 역</div><div class="dash"></div><div class="rr"><span>첫째 상 코스모스</span><span></span><span>0원</span></div><div class="sm">복숭아 향이 나던 첫 잔</div><div class="rr"><span>둘째 상 허벌</span><span></span><span>0원</span></div><div class="sm">손끝에 비벼 맡던 허브 향</div><div class="rr"><span>셋째 상 구수 라떼</span><span></span><span>0원</span></div><div class="sm">죠리퐁 우유 같던 차가운 라떼</div><div class="rr"><span>넷째 상 보통</span><span></span><span>0원</span></div><div class="sm">새콤하다 초콜릿으로 끝나던 잔</div><div class="rr"><span>리필</span><span></span><span>0원</span></div><div class="dash"></div><div class="rr" style="font-size:13pt;font-weight:700"><span>합계</span><span style="border:0"></span><span>0원</span></div><div class="stamp" style="right:9mm;bottom:9mm">잘<br>먹었습니다</div><div class="no">4</div></div></template>
+<template id="45"><div class="face"><div class="hand">주인장 메모</div><div class="b" style="font-family:'Gowun Batang',serif">아홉 해째 커피를 볶고 있어요.<br>손님들이 해 주신 말 중에 이 말을 기준으로 삼아요.</div><div class="q">"향이 선명하고 강해요.<br>노트가 또렷하게 느껴져요."</div><div class="b" style="font-family:'Gowun Batang',serif">싸게 팔기보다, 왜 이 값인지 보여 드리는 쪽을 택했어요. 봉투에 농장과 사람 이름을 적는 이유예요.</div><div class="hand" style="text-align:right;font-size:14pt">— 주인장</div><div class="no">5</div></div></template>
+<template id="46"><div class="face"><div class="k">단골 장부</div><div class="t">마신 커피를<br>적어 두세요</div><div class="lines" style="margin-top:4mm"><div>날짜 · 커피 이름 · 한 줄</div><div></div><div></div><div></div><div></div><div></div><div></div></div><div class="sm push">세 줄이 차면 이미 단골이에요.</div><div class="no">6</div></div></template>
+<template id="47"><div class="face"><div class="k">본점 오시는 길</div><div class="t">여수 여행 오시면</div><div class="ph" style="height:46mm;margin-top:3mm">그림 · 여수 지도, 카페와 바다</div><div class="b">가치커피 카페 <span class="chk">[주소·영업시간 확인]</span><br>이 계산서 보여 주시면 반갑게 인사드릴게요.</div><div class="no">7</div></div></template>
+<template id="48"><div class="face"><div class="t">다음 상은<br>집에서 차리세요</div><div class="order"><div class="qr">QR</div><div class="b" style="margin:0">원두 주문<br>볶는 날 볶아 보내 드려요</div></div><div class="dash" style="margin-top:8mm"></div><div class="rr"><span>검색</span><span></span><span>가치커피</span></div><div class="rr"><span>홈</span><span></span><span>gachicoffee.com</span></div><div class="rr"><span>인스타</span><span></span><span>@gachi_coffee</span></div><div class="no">8</div></div></template>
+
+<!-- ============ ⑤ 향을 기억하는 종이 ============ -->
+<template id="I5">
+<b>⑤ 향을 기억하는 종이 — "향이 선명한 커피" 하나로</b>
+포인트: 표지 네 색 점(네 잔) + 선택으로 <b style="display:inline">커피 향 인쇄(향 바니시)</b> — 서랍에서 꺼낼 때 냄새로 먼저 기억나게(비용·업체 확인). 펼침에 손님이 쓰는 <b style="display:inline">향 일기</b>.<br>
+근거: 운영철학 2 "우리가 파는 것은 향이 선명한 커피 하나". 펼침 4면: 향 지도 1면(블랜드 겸) · 집에서 향 지키기 · 향 일기 · 다음 향 찾기.
+</template>
+<template id="51"><div class="face cover" style="justify-content:center"><div style="display:flex;gap:3mm"><i style="width:9mm;height:9mm;border-radius:50%;background:#f2a48a"></i><i style="width:9mm;height:9mm;border-radius:50%;background:#2f8a5f"></i><i style="width:9mm;height:9mm;border-radius:50%;background:#c98b4a"></i><i style="width:9mm;height:9mm;border-radius:50%;background:#8a5a44"></i></div><div class="t" style="font-size:20pt;color:var(--paper);margin-top:8mm">그날 맡은 향,<br>기억나세요?</div><div class="sm push" style="color:rgba(236,227,212,.75);letter-spacing:.2em;font-family:Montserrat">GACHI COFFEE · YEOSU</div></div></template>
+<template id="52"><div class="face"><div class="k">우리가 볶는 커피</div><div class="t">향이 선명한 커피,<br>그거 하나예요</div><div class="b">손님들이 저희 커피를 마시고 해 주신 말이에요.</div><div class="q">"향이 선명하고 강해요.<br>노트가 또렷하게 느껴져요."</div><div class="b">꽃과 과일만이 아니에요. 고소한 커피도 향이 또렷해야 저희 커피예요.</div><div class="no">2</div></div></template>
+<template id="53"><div class="face"><div class="k">향은 어디서 오나</div><div class="t">커피가 자란<br>곳에서 와요</div><div class="b">그래서 봉투에 농장 이름, 고도, 가공 방식, 만든 사람까지 적어요.<br>2017년 여수의 작은 카페에서 시작해, 지금은 매주 직접 볶아 보내요.</div><div class="sm push">펼치면, 그날의 향 지도 →</div><div class="no">3</div></div></template>
+<template id="54"><div class="face"><div class="k">그날의 향 지도</div><svg width="78mm" height="62mm" viewBox="0 0 160 128" style="margin:3mm auto 0"><circle cx="80" cy="64" r="58" fill="none" stroke="#151936" stroke-width=".6"/><circle cx="80" cy="64" r="30" fill="none" stroke="#151936" stroke-width=".4" stroke-dasharray="2 2"/><g font-size="8.5" font-family="Pretendard" fill="#151936" text-anchor="middle"><text x="80" y="14">꽃</text><text x="140" y="50">과일</text><text x="132" y="112">허브</text><text x="28" y="112">견과·곡물</text><text x="20" y="50">초콜릿</text></g><circle cx="98" cy="30" r="5" fill="#f2a48a"/><circle cx="112" cy="92" r="5" fill="#2f8a5f"/><circle cx="46" cy="94" r="5" fill="#c98b4a"/><circle cx="40" cy="54" r="5" fill="#5a3324"/></svg><div data-use="cups"></div><div class="no">4</div></div></template>
+<template id="55"><div class="face"><div class="k">집에서 향 지키기</div><div class="t">향이 제일 먼저<br>날아가요</div><div class="steps" style="grid-template-columns:1fr"><div><b>갈기 직전</b>원두는 내리기 직전에 갈아요</div><div><b>꼭 닫기</b>공기를 빼고 닫아 그늘에 둬요</div><div><b>첫 모금 전</b>컵을 코에 대고 한 번 맡아 보세요</div></div><div class="no">5</div></div></template>
+<template id="56"><div class="face"><div class="k">향 일기</div><div class="t">오늘 맡은 향을<br>한 단어로</div><div class="lines" style="margin-top:4mm"><div>날짜 · 커피 · 맡은 향</div><div></div><div></div><div></div><div></div><div></div><div></div></div><div class="sm push">정답은 없어요. 떠오른 그대로 적으면 돼요.</div><div class="no">6</div></div></template>
+<template id="57"><div class="face"><div class="k">다음 향 찾기</div><div class="t">좋았던 향에서<br>골라 보세요</div><div class="cups"><div><i class="d1"></i><span>꽃·과일이 좋았다면</span><em>에티오피아</em></div><div><i class="d2"></i><span>허브·새로운 향이라면</span><em>콜롬비아</em></div><div><i class="d3"></i><span>고소한 향이라면</span><em>브라질·인도</em></div><div><i class="d4"></i><span>초콜릿 마무리라면</span><em>중강배전</em></div></div><div class="sm push"><span class="chk">자사몰 분류 이름과 맞추기</span></div><div class="no">7</div></div></template>
+<template id="58"><div class="face"><div class="t">그 향,<br>다시 맡으러 오세요</div><div class="order"><div class="qr">QR</div><div class="b" style="margin:0">원두 주문<br>매주 볶는 날 볶아 보내 드려요</div></div><div class="push sm">검색창에 <b>가치커피</b> · gachicoffee.com · @gachi_coffee</div><div class="no">8</div></div></template>
+
+<script>
+var q=location.search.slice(1), K=/^[1-5]$/.test(q)?q:'1';
+document.body.classList.add('T'+K);
+document.querySelector('.tabs a[data-k="'+K+'"]').classList.add('on');
+function tpl(id){var t=document.getElementById(id);return t?t.content.cloneNode(true):null}
+document.getElementById('idea').appendChild(tpl('I'+K));
+document.querySelectorAll('.sheet[data-f]').forEach(function(sh){
+  sh.dataset.f.split(',').forEach(function(k){
+    var frag=tpl(K+k.replace('r','')), node=frag.firstElementChild;
+    if(/r$/.test(k)) node.classList.add('rot');
+    node.querySelectorAll('[data-use]').forEach(function(el){el.appendChild(tpl(el.dataset.use))});
+    sh.appendChild(node);
+  });
+  if(sh.dataset.f==='4,5,6,7'){var s=tpl(K+'S'); if(s) sh.appendChild(s);}
+});
+</script>
+</body>
+</html>
