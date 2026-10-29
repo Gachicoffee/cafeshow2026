@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>남도 커피 한 상 · 미니 브로셔 시안</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{
+  --paper:#ECE3D4; --ink:#151936; --green:#00593b; --orange:#de531e; --line:#151936;
+  --soft:#5b5e70; --fw:90mm; --fh:90mm; --s:1;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Pretendard,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;color:var(--ink);background:#d9d4cb;word-break:keep-all;line-height:1.45}
+.wrap{max-width:1100px;margin:0 auto;padding:24px 16px 60px}
+h1{font-size:22px;margin-bottom:6px}
+.note{font-size:13px;color:#3d4055;margin-bottom:6px}
+h2{font-size:15px;margin:34px 0 10px;padding-top:12px;border-top:1px solid #9e9888}
+.row{display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start}
+.cap{font-size:12px;color:#3d4055;margin:6px 0 0}
+.sheet{display:grid;grid-template-columns:var(--fw) var(--fw);background:var(--paper);box-shadow:0 2px 10px rgba(0,0,0,.18);position:relative}
+.sheet.one{grid-template-columns:var(--fw)}
+.sheet .face{outline:.2mm dashed rgba(21,25,54,.25)}
+.rot{transform:rotate(180deg)}
+
+/* 한 면 = 90×90mm */
+.face{width:var(--fw);height:var(--fh);padding:calc(7mm*var(--s)) calc(7mm*var(--s)) calc(6mm*var(--s));position:relative;display:flex;flex-direction:column;background:var(--paper);overflow:hidden}
+.no{position:absolute;right:4mm;bottom:3mm;font-size:calc(6pt*var(--s));color:var(--soft)}
+.kick{font-size:calc(6.5pt*var(--s));letter-spacing:.06em;color:var(--green);font-weight:700}
+.tt{font-size:calc(13pt*var(--s));font-weight:800;line-height:1.3;margin-top:2.5mm}
+.bd{font-size:calc(8pt*var(--s));margin-top:3mm;color:var(--ink)}
+.sm{font-size:calc(6.5pt*var(--s));color:var(--soft)}
+.push{margin-top:auto}
+
+/* 1 표지 */
+.cover{background:var(--green);color:var(--paper);justify-content:center}
+.cover .tt{font-size:calc(19pt*var(--s));color:var(--paper);margin:0}
+.cover .bd{color:var(--paper);font-size:calc(8.5pt*var(--s))}
+.cover .sm{color:rgba(236,227,212,.8);letter-spacing:.12em;font-weight:600}
+.soban{width:30mm;height:9mm;margin:0 0 5mm;position:relative}
+.soban:before{content:"";position:absolute;left:0;right:0;top:0;height:2.2mm;background:var(--paper)}
+.soban:after{content:"";position:absolute;left:4mm;right:4mm;top:2.2mm;bottom:0;border-left:1.4mm solid var(--paper);border-right:1.4mm solid var(--paper)}
+.dot{display:inline-block;width:2.2mm;height:2.2mm;border-radius:50%;background:var(--orange);margin-right:1.5mm;vertical-align:middle}
+
+/* 4~7 네 상 */
+.sang .kick{color:var(--soft);font-weight:600}
+.sang .name{font-size:calc(14pt*var(--s));font-weight:800;margin-top:2mm;line-height:1.2}
+.sang .en{font-family:Montserrat,Pretendard,sans-serif;font-size:calc(7pt*var(--s));font-weight:800;letter-spacing:.14em;color:var(--green);margin-left:1.5mm}
+.notes{font-size:calc(7.5pt*var(--s));font-weight:700;margin-top:2mm;padding:1.2mm 0;border-top:.25mm solid var(--line);border-bottom:.25mm solid var(--line)}
+.blend{font-size:calc(6.3pt*var(--s));color:var(--soft);line-height:1.4}
+
+/* 8 뒷면 */
+.qr{width:19mm;height:19mm;border:.3mm solid var(--ink);display:flex;align-items:center;justify-content:center;font-size:calc(6pt*var(--s));color:var(--soft);flex:none}
+.back-row{display:flex;gap:3.5mm;align-items:center;margin-top:3mm}
+.sizes a{display:inline-block;margin:4px 8px 8px 0;padding:6px 12px;border:1px solid var(--ink);color:var(--ink);text-decoration:none;font-size:13px}.sizes a.on{background:var(--ink);color:var(--paper)}
+.a4 .face .push{margin-top:0}.a4 .soban{width:40mm;height:12mm}.a4 .qr{width:26mm;height:26mm}
+.ph{display:none}
+.a4 .ph{display:flex;flex:1;margin:4mm 0;min-height:20mm;border:.3mm dashed var(--soft);align-items:center;justify-content:center;text-align:center;font-size:7pt;color:var(--soft)}
+.chk{background:#fff7d6;outline:1px solid #e0b400}
+
+
+@media print{
+  body{background:none}
+  .screen{display:none}
+  .wrap{padding:0;max-width:none}
+  .print .sheet{box-shadow:none;break-after:page}
+  .print .sheet .face{outline:none}
+  .chk{background:none;outline:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="screen">
+  <h1>남도 커피 한 상 · 소반 앞 미니 브로셔</h1>
+  <p class="sizes"><a href="?">180×180 → 90×90</a> <a href="?a4">A4 → A6(105×148)</a></p>
+  <p class="note">펼침 <span class="z3"></span> → 두 번 접어 <span class="z1"></span> · 원고 <code>미니브로셔_원고.md</code> v1 (10/29) · 색: 종이 #ECE3D4 · 먹 #151936 · 초록 #00593b · 주황은 표지 한 점</p>
+  <p class="note">노란 칸 = 대표 확인할 값. QR은 자리만(도착지 정한 뒤 넣기). 디자인 최종은 하빈 — 이 파일은 문구·분량 확인용.</p>
+
+  <h2>읽는 순서</h2>
+  <div class="row">
+    <div><div class="sheet one" data-f="1"></div><p class="cap">① 접힌 앞면</p></div>
+    <div><div class="sheet" data-f="2,3"></div><p class="cap">② 한 번 펼침 (<span class="z2"></span>)</p></div>
+  </div>
+  <div class="row" style="margin-top:18px">
+    <div><div class="sheet" data-f="4,5,6,7"></div><p class="cap">③ 다 펼침 (<span class="z3"></span>) — 소반 네 상</p></div>
+    <div><div class="sheet one" data-f="8"></div><p class="cap">④ 뒷면</p></div>
+  </div>
+
+  <h2>인쇄 배치 (양면 <span class="z3"></span>, 인쇄 = 아래 두 장)</h2>
+  <p class="note">바깥면 윗줄 3·2면은 180° 돌림. 접기: 가로로 반(위 칸이 뒤로) → 세로로 반(왼쪽이 뒤로) → 1면이 앞. 시험 출력으로 앞뒤 맞춤 확인.</p>
+</div>
+
+<div class="print row">
+  <div><div class="sheet" data-f="3r,2r,8,1"></div><p class="cap screen">바깥면</p></div>
+  <div><div class="sheet" data-f="4,5,6,7"></div><p class="cap screen">안쪽면</p></div>
+</div>
+</div>
+
+<!-- ===== 면 원고 ===== -->
+<template id="f1">
+  <div class="face cover">
+    <div class="soban"></div>
+    <div class="tt">남도 커피<br>한 상</div>
+    <div class="bd">여수에서 차려 온 네 가지 커피</div>
+    <div class="sm push"><span class="dot"></span>GACHI COFFEE · YEOSU · SINCE 2017</div>
+  </div>
+</template>
+
+<template id="f2">
+  <div class="face">
+    <div class="kick">상을 물리며</div>
+    <div class="tt">같이 해 주셔서<br>감사합니다</div>
+    <div class="bd">남도에선 손님을 빈손으로 보내지 않아요.<br>오늘 드신 네 잔을 이 종이에 싸 드려요.<br>집에서 다시 펼쳐 보세요.</div>
+    <div class="ph">소반 사진 (상보 연 모습)</div>
+    <div class="no">2</div>
+  </div>
+</template>
+
+<template id="f3">
+  <div class="face">
+    <div class="kick">여수의 로스터리, 가치커피</div>
+    <div class="tt">커피의 가치,<br>같이 마시는 즐거움</div>
+    <div class="bd">2017년 여수의 작은 카페에서 시작해<br>매주 직접 볶습니다.<br>농장과 생산자 이야기도 정확히 전할게요.</div>
+    <div class="ph">로스팅실 · 매장 사진</div>
+    <div class="sm push">다 펼치면, 오늘 차린 네 상 →</div>
+    <div class="no">3</div>
+  </div>
+</template>
+
+<template id="f4">
+  <div class="face sang">
+    <div class="kick">01 첫째 상 · 입맛 여는 물김치</div>
+    <div class="name">코스모스 블랜드<span class="en">COSMOS</span></div>
+    <div class="notes">꽃향 · 복숭아 · 얼그레이</div>
+    <div class="bd">꽃향으로 여는 첫 잔.<br>복숭아를 지나 얼그레이로 남아요.</div>
+    <div class="ph">향미 원물 사진 · 말린 꽃잎</div>
+    <div class="blend push">에티오피아 예가체프 첼베사 68%<br>+ 시다마 하마쇼 32% · 중약배전</div>
+    <div class="no">4</div>
+  </div>
+</template>
+
+<template id="f5">
+  <div class="face sang">
+    <div class="kick">02 둘째 상 · 향긋한 나물</div>
+    <div class="name">허벌 블랜드<span class="en">HERBAL</span></div>
+    <div class="notes">라임 · 로즈마리 · 타임</div>
+    <div class="bd">손끝에 비벼 맡은 로즈마리,<br>그 향이 커피에서 나요.</div>
+    <div class="ph">향미 원물 사진 · 로즈마리</div>
+    <div class="blend push">콜롬비아 라 에스메랄다 게이샤 67%<br>+ 엘 포르베니르 카투라(2x 무산소) 33% · 중약배전</div>
+    <div class="no">5</div>
+  </div>
+</template>
+
+<template id="f6">
+  <div class="face sang">
+    <div class="kick">03 셋째 상 · 이 상의 밥</div>
+    <div class="name">구수 블랜드<span class="en">GOOSOO</span></div>
+    <div class="notes">보리 · 누룽지 · 마카다미아</div>
+    <div class="bd">오늘은 우유와 설탕을 더한<br>차가운 라떼로 차렸어요.</div>
+    <div class="ph">향미 원물 사진 · 볶은 보리·죠리퐁</div>
+    <div class="blend push">브라질 산타 루시아 75%<br>+ 인도 아자드힌드 25% · 중배전</div>
+    <div class="no">6</div>
+  </div>
+</template>
+
+<template id="f7">
+  <div class="face sang">
+    <div class="kick">04 넷째 상 · 달콤한 후식</div>
+    <div class="name">보통 블랜드<span class="en">BOTTON</span></div>
+    <div class="notes">초콜릿 · 카카오닙 · 블루베리</div>
+    <div class="bd">블루베리처럼 새콤하다가 초콜릿으로 끝나요.<br>이름은 보통, 맛은 안 보통.</div>
+    <div class="ph">향미 원물 사진 · 블루베리·초콜릿</div>
+    <div class="blend push">에티오피아 시다마 프라임로즈 60%<br>+ 브라질 산타 루시아 40% · 중강배전</div>
+    <div class="no">7</div>
+  </div>
+</template>
+
+<template id="f8">
+  <div class="face">
+    <div class="tt" style="margin-top:0">오늘 좋았던 한 잔,<br>집에서도</div>
+    <div class="back-row">
+      <div class="qr">QR</div>
+      <div class="bd" style="margin:0">원두로, 드립백으로 만나요.<br><b>네 가지 블랜드 보러 가기</b><br><span class="sm">gachicoffee.com · @gachi_coffee</span></div>
+    </div>
+    <div class="sm push"><b>집에서 내리는 법</b> <span class="chk">원두 20g · 물 280g(1:14) · 93℃</span></div>
+    <div class="sm" style="margin-top:1mm">카페 원두 납품 문의도 반가워요</div>
+    <div class="no">8</div>
+  </div>
+</template>
+
+<script>
+var A4=/a4/.test(location.search);
+var st=document.createElement('style');
+st.textContent='@page{size:'+(A4?'210mm 297mm':'180mm 180mm')+';margin:0}'+(A4?':root{--fw:105mm;--fh:148.5mm;--s:1.22}':'');
+document.head.appendChild(st);
+if(A4)document.body.classList.add('a4');
+document.querySelectorAll('.sizes a')[A4?1:0].classList.add('on');
+var Z=A4?['105×148.5mm','210×148.5mm','A4 210×297mm']:['90×90mm','180×90mm','180×180mm'];
+[1,2,3].forEach(function(i){document.querySelectorAll('.z'+i).forEach(function(e){e.textContent=Z[i-1]})});
+document.querySelectorAll('.sheet[data-f]').forEach(function(sh){
+  sh.dataset.f.split(',').forEach(function(k){
+    var r=/r$/.test(k), id=k.replace('r','');
+    var node=document.getElementById('f'+id).content.firstElementChild.cloneNode(true);
+    if(r) node.classList.add('rot');
+    sh.appendChild(node);
+  });
+});
+</script>
+</body>
+</html>
