@@ -76,6 +76,13 @@ svg{display:block}
 .T6 .lt{font-family:"Gowun Batang",serif;font-size:9.6pt;line-height:1.85;margin-top:3mm}
 .T6 .lt p+p{margin-top:2mm}
 .T6 .t{font-family:"Gowun Batang",serif}
+/* 7 남도 한 상 · 우리가 지키는 것 */
+.T7{--bg:var(--paper);--ac:var(--green)}
+.T7 .cover{background:var(--green);color:var(--paper)}
+.T7 .stop{font-family:Montserrat,sans-serif;font-size:7pt;font-weight:800;letter-spacing:.14em;color:var(--orange)}
+.T7 .lt{font-family:"Gowun Batang",serif;font-size:9.4pt;line-height:1.8;margin-top:2.5mm}
+.T7 .t{font-family:"Gowun Batang",serif}
+.T7 .big{font-family:"Gowun Batang",serif;font-size:15pt;line-height:1.4;color:var(--green);margin-top:2mm}
 @media print{body{background:none}.screen,.tabs,.idea{display:none}.wrap{padding:0;max-width:none}.print .sheet{box-shadow:none;break-after:page}.face{outline:none}.chk{background:none;outline:none}.print .cap{display:none}}
 @page{size:210mm 297mm;margin:0}
 </style>
@@ -87,7 +94,7 @@ svg{display:block}
   <p class="note">원칙: 다 펼친 4면 중 블랜드는 1면(많아야 2면), 나머지는 가치커피 이야기·집에서 쓸 것. 문장은 확인된 사실로만(운영철학·홈페이지 ABOUT·행사정보·라벨). 노란 칸 = 확인할 값, 점선 칸 = 사진·그림 자리. 기안이라 디자인은 하빈 몫.</p>
 </div>
 <div class="tabs">
-  <a href="?1" data-k="1">① 여수에서 온 편지</a><a href="?2" data-k="2">② 한 잔이 오기까지</a><a href="?3" data-k="3">③ 남도 한상 차림</a><a href="?4" data-k="4">④ 0원 계산서와 주인장 메모</a><a href="?5" data-k="5">⑤ 향을 기억하는 종이</a><a href="?6" data-k="6">⑥ 편지 × 벌새 (①내용 + ②그래픽)</a>
+  <a href="?1" data-k="1">① 여수에서 온 편지</a><a href="?2" data-k="2">② 한 잔이 오기까지</a><a href="?3" data-k="3">③ 남도 한상 차림</a><a href="?4" data-k="4">④ 0원 계산서와 주인장 메모</a><a href="?5" data-k="5">⑤ 향을 기억하는 종이</a><a href="?6" data-k="6">⑥ 편지 × 벌새 (①내용 + ②그래픽)</a><a href="?7" data-k="7">⑦ 남도 한 상 · 우리가 지키는 것</a>
 </div>
 <div class="idea" id="idea"></div>
 <div class="screen">
@@ -209,8 +216,24 @@ svg{display:block}
 <template id="67"><div class="face"><div class="stop">04 · P.S.</div><div class="hand" style="color:var(--green);margin-top:1mm">그날 마신 네 잔이에요</div><div data-use="cups"></div><div class="sm push">마음에 남은 잔에 동그라미 쳐 두세요. 주문할 때 그 이름만 찾으면 돼요.</div><div class="hand" style="text-align:right;font-size:15pt;color:var(--green);margin-top:2mm">가치커피 드림</div><div class="no">7</div></div></template>
 <template id="68"><div class="face"><div style="display:flex;justify-content:space-between;align-items:flex-start"><div class="hand" style="font-size:20pt;color:var(--green)">답장은<br>여기로</div><div style="width:22mm;height:26mm;border:.6mm dashed var(--green);display:flex;align-items:center;justify-content:center;color:#b8923a;background:#f3ecd9" data-use="bird"></div></div><div class="dateStamp" style="position:absolute;right:20mm;top:27mm;transform:rotate(-12deg)">현장 소인<br>2026. 11. __<br>서울 → 여수</div><div class="order" style="margin-top:15mm"><div class="qr">QR</div><div class="lt" style="margin:0">그 커피,<br>집으로 보내 드려요.<br>볶는 날 볶아서요.</div></div><div class="push sm">검색창에 <b>가치커피</b> · gachicoffee.com · @gachi_coffee</div><div class="no">8</div></div></template>
 
+<!-- ============ ⑦ 남도 한 상 · 우리가 지키는 것 ============ -->
+<template id="I7">
+<b>⑦ 남도 한 상 · 우리가 지키는 것 — ② 그래픽 + 회사 이야기</b>
+표지는 소반 카드에서 본 그 문장. 안쪽은 "카페쇼에서 보여 드리고 싶었던 것 → 가치커피는 어떤 곳 → 다 펼치면 우리가 지키는 네 가지(고르기·알리기·값·약속)". 블랜드는 뒷면에 짧게, 주문 길과 함께.<br>
+근거: 운영철학 v3 원칙 1·2·3·7(대표 확정), 기획서 v0.1 컨셉, 결정사항 10/28 뒷벽·왼쪽 벽.
+</template>
+<template id="71"><div class="face cover" style="justify-content:center"><div style="color:#d9b45b" data-use="bird"></div><div class="t" style="font-size:18pt;color:var(--paper);margin-top:7mm;line-height:1.45">남도에선 손님을<br>빈손으로<br>보내지 않아요</div><div class="sm push" style="color:rgba(236,227,212,.85);letter-spacing:.2em;font-family:Montserrat">GACHI COFFEE · YEOSU</div><div class="sm" style="color:rgba(236,227,212,.7);font-family:Montserrat;letter-spacing:.2em">SINCE 2017</div></div></template>
+<template id="72"><div class="face"><div class="k">2026 서울카페쇼 · 커피앨리 CA107</div><div class="t">여수에서<br>커피 한 상을 차려 왔어요</div><div class="lt">이번 카페쇼에 전라남도에서 온 부스는 저희 하나였어요.</div><div class="lt">남도 밥상은 반찬이 기본이고 덤이 인심이에요. 커피도 그렇게 대접하고 싶어서 소반 네 상에 네 잔을 차렸어요.</div><div class="lt">왼쪽 벽에는 전남 카페 사장님들이 보내 준 응원 한마디를 붙였어요.</div><div class="no">2</div></div></template>
+<template id="73"><div class="face"><div class="k">가치커피는</div><div class="t">여수에서 매주<br>커피를 볶아요</div><div class="ph" style="height:34mm;margin-top:3mm">사진 · 여수 로스팅실</div><div class="lt">2017년 여수 신기동의 작은 카페로 시작해 2020년에 로스터리를 열었어요. 지금은 전국의 카페와 집으로 볶은 원두를 보내요.</div><div class="sm push">펼치면, 저희가 지키는 네 가지 →</div><div class="no">3</div></div></template>
+<template id="7S"><svg style="position:absolute;inset:0;pointer-events:none" width="210mm" height="297mm" viewBox="0 0 210 297"><path d="M24 22 C70 14 96 52 132 30 S198 26 192 90 S110 142 70 166 S28 236 92 262 S172 252 192 238" stroke="#de531e" stroke-width=".7" stroke-dasharray="2 2" fill="none"/><g transform="translate(184 228) rotate(-20) scale(.12)" fill="#00593b"><path d="M8 58 C26 34 52 28 70 36 L112 14 L92 44 C84 64 58 76 30 72Z"/><path d="M70 36 C66 20 56 10 44 6 C52 18 56 28 58 38Z" opacity=".7"/></g></svg></template>
+<template id="74"><div class="face"><div class="stop">01 · 고르기</div><div class="big">향이 선명한 커피<br>한 가지를 팔아요</div><div class="q" style="margin-top:4mm">"향이 선명하고 강해요.<br>노트가 또렷하게 느껴져요."</div><div class="sm">— 가치커피 손님들</div><div class="lt">손님들이 해 준 이 말이 저희 기준이에요. 꽃과 과일 향도, 견과와 초콜릿 맛도 또렷해야 골라요.</div><div class="no">4</div></div></template>
+<template id="75"><div class="face"><div class="stop">02 · 알리기</div><div class="big">농장 이름까지<br>적어 보내요</div><div class="lt">커피는 1년에 한 번 수확돼요. 한 잔에는 산지 사람들의 한 해가 들어 있어요.</div><div class="lt">그래서 어느 농장에서 누가 길렀는지, 높이와 가공 방식까지 자세하고 정확하게 적어요.</div><div class="lt">벌새 로고는 커피 가지를 물고 날아오는 심부름꾼이에요.</div><div class="no">5</div></div></template>
+<template id="76"><div class="face"><div class="stop">03 · 값</div><div class="big">값에는<br>이유를 붙여요</div><div class="lt">정가를 지켜요. 대신 그 값의 이유를 다 보여 드려요.</div><div class="lt">어디서 온 생두인지, 어떻게 섞었는지, 언제 볶았는지. 봉투와 상세 페이지에 숨기지 않고 적어요.</div><div class="ph push" style="height:26mm">그림 · 원두 봉투 라벨 확대</div><div class="no">6</div></div></template>
+<template id="77"><div class="face"><div class="stop">04 · 약속</div><div class="big">볶는 날은<br>미루지 않아요</div><div class="lt">매주 볶는 날과 보내는 날을 정해 두고 지켜요.</div><div class="lt">작은 약속을 매번 지키는 것. 9년 동안 가게를 하며 배운 가장 큰 일이에요.</div><div class="hand push" style="text-align:right;font-size:15pt;color:var(--green)">여수에서, 가치커피 드림</div><div class="no">7</div></div></template>
+<template id="78"><div class="face"><div class="hand" style="font-size:16pt;color:var(--green)">그날 마신 네 잔</div><div data-use="cups"></div><div class="order" style="margin-top:5mm"><div class="qr">QR</div><div class="lt" style="margin:0">같은 상,<br>집에서도 차려 드려요.<br>볶는 날 볶아서 보내요.</div></div><div class="push sm">검색창에 <b>가치커피</b> · gachicoffee.com · @gachi_coffee</div><div class="no">8</div></div></template>
+
 <script>
-var q=location.search.slice(1), K=/^[1-6]$/.test(q)?q:'6';
+var q=location.search.slice(1), K=/^[1-7]$/.test(q)?q:'7';
 document.body.classList.add('T'+K);
 document.querySelector('.tabs a[data-k="'+K+'"]').classList.add('on');
 function tpl(id){var t=document.getElementById(id);return t?t.content.cloneNode(true):null}
