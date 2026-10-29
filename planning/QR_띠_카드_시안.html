@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QR 띠·카드 시안</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root{--blue:#1c4fa8;--ink:#151936;--org:#de531e}
+*{box-sizing:border-box;margin:0}
+body{background:#e9e5dc;color:var(--ink);font:14px/1.5 Pretendard,"Malgun Gothic",sans-serif;padding:16px}
+h1{font-size:19px}h2{font-size:15px;margin:22px 0 4px}.sub{color:#555;font-size:13px}
+.scroll{overflow-x:auto;padding:6px 0}
+.en{font-family:Montserrat,sans-serif;font-weight:800;letter-spacing:.02em}
+/* 선반 띠 600×40mm */
+.strip{width:600mm;height:40mm;background:#fff;display:flex;border-top:2.5mm solid var(--blue);box-shadow:0 2px 6px rgba(0,0,0,.12)}
+.cell{flex:1;display:flex;align-items:center;gap:3mm;padding:0 4mm;border-left:.3mm solid #d6dbe8}
+.cell:first-child{border-left:0}
+.cell .t{flex:1;min-width:0}
+.cell .nm{font-size:13pt;color:var(--blue);line-height:1.1}
+.cell .pr{font-size:9pt;margin-top:1mm}
+.cell .ko{font-size:7.5pt;color:#555}
+.q{width:26mm;height:26mm;flex:none}
+.q img,.q canvas{width:26mm!important;height:26mm!important}
+.ph{width:26mm;height:26mm;flex:none;border:.4mm dashed #9aa6c7;color:#7a86a8;font-size:6.5pt;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.3}
+.here{background:var(--blue);color:#fff}
+.here .nm,.here .ko{color:#fff}
+.badge{font-size:7pt;background:var(--org);color:#fff;padding:.5mm 2mm;border-radius:2mm;display:inline-block;margin-top:1mm}
+/* 탁상 카드 90×50mm */
+.cards{display:flex;gap:8mm;flex-wrap:wrap}
+.card{width:90mm;height:50mm;background:#fff;display:flex;align-items:center;gap:4mm;padding:4mm 5mm;border-left:3mm solid var(--blue);box-shadow:0 2px 6px rgba(0,0,0,.12)}
+.card .q,.card .q img,.card .q canvas{width:30mm!important;height:30mm!important}
+.card .nm{font-size:12pt;color:var(--blue);line-height:1.15}
+.card .pr{font-size:10pt;margin-top:1.5mm}
+.card .go{font-size:7.5pt;color:#444;margin-top:2.5mm;line-height:1.4}
+.card .ft{font-size:6pt;color:#999;margin-top:2mm}
+.note{background:#fff;border-radius:6px;padding:12px 14px;max-width:760px;margin-top:20px;font-size:13px}
+.note li{margin:3px 0 3px 16px}
+</style></head><body>
+<h1>QR 선반 띠 · 탁상 카드 시안</h1>
+<p class="sub">화면 크기 = 실제 크기(mm). QR은 실제로 찍히는 자사몰 주소 + utm_source=cafeshow. 원두 4종은 현장 주문 상품이 생기면 넣음.</p>
+
+<h2>① 왼쪽 선반 띠 · 600×40mm · 원두 4종</h2>
+<div class="scroll"><div class="strip">
+  <div class="cell"><div class="t"><div class="nm en">COSMOS</div><div class="ko">코스모스 블랜드</div><div class="pr">200g <b>18,000원</b></div></div><div class="ph">QR 자리<br>현장 주문<br>상품 주소</div></div>
+  <div class="cell"><div class="t"><div class="nm en">HERBAL</div><div class="ko">허벌 블랜드</div><div class="pr">200g <b>26,000원</b></div></div><div class="ph">QR 자리<br>현장 주문<br>상품 주소</div></div>
+  <div class="cell"><div class="t"><div class="nm en">GOOSOO</div><div class="ko">구수 블랜드</div><div class="pr">200g <b>16,000원</b></div></div><div class="ph">QR 자리<br>현장 주문<br>상품 주소</div></div>
+  <div class="cell"><div class="t"><div class="nm en">BOTTON</div><div class="ko">보통 블랜드</div><div class="pr">200g <b>14,000원</b></div></div><div class="ph">QR 자리<br>현장 주문<br>상품 주소</div></div>
+</div></div>
+
+<h2>② 오른쪽 선반 띠 · 600×40mm · 드립백 + 튜브앤랙</h2>
+<div class="scroll"><div class="strip">
+  <div class="cell here" style="flex:1.15"><div class="t"><div class="nm en">DRIP BAG SET</div><div class="ko">드립백 4종 한 세트 · 보자기 포장</div><div class="pr">카페쇼 <b>10,000원</b> <s style="opacity:.7">12,000</s></div><span class="badge">여기서 바로 사 가세요</span></div></div>
+  <div class="cell"><div class="t"><div class="nm en">TUBE&amp;RACK</div><div class="ko">튜브앤랙</div><div class="pr"><b>19,800원</b></div><div class="ko">찍으면 자사몰 상품으로 가요</div></div><div class="q" data-qr="185"></div></div>
+</div></div>
+
+<h2>③ 수납장 위 탁상 카드 · 90×50mm</h2>
+<div class="cards">
+  <div class="card"><div class="q" data-qr="186"></div><div><div class="nm en">ARCHIVE NOTE</div><div class="ko">아카이브 노트</div><div class="pr"><b>6,900원</b></div><div class="go">@gachi_coffee 팔로우하시면<br>나가실 때 한 권 싸 드려요</div><div class="ft">더 사려면 QR → 자사몰</div></div></div>
+  <div class="card"><div class="q" data-qr="100"></div><div><div class="nm en">SHOPBAG</div><div class="ko">장바구니</div><div class="pr"><b>12,000원</b></div><div class="go">찍으면 자사몰<br>상품으로 바로 가요</div></div></div>
+  <div class="card"><div class="q" data-qr="101"></div><div><div class="nm en">STICKER</div><div class="ko">캐릭터 스티커</div><div class="pr"><b>1,500원</b></div><div class="go">찍으면 자사몰<br>상품으로 바로 가요</div></div></div>
+</div>
+
+<div class="note">
+<b>정할 것</b>
+<ul>
+<li>드립백 세트 정가 표시(12,000 취소선): 인쇄물 목록 초안 그대로 넣음 → 확인</li>
+<li>원두 띠는 200g 가격만. 500g·1kg은 계산 자리 가격표에</li>
+<li>재질: 띠는 폼보드 3mm 양면테이프, 카드는 아크릴 L자 꽂이(90×55)</li>
+<li>QR은 인쇄 전 휴대폰으로 4개 다 찍어 보기</li>
+</ul>
+</div>
+<script>
+document.querySelectorAll('[data-qr]').forEach(function(el){
+  try{new QRCode(el,{text:'https://gachicoffee.com/shop_view/?idx='+el.dataset.qr+'&utm_source=cafeshow&utm_medium=qr',width:300,height:300,correctLevel:QRCode.CorrectLevel.M});}
+  catch(e){el.className='ph';el.textContent='QR';}
+});
+</script>
+</body></html>
