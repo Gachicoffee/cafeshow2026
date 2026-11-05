@@ -12,8 +12,7 @@ body{background:#d9d6cf;color:var(--ink);font:9pt/1.4 Pretendard,"Malgun Gothic"
 .page{width:210mm;margin:0 auto;position:relative}
 .sheet{width:210mm;height:148.5mm;background:#fff;position:relative;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.15)}
 .page .sheet+.sheet{margin-top:10px}
-.stripe{height:5mm;flex:none;background:repeating-linear-gradient(90deg,var(--blue) 0 6mm,#fff 6mm 10mm)}
-.body{flex:1;padding:5mm 10mm 3mm;display:flex;flex-direction:column;gap:4mm}
+.body{flex:1;padding:9mm 11mm 3mm;display:flex;flex-direction:column;gap:4mm}
 .consent{margin-top:auto}
 .head{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:.5mm solid var(--blue);padding-bottom:2.5mm}
 .tag{display:inline-block;font-size:7pt;font-weight:700;color:var(--blue);border:.3mm solid var(--blue);border-radius:3mm;padding:.3mm 2.5mm;margin-bottom:1.2mm}
@@ -30,11 +29,15 @@ h1{font-size:19pt;line-height:1.1;color:var(--blue);font-weight:900;letter-spaci
 .f.tall{align-items:flex-start;padding-top:1.5mm}
 .f.tall .k{padding-top:.2mm}
 .memo{flex:1}
-.consent{display:flex;gap:3mm;align-items:flex-start;background:var(--soft);border-radius:1.5mm;padding:1.8mm 3mm;font-size:6.8pt;line-height:1.45;color:#333}
-.consent .box{flex:none;font-size:8pt;font-weight:700;color:var(--ink);white-space:nowrap}
-.consent .box::before{content:"";display:inline-block;width:3.2mm;height:3.2mm;border:.35mm solid var(--ink);border-radius:.6mm;margin-right:1.2mm;vertical-align:-.5mm;background:#fff}
-.foot{display:flex;justify-content:space-between;align-items:center;font-size:7pt;color:#555;padding:0 10mm 1.6mm}
-.logo{font-family:"Bodoni 72","Didot",Georgia,serif;font-size:13pt;color:var(--ink);letter-spacing:-.01em}
+.consent{display:grid;grid-template-columns:auto 1fr;align-items:center;column-gap:4mm;background:var(--soft);border-radius:1.5mm;padding:2.2mm 4mm;color:#333}
+.consent .box{grid-row:span 2;font-size:8pt;font-weight:700;color:var(--ink);white-space:nowrap;padding-right:4mm;border-right:.3mm solid var(--line);align-self:stretch;display:flex;align-items:center}
+.consent dl{display:flex;flex-wrap:wrap;column-gap:1.6mm;align-items:baseline;font-size:7pt;line-height:1.3}
+.consent dt{font-weight:700;color:var(--blue);font-size:6.5pt}
+.consent dd{margin-right:5mm}
+.consent .note{grid-column:2;font-size:6.3pt;color:#777;margin-top:.8mm}
+.consent .box::before{content:"";display:inline-block;flex:none;width:3.2mm;height:3.2mm;border:.35mm solid var(--ink);border-radius:.6mm;margin-right:1.2mm;vertical-align:-.5mm;background:#fff}
+.foot{display:flex;justify-content:space-between;align-items:center;font-size:7pt;color:#555;padding:0 11mm 6mm}
+.logo{height:4.6mm;width:auto;display:block}
 .no{font-family:Montserrat,sans-serif;font-weight:700;letter-spacing:.04em}
 .cut{position:absolute;left:0;right:0;top:148.5mm;height:0;border-top:.3mm dashed #999;display:none;z-index:2}
 .cut::after{content:"✂ 자르는 선";position:absolute;left:4mm;top:-2.2mm;background:#fff;padding:0 1.5mm;font-size:6pt;color:#999}
@@ -56,7 +59,6 @@ h1{font-size:19pt;line-height:1.1;color:var(--blue);font-weight:900;letter-spaci
 
 <template id="t">
 <section class="sheet">
-  <div class="stripe"></div>
   <div class="body">
     <div class="head">
       <div>
@@ -82,11 +84,11 @@ h1{font-size:19pt;line-height:1.1;color:var(--blue);font-weight:900;letter-spaci
 
     <div class="consent">
       <span class="box">개인정보 수집·이용에 동의해요</span>
-      <span>모으는 정보: 상호·성함·연락처·지역 / 쓰는 곳: 원두 납품 상담 전화 / 보관: 상담이 끝나고 6개월 뒤 파기. 동의하지 않으셔도 되지만, 그러면 상담 전화를 드릴 수 없어요.</span>
+      <dl><dt>모으는 정보</dt><dd>상호·성함·연락처·지역</dd><dt>쓰는 곳</dt><dd>원두 납품 상담 전화</dd><dt>보관</dt><dd>상담 끝나고 6개월 뒤 파기</dd></dl>
+      <p class="note">동의하지 않으셔도 되지만, 그러면 상담 전화를 드릴 수 없어요.</p>
     </div>
   </div>
-  <div class="foot"><span class="logo">GachiCoffee</span><span>여수 장성3길 26-3 로스터리 · gachicoffee.com · @gachi_coffee</span><span class="no">2026 SEOUL CAFE SHOW</span></div>
-  <div class="stripe"></div>
+  <div class="foot"><img class="logo" src="assets/gachicoffee-wordmark.svg" alt="GachiCoffee"><span>여수 장성3길 26-3 로스터리 · gachicoffee.com · @gachi_coffee</span><span class="no">2026 SEOUL CAFE SHOW</span></div>
 </section>
 </template>
 <script>
