@@ -38,22 +38,24 @@ h1{font-size:19pt;line-height:1.1;color:var(--blue);font-weight:900;letter-spaci
 .foot{display:flex;justify-content:space-between;align-items:center;font-size:7pt;color:#555;padding:0}
 .logo{height:4.6mm;width:auto;display:block}
 .no{font-family:Montserrat,sans-serif;font-weight:700;letter-spacing:.04em}
-.cut{position:absolute;left:0;right:0;top:148.5mm;height:0;border-top:.3mm dashed #999;display:none;z-index:2}
-.cut::after{content:"✂ 자르는 선";position:absolute;left:4mm;top:-2.2mm;background:#fff;padding:0 1.5mm;font-size:6pt;color:#999}
+.cut{position:absolute;left:0;right:0;top:148.5mm;height:0;border-top:.2mm solid #c4c4c4;display:none;z-index:2}
+.cut::before,.cut::after{content:"";position:absolute;top:-.25mm;width:10mm;border-top:.5mm solid #000}
+.cut::before{left:0}.cut::after{right:0}
 @page{size:A4 portrait;margin:0}
 @media print{
   body{background:#fff;padding:0}
   .bar{display:none}
   .page{height:297mm}
   .sheet{box-shadow:none;position:absolute;left:0;top:0}
-  .page .sheet:last-child{top:148.5mm}
+  .page section:nth-of-type(2){top:148.5mm}
+  .cut{display:block}
   html,body{height:297mm;overflow:hidden}
   .page .sheet+.sheet{margin-top:0}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
 @media screen and (max-width:840px){.page{zoom:.45}}
 </style></head><body>
-<div class="bar"><button onclick="print()">인쇄 (A4 한 장에 2장)</button>A5 가로 · 화면은 실제 크기 · 인쇄 설정: 배율 100%(실제 크기)·여백 없음 → A4를 반으로 접어 접힌 선을 자르면 두 장 모두 여백이 같아요</div>
+<div class="bar"><button onclick="print()">인쇄 (A4 한 장에 2장)</button>A5 가로 · 화면은 실제 크기 · 인쇄 설정: 배율 100%(실제 크기)·여백 없음 → 가운데 선(양끝 검은 표시)을 따라 자르면 두 장 모두 여백이 같아요</div>
 
 <div class="page" id="page"></div>
 
@@ -95,5 +97,6 @@ h1{font-size:19pt;line-height:1.1;color:var(--blue);font-weight:900;letter-spaci
 var t=document.getElementById('t').content,p=document.getElementById('page');
 p.appendChild(t.cloneNode(true));
 p.appendChild(t.cloneNode(true));
+var c=document.createElement('div');c.className='cut';p.appendChild(c);
 </script>
 </body></html>
