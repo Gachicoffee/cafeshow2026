@@ -13,21 +13,20 @@ body{background:#d9d6cf;color:var(--ink);font:9pt/1.4 Pretendard,"Malgun Gothic"
 .sheet{width:210mm;height:148.5mm;background:#fff;position:relative;display:flex;flex-direction:column;overflow:hidden;padding:11mm 12mm;box-shadow:0 2px 8px rgba(0,0,0,.15)}
 .page .sheet+.sheet{margin-top:10px}
 .body{flex:1;padding:0 0 3mm;display:flex;flex-direction:column;gap:4mm}
-.consent{margin-top:auto}
+.consent{margin-top:3mm}
 .head{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:.5mm solid var(--blue);padding-bottom:2.5mm}
 .tag{display:inline-block;font-size:7pt;font-weight:700;color:var(--blue);border:.3mm solid var(--blue);border-radius:3mm;padding:.3mm 2.5mm;margin-bottom:1.2mm}
 h1{font-size:19pt;line-height:1.1;color:var(--blue);font-weight:900;letter-spacing:-.02em}
 .lead{font-size:8.5pt;margin-top:1mm;color:#333}
 .call{text-align:right;font-size:8pt;line-height:1.45;color:#333}
 .call b{display:block;font-size:10.5pt;color:var(--blue)}
-.grid{display:grid;grid-template-columns:1fr 1.15fr;grid-template-rows:13mm 13mm 13mm 17mm 15mm;grid-auto-flow:column;gap:0 7mm}
-.f{display:flex;align-items:flex-end;gap:2.5mm;border-bottom:.3mm solid var(--line);padding-bottom:1mm}
+.grid{display:grid;grid-template-columns:1fr 1.15fr;grid-template-rows:1fr 1fr 1fr 1.3fr 1.15fr;grid-auto-flow:column;gap:0 7mm;flex:1}
+.grid .f:nth-child(1),.grid .f:nth-child(6){border-top:.3mm solid var(--line)}
+.f{display:flex;align-items:center;gap:2.5mm;border-bottom:.3mm solid var(--line)}
 .f .k{flex:none;width:21mm;font-weight:700;font-size:8.5pt}
 .f .k small{display:block;font-weight:400;font-size:6.5pt;color:#777;line-height:1.1}
 .opts{display:flex;flex-wrap:wrap;gap:.6mm 2.6mm;font-size:8.3pt}
 .opts span::before{content:"";display:inline-block;width:3mm;height:3mm;border:.3mm solid var(--ink);border-radius:.6mm;margin-right:1.1mm;vertical-align:-.4mm}
-.f.tall{align-items:flex-start;padding-top:1.5mm}
-.f.tall .k{padding-top:.2mm}
 .memo{flex:1}
 .consent{display:grid;grid-template-columns:auto 1fr;align-items:center;column-gap:4mm;background:var(--soft);border-radius:1.5mm;padding:2.2mm 4mm;color:#333}
 .consent .box{grid-row:span 2;font-size:8pt;font-weight:700;color:var(--ink);white-space:nowrap;padding-right:4mm;border-right:.3mm solid var(--line);align-self:stretch;display:flex;align-items:center}
