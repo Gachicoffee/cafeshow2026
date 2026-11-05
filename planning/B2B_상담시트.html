@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>B2B 상담 시트</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+<style>
+/* A5 가로(210×148.5mm) 한 장 = A4 세로 반쪽. 인쇄하면 A4 한 장에 두 장, 가운데 점선에서 자른다. */
+:root{--blue:#1d4a9c;--ink:#1c2233;--line:#b9c3d9;--soft:#eef2fa}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#d9d6cf;color:var(--ink);font:9pt/1.4 Pretendard,"Malgun Gothic",sans-serif;padding:16px}
+.bar{max-width:210mm;margin:0 auto 12px;display:flex;gap:8px;align-items:center;font-size:13px;color:#444}
+.bar button{font:inherit;padding:6px 14px;border:0;border-radius:6px;background:var(--blue);color:#fff;cursor:pointer}
+.page{width:210mm;margin:0 auto;position:relative}
+.sheet{width:210mm;height:148.5mm;background:#fff;position:relative;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.page .sheet+.sheet{margin-top:10px}
+.stripe{height:5mm;flex:none;background:repeating-linear-gradient(90deg,var(--blue) 0 6mm,#fff 6mm 10mm)}
+.body{flex:1;padding:5mm 10mm 3mm;display:flex;flex-direction:column;gap:4mm}
+.consent{margin-top:auto}
+.head{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:.5mm solid var(--blue);padding-bottom:2.5mm}
+.tag{display:inline-block;font-size:7pt;font-weight:700;color:var(--blue);border:.3mm solid var(--blue);border-radius:3mm;padding:.3mm 2.5mm;margin-bottom:1.2mm}
+h1{font-size:19pt;line-height:1.1;color:var(--blue);font-weight:900;letter-spacing:-.02em}
+.lead{font-size:8.5pt;margin-top:1mm;color:#333}
+.call{text-align:right;font-size:8pt;line-height:1.45;color:#333}
+.call b{display:block;font-size:10.5pt;color:var(--blue)}
+.grid{display:grid;grid-template-columns:1fr 1.15fr;grid-template-rows:13mm 13mm 13mm 17mm 15mm;grid-auto-flow:column;gap:0 8mm}
+.f{display:flex;align-items:flex-end;gap:2.5mm;border-bottom:.3mm solid var(--line);padding-bottom:1mm}
+.f .k{flex:none;width:21mm;font-weight:700;font-size:8.5pt}
+.f .k small{display:block;font-weight:400;font-size:6.5pt;color:#777;line-height:1.1}
+.opts{display:flex;flex-wrap:wrap;gap:.6mm 3.2mm;font-size:8.3pt}
+.opts span::before{content:"";display:inline-block;width:3mm;height:3mm;border:.3mm solid var(--ink);border-radius:.6mm;margin-right:1.1mm;vertical-align:-.4mm}
+.f.tall{align-items:flex-start;padding-top:1.5mm}
+.f.tall .k{padding-top:.2mm}
+.memo{flex:1}
+.consent{display:flex;gap:3mm;align-items:flex-start;background:var(--soft);border-radius:1.5mm;padding:1.8mm 3mm;font-size:6.8pt;line-height:1.45;color:#333}
+.consent .box{flex:none;font-size:8pt;font-weight:700;color:var(--ink);white-space:nowrap}
+.consent .box::before{content:"";display:inline-block;width:3.2mm;height:3.2mm;border:.35mm solid var(--ink);border-radius:.6mm;margin-right:1.2mm;vertical-align:-.5mm;background:#fff}
+.foot{display:flex;justify-content:space-between;align-items:center;font-size:7pt;color:#555;padding:0 10mm 1.6mm}
+.logo{font-family:"Bodoni 72","Didot",Georgia,serif;font-size:13pt;color:var(--ink);letter-spacing:-.01em}
+.no{font-family:Montserrat,sans-serif;font-weight:700;letter-spacing:.04em}
+.cut{position:absolute;left:0;right:0;top:148.5mm;height:0;border-top:.3mm dashed #999;display:none;z-index:2}
+.cut::after{content:"✂ 자르는 선";position:absolute;left:4mm;top:-2.2mm;background:#fff;padding:0 1.5mm;font-size:6pt;color:#999}
+@page{size:A4 portrait;margin:0}
+@media print{
+  body{background:#fff;padding:0}
+  .bar{display:none}
+  .sheet{box-shadow:none;height:148.4mm}
+  html,body{height:297mm;overflow:hidden}
+  .page .sheet+.sheet{margin-top:0}
+  .cut{display:block}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+@media screen and (max-width:840px){.page{zoom:.45}}
+</style></head><body>
+<div class="bar"><button onclick="print()">인쇄 (A4 한 장에 2장)</button>A5 가로 · 화면은 실제 크기 · 인쇄 설정에서 "여백 없음", "배경 그래픽" 켜기</div>
+
+<div class="page" id="page"></div>
+
+<template id="t">
+<section class="sheet">
+  <div class="stripe"></div>
+  <div class="body">
+    <div class="head">
+      <div>
+        <span class="tag">B2B 납품 상담 신청</span>
+        <h1>오늘 마신 원두,<br>사장님 가게에서도 쓰실 수 있어요</h1>
+        <p class="lead">아래에 적어 주시면 상담 전화를 드려요. 원두 샘플 상담도 같이 해요.</p>
+      </div>
+      <div class="call"><b>카페쇼가 끝나면<br>대표가 직접 전화드려요</b>Q-Grader 로스터 한지형</div>
+    </div>
+
+    <div class="grid">
+        <div class="f"><span class="k">상호</span></div>
+        <div class="f"><span class="k">성함</span></div>
+        <div class="f"><span class="k">연락처</span></div>
+        <div class="f"><span class="k">지역<small>시·구까지</small></span></div>
+        <div class="f"><span class="k">궁금한 점</span></div>
+        <div class="f"><span class="k">업종</span><div class="opts"><span>카페</span><span>베이커리</span><span>식당</span><span>사무실·기타</span></div></div>
+        <div class="f"><span class="k">가게 상태</span><div class="opts"><span>운영 중</span><span>오픈 준비 중</span></div></div>
+        <div class="f"><span class="k">한 달 원두<small>대략이면 돼요</small></span><div class="opts"><span>10kg 미만</span><span>10~30kg</span><span>30kg 이상</span><span>잘 모름</span></div></div>
+        <div class="f tall"><span class="k">써 보고 싶은<br>원두</span><div class="opts"><span>코스모스</span><span>허벌</span><span>구수</span><span>보통</span><span>단밤(디카페인)</span><span>싱글오리진</span><span>추천해 주세요</span></div></div>
+        <div class="f"><span class="k">통화 편한 때</span><div class="opts"><span>오전</span><span>오후</span><span>저녁</span><span>아무 때나</span></div></div>
+    </div>
+
+    <div class="consent">
+      <span class="box">개인정보 수집·이용에 동의해요</span>
+      <span>모으는 정보: 상호·성함·연락처·지역 / 쓰는 곳: 원두 납품 상담 전화 / 보관: 상담이 끝나고 6개월 뒤 파기. 동의하지 않으셔도 되지만, 그러면 상담 전화를 드릴 수 없어요.</span>
+    </div>
+  </div>
+  <div class="foot"><span class="logo">GachiCoffee</span><span>여수 장성3길 26-3 로스터리 · gachicoffee.com · @gachi_coffee</span><span class="no">2026 SEOUL CAFE SHOW</span></div>
+  <div class="stripe"></div>
+</section>
+</template>
+<script>
+var t=document.getElementById('t').content,p=document.getElementById('page');
+p.appendChild(t.cloneNode(true));
+var c=document.createElement('div');c.className='cut';p.appendChild(c);
+p.appendChild(t.cloneNode(true));
+</script>
+</body></html>
