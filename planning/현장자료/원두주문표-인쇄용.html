@@ -1,0 +1,1334 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>원두 주문표 인쇄용</title><style>@page{size:210mm 297mm;margin:0}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#fff}
+body{font-family:"Pretendard","Malgun Gothic",sans-serif;color:#141414;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page{width:210mm;height:297mm;position:relative;display:grid;grid-template-columns:105mm 105mm;grid-template-rows:148.5mm 148.5mm;page-break-after:always;overflow:hidden}
+.page:last-child{page-break-after:auto}
+.form{padding:8mm;height:148.5mm;display:flex;flex-direction:column;font-size:9pt}
+.fh{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1.4px solid #141414;padding-bottom:1.8mm}
+.fh b{font-size:13pt;font-weight:800;display:block;line-height:1.25}
+.fh small{font-size:7.5pt;color:#666}
+.no{font-weight:800;font-size:13pt;font-variant-numeric:tabular-nums;white-space:nowrap}
+.lab{font-size:8pt;color:#7a3e10;font-weight:700;margin:3mm 0 1.2mm}
+.tb{width:100%;border-collapse:collapse;table-layout:fixed}
+.tb thead th{font-size:8pt;color:#666;font-weight:600;padding:.4mm 0;text-align:center}
+.tb thead th:first-child,.tb tbody th{width:16mm}
+.tb tbody th{text-align:left;font-size:9.5pt;font-weight:700}
+.tb td{border:.5px solid #a8a8a8;height:10mm;position:relative;padding:.6mm 1mm;vertical-align:top}
+.tb td.none{color:#999;font-size:7.5pt;text-align:center;vertical-align:middle;background:#eee}
+.pr{font-size:6.8pt;color:#777;line-height:1}
+.sum{display:flex;justify-content:space-between;align-items:flex-end;margin-top:2mm;border-bottom:1px solid #141414;padding-bottom:.7mm;font-weight:700;height:8mm}
+.sum small{font-weight:400;font-size:7pt;color:#666}
+.f{display:flex;align-items:flex-end;height:9mm}
+.f span{width:14mm;flex:none;font-size:8.5pt;font-weight:600;line-height:1;padding-bottom:1.2mm}
+.f i{flex:1;align-self:stretch;border-bottom:.5px solid #a8a8a8}
+.agree{font-size:7pt;color:#333;margin-top:2mm;display:flex;gap:1.4mm;align-items:flex-start;line-height:1.4}
+.bx{flex:none;width:3.2mm;height:3.2mm;border:.7px solid #333;margin-top:.2mm}
+.ship{margin-top:auto;font-size:7.6pt;background:#f3eee6;padding:1.6mm 2mm;border-radius:1mm}
+.ft{margin-top:1.8mm;padding-top:1.6mm;border-top:.5px solid #bbb;font-size:7.2pt;color:#333;display:flex;flex-wrap:wrap;gap:0 3mm;line-height:1.5}
+.ft b{color:#7a3e10}
+.m{position:absolute;background:#999}
+.mt,.mb{left:105mm;width:.2mm;height:4mm;margin-left:-.1mm}
+.mt{top:1.5mm}.mb{bottom:1.5mm}
+.ml,.mr{top:148.5mm;height:.2mm;width:4mm;margin-top:-.1mm}
+.ml{left:1.5mm}.mr{right:1.5mm}</style></head><body><section class="page"><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0001</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0026</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0051</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0076</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><i class="m mt"></i><i class="m mb"></i><i class="m ml"></i><i class="m mr"></i></section><section class="page"><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0002</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0027</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0052</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0077</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><i class="m mt"></i><i class="m mb"></i><i class="m ml"></i><i class="m mr"></i></section><section class="page"><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0003</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0028</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0053</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0078</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><i class="m mt"></i><i class="m mb"></i><i class="m ml"></i><i class="m mr"></i></section><section class="page"><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0004</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0029</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0054</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0079</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><i class="m mt"></i><i class="m mb"></i><i class="m ml"></i><i class="m mr"></i></section><section class="page"><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0005</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0030</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0055</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0080</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><i class="m mt"></i><i class="m mb"></i><i class="m ml"></i><i class="m mr"></i></section><section class="page"><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0006</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0031</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0056</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0081</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><i class="m mt"></i><i class="m mb"></i><i class="m ml"></i><i class="m mr"></i></section><section class="page"><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0007</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0032</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0057</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0082</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><i class="m mt"></i><i class="m mb"></i><i class="m ml"></i><i class="m mr"></i></section><section class="page"><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0008</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0033</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0058</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0083</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><i class="m mt"></i><i class="m mb"></i><i class="m ml"></i><i class="m mr"></i></section><section class="page"><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0009</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0034</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0059</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0084</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><i class="m mt"></i><i class="m mb"></i><i class="m ml"></i><i class="m mr"></i></section><section class="page"><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0010</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0035</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0060</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0085</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><i class="m mt"></i><i class="m mb"></i><i class="m ml"></i><i class="m mr"></i></section><section class="page"><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0011</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0036</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0061</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0086</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><i class="m mt"></i><i class="m mb"></i><i class="m ml"></i><i class="m mr"></i></section><section class="page"><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0012</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0037</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0062</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0087</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><i class="m mt"></i><i class="m mb"></i><i class="m ml"></i><i class="m mr"></i></section><section class="page"><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0013</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0038</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0063</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0088</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><i class="m mt"></i><i class="m mb"></i><i class="m ml"></i><i class="m mr"></i></section><section class="page"><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0014</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0039</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0064</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0089</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><i class="m mt"></i><i class="m mb"></i><i class="m ml"></i><i class="m mr"></i></section><section class="page"><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0015</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0040</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0065</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0090</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><i class="m mt"></i><i class="m mb"></i><i class="m ml"></i><i class="m mr"></i></section><section class="page"><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0016</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0041</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0066</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0091</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><i class="m mt"></i><i class="m mb"></i><i class="m ml"></i><i class="m mr"></i></section><section class="page"><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0017</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0042</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0067</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0092</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><i class="m mt"></i><i class="m mb"></i><i class="m ml"></i><i class="m mr"></i></section><section class="page"><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0018</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0043</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0068</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0093</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><i class="m mt"></i><i class="m mb"></i><i class="m ml"></i><i class="m mr"></i></section><section class="page"><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0019</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0044</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0069</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0094</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><i class="m mt"></i><i class="m mb"></i><i class="m ml"></i><i class="m mr"></i></section><section class="page"><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0020</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0045</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0070</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0095</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><i class="m mt"></i><i class="m mb"></i><i class="m ml"></i><i class="m mr"></i></section><section class="page"><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0021</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0046</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0071</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0096</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><i class="m mt"></i><i class="m mb"></i><i class="m ml"></i><i class="m mr"></i></section><section class="page"><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0022</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0047</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0072</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0097</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><i class="m mt"></i><i class="m mb"></i><i class="m ml"></i><i class="m mr"></i></section><section class="page"><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0023</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0048</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0073</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0098</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><i class="m mt"></i><i class="m mb"></i><i class="m ml"></i><i class="m mr"></i></section><section class="page"><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0024</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0049</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0074</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0099</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><i class="m mt"></i><i class="m mb"></i><i class="m ml"></i><i class="m mr"></i></section><section class="page"><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0025</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0050</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0075</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><div class="form">
+<div class="fh"><div><b>가치커피 원두 주문표</b><small>2026 서울카페쇼 · 커피앨리 CA107</small></div><div class="no">No. 0100</div></div>
+<div class="lab">① 원하는 원두 칸에 수량을 적어 주세요</div>
+<table class="tb"><thead><tr><th></th><th>200g</th><th>500g</th><th>1kg</th></tr></thead><tbody><tr><th>코스모스</th><td><span class="pr">18,000원</span></td><td><span class="pr">36,000원</span></td><td><span class="pr">65,000원</span></td></tr><tr><th>구수</th><td><span class="pr">16,000원</span></td><td><span class="pr">32,000원</span></td><td><span class="pr">58,000원</span></td></tr><tr><th>보통</th><td><span class="pr">14,000원</span></td><td><span class="pr">28,000원</span></td><td><span class="pr">50,000원</span></td></tr><tr><th>허벌</th><td><span class="pr">26,000원</span></td><td><span class="pr">52,000원</span></td><td class="none">없음</td></tr></tbody></table>
+<div class="sum"><span>합계 <small>(직원이 확인해요)</small></span><span>원</span></div>
+<div class="lab">② 받으실 분</div>
+<div class="f"><span>이름</span><i></i></div>
+<div class="f"><span>연락처</span><i></i></div>
+<div class="f"><span>주소</span><i></i></div>
+<div class="f"><span></span><i></i></div>
+<div class="agree"><span class="bx"></span><span>이름·연락처·주소는 이 주문 배송에만 쓰고, 발송 뒤 파기합니다. 동의합니다.</span></div>
+<div class="ship"><b>11월 19일(목)</b>에 갓 볶아 보내 드려요 · 무료배송 · 드립백 증정</div>
+<div class="ft"><b>문의</b><span>gachicoffee.com</span><span>instagram.com/gachi_coffee</span><span>0507-1494-7000</span></div>
+</div><i class="m mt"></i><i class="m mb"></i><i class="m ml"></i><i class="m mr"></i></section></body></html>
