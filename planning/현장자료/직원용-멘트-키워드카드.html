@@ -1,0 +1,54 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>직원용 멘트 키워드 카드</title>
+<style>
+@page{size:A4 landscape;margin:0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Pretendard","Malgun Gothic",sans-serif;color:#111;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.sheet{width:297mm;height:210mm;display:grid;grid-template-columns:148.5mm 148.5mm;grid-template-rows:105mm 105mm;position:relative}
+.sheet::before,.sheet::after{content:"";position:absolute;background:none;border:0 dashed #999}
+.sheet::before{left:148.5mm;top:0;height:210mm;border-left-width:.4mm}
+.sheet::after{top:105mm;left:0;width:297mm;border-top-width:.4mm}
+.card{padding:7mm 8mm 6mm;display:flex;flex-direction:column}
+.top{display:flex;align-items:baseline;gap:3mm;border-bottom:1mm solid var(--c);padding-bottom:1.6mm}
+.no{font-size:30pt;font-weight:900;color:var(--c);line-height:1}
+.name{font-size:24pt;font-weight:900;letter-spacing:-.5px;line-height:1}
+.dish{margin-left:auto;font-size:13pt;font-weight:800;color:#fff;background:var(--c);padding:1mm 3mm;border-radius:1.5mm}
+.kw{margin:5mm 0 4mm;font-size:29pt;font-weight:800;line-height:1.25;letter-spacing:-.4px}
+.kw span{color:var(--c)}
+.hook{font-size:17pt;font-weight:600;line-height:1.35}
+.hook b{background:#fff2a8;font-weight:800}
+.foot{margin-top:auto;display:flex;gap:2mm;flex-wrap:wrap;font-size:11.5pt;font-weight:700}
+.tag{border:.5mm solid var(--c);color:var(--c);border-radius:5mm;padding:.6mm 2.6mm}
+.next{margin-left:auto;color:#777;font-weight:600}
+.c1{--c:#c0567a}.c2{--c:#4f7d3a}.c3{--c:#a8742a}.c4{--c:#6b3f2a}
+</style></head><body>
+<div class="sheet">
+
+<div class="card c1">
+ <div class="top"><span class="no">1</span><span class="name">코스모스</span><span class="dish">전채 · 대표</span></div>
+ <div class="kw"><span>하얀 꽃</span> · <span>복숭아</span><br><span>얼그레이</span> 여운</div>
+ <div class="hook">"저희 <b>대표 블랜드</b>예요."<br>꽃잎 먼저 맡게 → "자, 드셔 보세요."</div>
+ <div class="foot"><span class="tag">블랙 40℃</span><span class="tag">원물: 말린 꽃잎</span><span class="next">다음 → 허벌</span></div>
+</div>
+
+<div class="card c2">
+ <div class="top"><span class="no">2</span><span class="name">허벌</span><span class="dish">나물</span></div>
+ <div class="kw"><span>초록 과일</span> · <span>로즈마리</span><br><span>타임</span> 허브 향</div>
+ <div class="hook">"독특하고 매력적인 커피예요."<br>"<b>카페쇼부터 2주 동안만</b> 판매해요."</div>
+ <div class="foot"><span class="tag">블랙 40℃</span><span class="tag">원물: 로즈마리 비벼 맡기</span><span class="next">다음 → 구수</span></div>
+</div>
+
+<div class="card c3">
+ <div class="top"><span class="no">3</span><span class="name">구수 라떼</span><span class="dish">밥</span></div>
+ <div class="kw"><span>고소함</span> · <span>살짝 달콤</span><br>"<span>죠리퐁</span> 생각나지 않나요?"</div>
+ <div class="hook">"밥이 생각나는 <b>고소한 구수 블랜드</b>로 만든 라떼예요."</div>
+ <div class="foot"><span class="tag">차갑게</span><span class="tag">원물: 보리·죠리퐁</span><span class="tag">우유·시럽 들어감</span><span class="next">다음 → 보통</span></div>
+</div>
+
+<div class="card c4">
+ <div class="top"><span class="no">4</span><span class="name">보통</span><span class="dish">후식</span></div>
+ <div class="kw"><span>베리</span>로 시작<br><span>초콜릿</span>으로 끝</div>
+ <div class="hook">"<b>우리가 생각하는 보통의 커피</b>, 그 느낌이에요."</div>
+ <div class="foot"><span class="tag">블랙 40℃</span><span class="tag">원물: 블루베리·다크초콜릿</span><span class="next">끝나면 → 리필 1회 · 노트 · 편지 · 판매대</span></div>
+</div>
+
+</div></body></html>
