@@ -1,0 +1,70 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>직원용 멘트 키워드 카드 A4 1장</title>
+<style>
+@page{size:A4;margin:0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Pretendard","Malgun Gothic",sans-serif;color:#111;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.sheet{width:210mm;height:297mm;padding:16mm 5mm 0;position:relative}
+.sheet:last-child{page-break-after:auto}
+.grid{display:grid;grid-template-columns:100mm 100mm;grid-template-rows:118mm 118mm;width:200mm;outline:.25mm dashed #999}
+.card{width:100mm;height:118mm;padding:7mm 6.5mm 5.5mm;display:flex;flex-direction:column;outline:.25mm dashed #999}
+
+.top{display:flex;align-items:baseline;gap:2.5mm;border-bottom:1.1mm solid var(--c);padding-bottom:2mm}
+.no{font-size:27pt;font-weight:900;color:var(--c);line-height:1}
+.name{font-size:22pt;font-weight:900;letter-spacing:-.5px;line-height:1}
+.dish{margin-left:auto;font-size:10pt;font-weight:800;color:#fff;background:var(--c);padding:1mm 2.6mm;border-radius:1.2mm}
+.mid{display:flex;gap:3.5mm;margin-top:6mm;flex:1}
+.txt{flex:1}
+.kw{font-size:23pt;word-break:keep-all;font-weight:800;line-height:1.3;letter-spacing:-.5px;margin-bottom:5mm}
+.kw span{color:var(--c)}
+.hook{font-size:15.5pt;font-weight:600;line-height:1.5;word-break:keep-all}
+.hook b{background:#fff2a8;font-weight:800}
+.price{flex:0 0 25.5mm;border-left:.3mm solid #ccc;padding-left:2.5mm;font-size:10pt;line-height:1.6;color:#444;align-self:flex-start}
+.price .h{font-size:8pt;color:#888;font-weight:700;margin-bottom:.6mm}
+.price div{display:flex;justify-content:space-between;gap:1.5mm}
+.price b{color:#111;font-weight:700}
+.price .no1{color:#aaa}
+.foot{margin-top:auto;display:flex;gap:1.4mm;flex-wrap:wrap;font-size:9.2pt;font-weight:700;align-items:center}
+.tag{border:.4mm solid var(--c);color:var(--c);border-radius:4mm;padding:.5mm 2.2mm}
+.next{margin-left:auto;color:#777;font-weight:600}
+.c1{--c:#c0567a}.c2{--c:#4f7d3a}.c3{--c:#a8742a}.c4{--c:#6b3f2a}
+.mark{position:absolute;font-size:7pt;color:#aaa;left:0;right:0;text-align:center;bottom:6mm}
+</style></head><body>
+<div class="sheet"><div class="grid">
+<div class="card c1">
+ <div class="top"><span class="no">1</span><span class="name">코스모스</span><span class="dish">전채 · 대표</span></div>
+ <div class="mid"><div class="txt">
+  <div class="kw"><span>하얀 꽃</span> · <span>복숭아</span><br><span>얼그레이</span> 여운</div>
+  <div class="hook">"저희 <b>대표 블랜드</b>예요."<br>꽃잎 먼저 맡게<br>→ "자, 드셔 보세요."</div>
+ </div>
+ <div class="price"><div class="h">원두</div><div>200g<b>18,000</b></div><div>500g<b>36,000</b></div><div>1kg<b>65,000</b></div></div></div>
+ <div class="foot"><span class="tag">블랙 40℃</span><span class="tag">원물: 말린 꽃잎</span><span class="next">다음 → 허벌</span></div>
+</div>
+<div class="card c2">
+ <div class="top"><span class="no">2</span><span class="name">허벌</span><span class="dish">나물</span></div>
+ <div class="mid"><div class="txt">
+  <div class="kw"><span>초록 과일</span><br><span>로즈마리</span> · <span>타임</span></div>
+  <div class="hook">"독특하고 매력적인 커피예요."<br>"<b>카페쇼부터 2주 동안만</b> 판매해요."</div>
+ </div>
+ <div class="price"><div class="h">원두</div><div>200g<b>26,000</b></div><div>500g<b>52,000</b></div><div class="no1">1kg<b>없음</b></div></div></div>
+ <div class="foot"><span class="tag">블랙 40℃</span><span class="tag">원물: 로즈마리 비벼 맡기</span><span class="next">다음 → 구수</span></div>
+</div>
+<div class="card c3">
+ <div class="top"><span class="no">3</span><span class="name">구수 라떼</span><span class="dish">밥</span></div>
+ <div class="mid"><div class="txt">
+  <div class="kw"><span>고소함</span> · <span>살짝 달콤</span><br>"<span>죠리퐁</span> 생각나죠?"</div>
+  <div class="hook">"밥이 생각나는 <b>고소한 구수 블랜드</b>로 만든 라떼예요."</div>
+ </div>
+ <div class="price"><div class="h">원두</div><div>200g<b>16,000</b></div><div>500g<b>32,000</b></div><div>1kg<b>58,000</b></div></div></div>
+ <div class="foot"><span class="tag">차갑게</span><span class="tag">원물: 보리·죠리퐁</span><span class="tag">우유·시럽</span><span class="next">다음 → 보통</span></div>
+</div>
+<div class="card c4">
+ <div class="top"><span class="no">4</span><span class="name">보통</span><span class="dish">후식</span></div>
+ <div class="mid"><div class="txt">
+  <div class="kw"><span>베리</span>로 시작<br><span>초콜릿</span>으로 끝</div>
+  <div class="hook">"<b>우리가 생각하는 보통의 커피</b>, 그 느낌이에요."</div>
+ </div>
+ <div class="price"><div class="h">원두</div><div>200g<b>14,000</b></div><div>500g<b>28,000</b></div><div>1kg<b>50,000</b></div></div></div>
+ <div class="foot"><span class="tag">블랙 40℃</span><span class="tag">원물: 블루베리·초콜릿</span><span class="next">끝 → 리필·노트·편지·판매대</span></div>
+</div>
+</div><div class="mark">점선대로 잘라 100×118mm 4장 · 소반 안내판 뒤 · 여분은 2장 인쇄 · 배율 100%(실제 크기)로 인쇄</div></div>
+</body></html>
